@@ -1,5 +1,7 @@
-import "./App.css";
-
 export default function App() {
-  return <></>;
+  return (
+    <>
+      <div>final project</div>
+    </>
+  );
 }
