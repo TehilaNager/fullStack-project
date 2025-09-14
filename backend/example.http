@@ -1,7 +1,7 @@
-@local=http://localhost:3000
+@local=http://localhost:3000/api
 
 ###
-POST {{local}}/api/auth/register
+POST {{local}}/auth/register
 Content-Type: application/json
 
 {
@@ -13,10 +13,14 @@ Content-Type: application/json
 }
 
 ###
-POST {{local}}/api/auth/login/
+POST {{local}}/auth/login/
 Content-Type: application/json
 
 {
     "email":"sara@gmail.com",
     "password":"Sara1234!"
 }
+
+###
+GET {{local}}/auth/me
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZWUzZWU4N2U2YzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3ODUyMTA2fQ.KBehc0-_8UUztBykmlNv8QvdSGw5fkuz5sIa4SYPvgs

@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 
+const authMW = require("../middleware/auth");
+
 const { User, validateSignUp, validateSignIn } = require("../models/user_model");
 
 router.post("/register", async (req, res) => {
@@ -49,6 +51,17 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_KEY);
 
     res.send({ token });
+});
+
+router.get("/me", authMW, async (req, res) => {
+    const user = await User.findById(req.user._id).select("-password -__v");
+
+    if (!user) {
+        res.status(401).send("Invalid token");
+        return;
+    }
+
+    res.send(user);
 });
 
 module.exports = router;
