@@ -1,4 +1,13 @@
 @local=http://localhost:3000
 
 ###
-GET {{local}}/
+POST {{local}}/users/
+Content-Type: application/json
+
+{
+    "fullName":"sara nagar",
+    "email":"sara@gmail.com",
+    "password":"Sara1234!",
+    "phone":"0586633988",
+    "city":"karni shomron"
+}
