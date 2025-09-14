@@ -1,7 +1,7 @@
 @local=http://localhost:3000
 
 ###
-POST {{local}}/users/
+POST {{local}}/api/auth/register
 Content-Type: application/json
 
 {
@@ -10,4 +10,13 @@ Content-Type: application/json
     "password":"Sara1234!",
     "phone":"0586633988",
     "city":"karni shomron"
+}
+
+###
+POST {{local}}/api/auth/login/
+Content-Type: application/json
+
+{
+    "email":"sara@gmail.com",
+    "password":"Sara1234!"
 }

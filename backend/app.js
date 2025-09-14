@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
+const morgan = require("morgan");
 const connectDB = require("./lib/connectDB");
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/users", require("./routes/user_route"));
+app.use(morgan('dev'));
+
+app.use("/api/auth/", require("./routes/auth_route"));
 
 const PORT = process.env.PORT;
 
