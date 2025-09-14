@@ -49,19 +49,20 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema, "users");
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=(?:.*\d){4,})(?=.*[!@%$#^&*\-_]).{8,}$/;
-const phoneRegex = /^\d{9,11}$/;
+const phoneRegex = /^0\d{8,10}$/;
+const passwordMessage = "Password must have at least one uppercase, one lowercase, four digits, one special character (!@%$#^&*-_), and be at least 8 characters long"
+const phonemMessage = "Phone must start with 0 and contain 9–11 digits";
 
 const validateSignUp = Joi.object({
     fullName: Joi.string().min(2).max(256).required(),
     email: Joi.string().min(5).max(256).email().required(),
     password: Joi.string()
         .pattern(passwordRegex)
-        .message("Password must have at least one uppercase, one lowercase, four digits, one special character (!@%$#^&*-_), and be at least 8 characters long")
+        .message(passwordMessage)
         .required(),
-    isAdmin: Joi.boolean(),
     phone: Joi.string()
         .pattern(phoneRegex)
-        .message("Phone must contain 9–11 digits only")
+        .message(phonemMessage)
         .required(),
     city: Joi.string().min(2).max(256).required(),
     favoriteRequests: Joi.array().items(Joi.string().hex().length(24)).optional(),
@@ -70,7 +71,10 @@ const validateSignUp = Joi.object({
 
 const validateSignIn = Joi.object({
     email: Joi.string().min(5).max(256).email().required(),
-    password: Joi.string().required()
+    password: Joi.string()
+        .pattern(passwordRegex)
+        .message(passwordMessage)
+        .required(),
 });
 
 const validateUpdate = Joi.object({
@@ -78,11 +82,11 @@ const validateUpdate = Joi.object({
     email: Joi.string().min(5).max(256).email().optional(),
     password: Joi.string()
         .pattern(passwordRegex)
-        .message("Password must have at least one uppercase, one lowercase, four digits, one special character (!@%$#^&*-_), and be at least 8 characters long")
+        .message(passwordMessage)
         .optional(),
     phone: Joi.string()
         .pattern(phoneRegex)
-        .message("Phone must contain 9–11 digits only")
+        .message(phonemMessage)
         .optional(),
     city: Joi.string().min(2).max(256).optional(),
     favoriteRequests: Joi.array().items(Joi.string().hex().length(24)).optional(),
