@@ -17,13 +17,13 @@ POST {{local}}/auth/login/
 Content-Type: application/json
 
 {
-    "email":"admin@test.com",
-    "password":"Admin1234!"
+    "email":"sara@gmail.com",
+    "password":"Sara1234!"
 }
 
 ###
 GET {{local}}/auth/me
-x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZWUzZWU4N2U2YzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3ODUyMTA2fQ.KBehc0-_8UUztBykmlNv8QvdSGw5fkuz5sIa4SYPvgs
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ1MzY0fQ.Q4eKno39zK_Umr0rcf0bGxuOB_Sr5lEBSnoH3rOJzlo
 
 ###
 GET {{local}}/users/68c693cbb2276ee3ee87e6c8
@@ -52,3 +52,34 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMj
 
 ###
 POST {{local}}/requests/
+Content-Type: application/json
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ4OTIwfQ.K64LumQTYTwMWkAFWxNWGSH6cVRkqDB4sHTMaujZtwA
+
+{
+    "title":"נרות",
+    "description":"להדלקת נרות שבת",
+    "category":"ציוד",
+    "region":"דרום",
+    "city":"Ashkelon"
+}
+
+###
+GET {{local}}/requests/
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ1MzY0fQ.Q4eKno39zK_Umr0rcf0bGxuOB_Sr5lEBSnoH3rOJzlo
+
+###
+GET {{local}}/requests/68c833ca541a4493c26852f5
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ1MzY0fQ.Q4eKno39zK_Umr0rcf0bGxuOB_Sr5lEBSnoH3rOJzlo
+
+###
+PUT {{local}}/requests/68c82c5eb7a000bb957d450f
+Content-Type: application/json
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ4OTIwfQ.K64LumQTYTwMWkAFWxNWGSH6cVRkqDB4sHTMaujZtwA
+
+{
+    "title": "גופיות ציצית"
+}
+
+###
+DELETE {{local}}/requests/68c8333ccdfaa71cf1890582
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c

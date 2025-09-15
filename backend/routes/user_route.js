@@ -1,12 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
+const mongoose = require("mongoose");
 
 const authMW = require("../middleware/auth");
 
 const { User, validateUpdate } = require("../models/user_model");
 
 router.get("/:id", authMW, async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
     const isUser = req.params.id === req.user._id;
     const isAdmin = req.user.isAdmin;
 
@@ -26,6 +32,11 @@ router.get("/:id", authMW, async (req, res) => {
 });
 
 router.put("/:id", authMW, async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
     const { error, value } = validateUpdate.validate(req.body);
     if (error) {
         res.status(400).send(error.details[0].message);
@@ -53,6 +64,11 @@ router.put("/:id", authMW, async (req, res) => {
 });
 
 router.delete("/:id", authMW, async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
     const isAdmin = req.user.isAdmin;
 
     if (!isAdmin) {
@@ -86,6 +102,11 @@ router.get("/", authMW, async (req, res) => {
 });
 
 router.put("/:id/admin", authMW, async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
     const isAdmin = req.user.isAdmin;
 
     if (!isAdmin) {

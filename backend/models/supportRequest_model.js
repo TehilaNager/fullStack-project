@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require("joi");
 
 const supportRequestSchema = new mongoose.Schema({
     requester: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -9,11 +10,38 @@ const supportRequestSchema = new mongoose.Schema({
         enum: ['ציוד', 'אוכל ושתייה', 'תחבורה והסעות', 'סיוע כספי', 'תמיכה נפשית וחברתית', 'שירותים ולוגיסטיקה', 'בריאות ורפואה', 'הוואי ומורל', 'אחר'],
         required: true
     },
-    location: {
-        region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
-        city: { type: String, required: true }
-    },
+    region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
+    city: { type: String, required: true },
     status: { type: String, enum: ['פתוחה', 'הושלמה'], default: 'פתוחה' }
 }, { timestamps: true });
 
-module.exports = mongoose.model('SupportRequest', supportRequestSchema);
+const Request = mongoose.model('SupportRequest', supportRequestSchema, "requests");
+
+const validateRequest = Joi.object({
+    title: Joi.string().min(2).max(256).required(),
+    description: Joi.string().min(5).max(1024).required(),
+    category: Joi.string()
+        .valid('ציוד', 'אוכל ושתייה', 'תחבורה והסעות', 'סיוע כספי', 'תמיכה נפשית וחברתית', 'שירותים ולוגיסטיקה', 'בריאות ורפואה', 'הוואי ומורל', 'אחר')
+        .required(),
+    region: Joi.string().valid('צפון', 'מרכז', 'דרום').required(),
+    city: Joi.string().min(2).max(256).required(),
+    status: Joi.string().valid('פתוחה', 'הושלמה').optional()
+});
+
+const validateRequestUpdate = Joi.object({
+    title: Joi.string().min(2).max(256).optional(),
+    description: Joi.string().min(5).max(1024).optional(),
+    category: Joi.string()
+        .valid('ציוד', 'אוכל ושתייה', 'תחבורה והסעות', 'סיוע כספי', 'תמיכה נפשית וחברתית', 'שירותים ולוגיסטיקה', 'בריאות ורפואה', 'הוואי ומורל', 'אחר')
+        .optional(),
+    region: Joi.string().valid('צפון', 'מרכז', 'דרום').optional(),
+    city: Joi.string().min(2).max(256).optional(),
+    status: Joi.string().valid('פתוחה', 'הושלמה').optional()
+}).min(1);
+
+
+module.exports = {
+    Request,
+    validateRequest,
+    validateRequestUpdate
+};
