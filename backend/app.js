@@ -11,6 +11,8 @@ app.use(morgan('dev'));
 
 app.use("/api/auth/", require("./routes/auth_route"));
 
+app.use("/api/users/", require("./routes/user_route"));
+
 const PORT = process.env.PORT;
 
 connectDB().then(() => {
