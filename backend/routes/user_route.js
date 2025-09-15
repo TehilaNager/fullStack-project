@@ -52,4 +52,37 @@ router.put("/:id", authMW, async (req, res) => {
     res.json(filteredUser);
 });
 
+router.delete("/:id", authMW, async (req, res) => {
+    const isAdmin = req.user.isAdmin;
+
+    if (!isAdmin) {
+        res.status(400).send("Access denied. Only an admin can delete user accounts.");
+        return;
+    }
+
+    const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+    if (!deletedUser) {
+        res.status(400).send("User not found");
+        return;
+    }
+
+    const filteredUser = _.pick(deletedUser, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]);
+
+    res.json(filteredUser);
+});
+
+router.get("/", authMW, async (req, res) => {
+    const isAdmin = req.user.isAdmin;
+
+    if (!isAdmin) {
+        res.status(400).send("Access denied. Only an admin can view the list of all users.");
+        return;
+    }
+
+    const allUsers = await User.find({}, { password: 0, __v: 0 });
+
+    res.json(allUsers);
+});
+
 module.exports = router;

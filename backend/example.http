@@ -37,3 +37,11 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZW
 {
     "fullName":"Sara noach"
 }
+
+###
+DELETE {{local}}/users/68c693cbb2276ee3ee87e6c8
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZWUzZWU4N2U2YzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3ODUyMTA2fQ.KBehc0-_8UUztBykmlNv8QvdSGw5fkuz5sIa4SYPvgs
+
+###
+GET {{local}}/users
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZWUzZWU4N2U2YzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3ODUyMTA2fQ.KBehc0-_8UUztBykmlNv8QvdSGw5fkuz5sIa4SYPvgs
