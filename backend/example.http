@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ###
 GET {{local}}/auth/me
-x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ1MzY0fQ.Q4eKno39zK_Umr0rcf0bGxuOB_Sr5lEBSnoH3rOJzlo
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
 
 ###
 GET {{local}}/users/68c693cbb2276ee3ee87e6c8
@@ -118,4 +118,13 @@ DELETE {{local}}/offers/68c83acf9d31ec2ff7a91bdf
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
 
 ###
-POST {{local}}/favorites/
+PATCH {{local}}/favorites/request/68c820c533296bba00722e98
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+PATCH {{local}}/favorites/offer/68c83b0689f51e7afd2943ef
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+GET {{local}}/favorites/
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
