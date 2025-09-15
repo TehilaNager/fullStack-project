@@ -15,7 +15,7 @@ const supportOfferSchema = new mongoose.Schema({
     status: { type: String, enum: ['פתוחה', 'הושלמה'], default: 'פתוחה' }
 }, { timestamps: true });
 
-const Offer = mongoose.model('SupportOffer', supportOfferSchema);
+const Offer = mongoose.model('SupportOffer', supportOfferSchema, "offers");
 
 const validateOffer = Joi.object({
     title: Joi.string().min(2).max(256).required(),
