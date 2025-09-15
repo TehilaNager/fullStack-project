@@ -10,10 +10,8 @@ const supportOfferSchema = new mongoose.Schema({
         enum: ['ציוד', 'אוכל ושתייה', 'תחבורה והסעות', 'סיוע כספי', 'תמיכה נפשית וחברתית', 'שירותים ולוגיסטיקה', 'בריאות ורפואה', 'הוואי ומורל', 'אחר'],
         required: true
     },
-    location: {
-        region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
-        city: { type: String, required: true }
-    },
+    region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
+    city: { type: String, required: true },
     status: { type: String, enum: ['פתוחה', 'הושלמה'], default: 'פתוחה' }
 }, { timestamps: true });
 
@@ -25,10 +23,8 @@ const validateOffer = Joi.object({
     category: Joi.string()
         .valid('ציוד', 'אוכל ושתייה', 'תחבורה והסעות', 'סיוע כספי', 'תמיכה נפשית וחברתית', 'שירותים ולוגיסטיקה', 'בריאות ורפואה', 'הוואי ומורל', 'אחר')
         .required(),
-    location: Joi.object({
-        region: Joi.string().valid('צפון', 'מרכז', 'דרום').required(),
-        city: Joi.string().min(2).max(256).required()
-    }).required(),
+    region: Joi.string().valid('צפון', 'מרכז', 'דרום').required(),
+    city: Joi.string().min(2).max(256).required(),
     status: Joi.string().valid('פתוחה', 'הושלמה').optional()
 });
 
@@ -38,10 +34,8 @@ const validateOfferUpdate = Joi.object({
     category: Joi.string()
         .valid('ציוד', 'אוכל ושתייה', 'תחבורה והסעות', 'סיוע כספי', 'תמיכה נפשית וחברתית', 'שירותים ולוגיסטיקה', 'בריאות ורפואה', 'הוואי ומורל', 'אחר')
         .optional(),
-    location: Joi.object({
-        region: Joi.string().valid('צפון', 'מרכז', 'דרום').optional(),
-        city: Joi.string().min(2).max(256).optional()
-    }).optional(),
+    region: Joi.string().valid('צפון', 'מרכז', 'דרום').optional(),
+    city: Joi.string().min(2).max(256).optional(),
     status: Joi.string().valid('פתוחה', 'הושלמה').optional()
 }).min(1);
 

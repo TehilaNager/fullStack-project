@@ -39,7 +39,7 @@ router.get("/:id", async (req, res) => {
     const request = await Request.findById(req.params.id, { __v: 0 });
 
     if (!request) {
-        res.status(400).send("Request not found");
+        res.status(400).send("Request not found.");
         return;
     }
 

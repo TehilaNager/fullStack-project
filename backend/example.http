@@ -86,3 +86,33 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMj
 
 ###
 POST {{local}}/offers/
+Content-Type: application/json
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+{
+    "title":"חולצות",
+    "description":"20 חולצות קלילות ומאווררות",
+    "category":"ציוד",
+    "region":"צפון",
+    "city":"bet shean"
+}
+
+###
+GET {{local}}/offers/
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+GET {{local}}/offers/68c83acf9d31ec2ff7a91bdf
+
+###
+PUT {{local}}/offers/68c83acf9d31ec2ff7a91bdf
+Content-Type: application/json
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTU0MDI4fQ.41LZ4ooVdbQATzb26PYXeNCgOHiljTc8ghTem7jT6LU
+
+{
+    "title":"חולצות גברים"
+}
+
+###
+DELETE {{local}}/offers/68c83acf9d31ec2ff7a91bdf
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
