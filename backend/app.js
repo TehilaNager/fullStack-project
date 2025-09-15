@@ -15,6 +15,8 @@ app.use("/api/users/", require("./routes/user_route"));
 
 app.use("/api/requests/", require("./routes/supportRequest_route"));
 
+app.use("/api/offers/", require("./routes/supportOffer_route"));
+
 const PORT = process.env.PORT;
 
 connectDB().then(() => {
