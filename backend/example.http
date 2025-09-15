@@ -50,3 +50,5 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMj
 PUT {{local}}/users/68c693cbb2276ee3ee87e6c8/admin
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
 
+###
+POST {{local}}/requests/
