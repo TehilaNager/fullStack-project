@@ -19,6 +19,8 @@ app.use("/api/offers/", require("./routes/supportOffer_route"));
 
 app.use("/api/favorites/", require("./routes/favorites_route"));
 
+app.use("/api/messages/", require("./routes/messageThreads_route"));
+
 const PORT = process.env.PORT;
 
 connectDB().then(() => {
