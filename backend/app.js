@@ -17,6 +17,8 @@ app.use("/api/requests/", require("./routes/supportRequest_route"));
 
 app.use("/api/offers/", require("./routes/supportOffer_route"));
 
+app.use("/api/favorites/", require("./routes/favorites_route"));
+
 const PORT = process.env.PORT;
 
 connectDB().then(() => {
