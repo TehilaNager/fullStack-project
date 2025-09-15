@@ -17,8 +17,8 @@ POST {{local}}/auth/login/
 Content-Type: application/json
 
 {
-    "email":"sara@gmail.com",
-    "password":"Sara1234!"
+    "email":"admin@test.com",
+    "password":"Admin1234!"
 }
 
 ###
@@ -40,8 +40,13 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZW
 
 ###
 DELETE {{local}}/users/68c693cbb2276ee3ee87e6c8
-x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZWUzZWU4N2U2YzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3ODUyMTA2fQ.KBehc0-_8UUztBykmlNv8QvdSGw5fkuz5sIa4SYPvgs
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
 
 ###
 GET {{local}}/users
-x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2OTNjYmIyMjc2ZWUzZWU4N2U2YzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3ODUyMTA2fQ.KBehc0-_8UUztBykmlNv8QvdSGw5fkuz5sIa4SYPvgs
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+PUT {{local}}/users/68c693cbb2276ee3ee87e6c8/admin
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+

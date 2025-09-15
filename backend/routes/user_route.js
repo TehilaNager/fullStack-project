@@ -85,4 +85,27 @@ router.get("/", authMW, async (req, res) => {
     res.json(allUsers);
 });
 
+router.put("/:id/admin", authMW, async (req, res) => {
+    const isAdmin = req.user.isAdmin;
+
+    if (!isAdmin) {
+        res.status(400).send("Access denied. Only an admin can toggle the isAdmin status of a user.");
+        return;
+    }
+
+    const updatedUser = await User.findById(req.params.id);
+
+    if (!updatedUser) {
+        res.status(400).send("User not found.");
+        return;
+    }
+
+    updatedUser.isAdmin = !updatedUser.isAdmin;
+    updatedUser.save();
+
+    const filteredUser = _.pick(updatedUser, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
+
+    res.json(filteredUser);
+});
+
 module.exports = router;
