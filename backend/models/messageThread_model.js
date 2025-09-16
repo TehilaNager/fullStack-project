@@ -3,9 +3,8 @@ const Joi = require("joi");
 
 const messageSchema = new mongoose.Schema({
     sender: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    content: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now }
-});
+    content: { type: String, required: true, maxlength: 1000 },
+}, { timestamps: true });
 
 const messageThreadSchema = new mongoose.Schema({
     relatedType: { type: String, enum: ['SupportRequest', 'SupportOffer'], required: true },
@@ -23,7 +22,17 @@ const validateMessageThread = Joi.object({
     initialMessage: Joi.string().min(1).max(1000).optional()
 });
 
+const validateMessage = Joi.object({
+    content: Joi.string().min(1).max(1000).required()
+        .messages({
+            'string.empty': 'Message content cannot be empty',
+            'string.max': 'Message cannot exceed 1000 characters',
+            'any.required': 'Message content is required'
+        })
+});
+
 module.exports = {
     Thread,
-    validateMessageThread
+    validateMessageThread,
+    validateMessage
 }

@@ -5,9 +5,9 @@ POST {{local}}/auth/register
 Content-Type: application/json
 
 {
-    "fullName":"sara nagar",
-    "email":"sara@gmail.com",
-    "password":"Sara1234!",
+    "fullName":"ilan nagar",
+    "email":"ilan@gmail.com",
+    "password":"Ilan1234!",
     "phone":"0586633988",
     "city":"karni shomron"
 }
@@ -17,13 +17,13 @@ POST {{local}}/auth/login/
 Content-Type: application/json
 
 {
-    "email":"sara@gmail.com",
-    "password":"Sara1234!"
+    "email":"dror@gmail.com",
+    "password":"Dror1234!"
 }
 
 ###
 GET {{local}}/auth/me
-x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM5NTU1ZTIxZDY3OGExMGE5YWZkZWMiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU4MDI1MDU5fQ.Z4xVR-Xg9okSVxzR4NRWs57bofPYICdaELvF9UaO2KU
 
 ###
 GET {{local}}/users/68c693cbb2276ee3ee87e6c8
@@ -130,4 +130,26 @@ GET {{local}}/favorites/
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
 
 ###
-POST {{local}}/messages/
+POST {{local}}/messages/thread
+Content-Type: application/json
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+{
+    "relatedType":"SupportRequest",
+    "relatedId":"68c820c533296bba00722e98",
+    "participants":["68c939500fc0d16067804778"],
+    "initialMessage":"היי, בשמחה אוכל לעזור. רוצה לשלוח לי מספר טלפון ונשוחח?"
+}
+
+###
+GET {{local}}/messages/thread/68c93b52f2d8a139c3328bbb
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+POST {{local}}/messages/thread/68c93b52f2d8a139c3328bbb/message
+Content-Type: application/json
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM5Mzk1MDBmYzBkMTYwNjc4MDQ3NzgiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU4MDI1ODMyfQ.URBlX54yVX1xPYJOTRPaId9SSst4QqZxeVAzi4Vu2PI
+
+{
+    "content":"s"
+}
