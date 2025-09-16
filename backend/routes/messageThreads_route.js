@@ -117,7 +117,7 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
 
     const lastMessage = thread.messages[thread.messages.length - 1];
     if (lastMessage && lastMessage.content === req.body.content && lastMessage.sender.toString() === req.user._id) {
-        res.status(400).send("You already sent this message.");
+        res.status(400).send("This is identical to the last message you sent. Please change it before sending again.");
         return;
     }
 
@@ -133,5 +133,13 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
     const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
     res.json(filteredThread);
 });
+
+router.put("/thread/:threadId/message/:messageId", (req, res) => { });
+
+router.delete("/thread/:threadId/message/:messageId", (req, res) => { });
+
+router.get("/user/:userId", (req, res) => { });
+
+router.delete("/thread/:id", (req, res) => { })
 
 module.exports = router;
