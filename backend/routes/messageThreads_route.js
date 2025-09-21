@@ -134,12 +134,139 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
     res.json(filteredThread);
 });
 
-router.put("/thread/:threadId/message/:messageId", (req, res) => { });
+router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
+    const { threadId, messageId } = req.params;
 
-router.delete("/thread/:threadId/message/:messageId", (req, res) => { });
+    if (!mongoose.isValidObjectId(threadId) || !mongoose.isValidObjectId(messageId)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
 
-router.get("/user/:userId", (req, res) => { });
+    const thread = await Thread.findById(threadId);
 
-router.delete("/thread/:id", (req, res) => { })
+    if (!thread) {
+        res.status(400).send("Thread not found.");
+        return;
+    }
+
+    if (!req.body.content || req.body.content.trim() === "") {
+        res.status(400).send("Message content is required.");
+        return;
+    }
+
+    const { error } = validateMessage.validate(req.body);
+
+    if (error) {
+        res.status(400).send(error.details[0].message);
+        return;
+    }
+
+    const message = thread.messages.find(msg => msg._id.toString() === messageId);
+
+    if (!message) {
+        res.status(400).send("Message not found.");
+        return;
+    }
+
+    if (message.sender.toString() !== req.user._id) {
+        res.status(400).send("Access denied. You can only edit messages you have created.");
+        return;
+    }
+
+    message.content = req.body.content;
+
+    await thread.save();
+
+    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
+
+    res.json(filteredThread);
+});
+
+router.delete("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
+    const { threadId, messageId } = req.params;
+
+    if (!mongoose.isValidObjectId(threadId) || !mongoose.isValidObjectId(messageId)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
+    const thread = await Thread.findById(threadId);
+
+    if (!thread) {
+        res.status(400).send("Thread not found.");
+        return;
+    }
+
+    const message = thread.messages.find(msg => msg._id.toString() === messageId);
+
+    if (!message) {
+        res.status(400).send("Message not found.");
+        return;
+    }
+
+    if (message.sender.toString() !== req.user._id && !req.user.isAdmin) {
+        res.status(400).send("Access denied. Only the sender or an admin can delete this message.");
+        return;
+    }
+
+    const messageIndex = thread.messages.findIndex(msg => msg._id.toString() === messageId);
+
+    thread.messages.splice(messageIndex, 1);
+
+    await thread.save();
+
+    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
+
+    res.json(filteredThread);
+});
+
+router.get("/user/:userId", authMW, async (req, res) => {
+    const { userId } = req.params;
+
+    if (!mongoose.isValidObjectId(userId)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
+    if (req.user._id !== userId && !req.user.isAdmin) {
+        res.status(400).send("Access denied. You can only view your own threads unless you are an admin.");
+        return;
+    }
+
+    const threads = await Thread.find({ participants: userId })
+        .select("_id relatedType relatedId participants messages createdAt updatedAt")
+        .sort({ updatedAt: -1 });
+
+    if (!threads || threads.length === 0) {
+        return res.json([]);
+    }
+
+    res.json(threads);
+});
+
+router.delete("/thread/:id", authMW, async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
+    if (!req.user.isAdmin) {
+        res.status(400).send("Access denied. Only admins can delete threads.");
+        return;
+    }
+
+    const thread = await Thread.findById(req.params.id);
+
+    if (!thread) {
+        res.status(400).send("Thread not found.");
+        return;
+    }
+
+    await Thread.findByIdAndDelete(req.params.id);
+
+    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
+
+    res.json(filteredThread);
+});
 
 module.exports = router;
