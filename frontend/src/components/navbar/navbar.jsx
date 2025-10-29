@@ -1,4 +1,4 @@
-import Logo from "./common/logo";
+import Logo from "../common/logo/logo";
 import "./navbar.css";
 
 function Navbar() {
