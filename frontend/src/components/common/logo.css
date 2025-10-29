@@ -1,0 +1,38 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo img {
+  width: 65px;
+  max-width: 15vw;
+  padding-top: 5px;
+}
+
+.logo-text {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.logo-subtext {
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #dfe6e9;
+}
+
+@media (max-width: 576px) {
+  .logo {
+    margin-right: 0.5rem;
+  }
+  .logo-text {
+    font-size: 1rem;
+  }
+  .logo-subtext {
+    font-size: 0.75rem;
+  }
+  .logo img {
+    width: 50px;
+  }
+}

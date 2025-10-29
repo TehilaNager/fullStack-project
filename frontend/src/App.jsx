@@ -1,5 +1,6 @@
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import AppRoutes from "./routes/appRoutes";
 
 export default function App() {
   return (
@@ -7,7 +8,9 @@ export default function App() {
       <header>
         <Navbar />
       </header>
-      <main>Main</main>
+      <main>
+        <AppRoutes />
+      </main>
       <footer>
         <Footer />
       </footer>

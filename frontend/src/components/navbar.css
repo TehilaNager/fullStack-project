@@ -1,0 +1,19 @@
+.bg-army {
+  background-color: #4b5320;
+}
+
+.navbar {
+  min-height: 100px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.navbar,
+body {
+  direction: rtl;
+  text-align: right;
+}
+
+.navbar-shadow {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
