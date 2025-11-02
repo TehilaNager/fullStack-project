@@ -9,6 +9,10 @@ const authMW = require("../middleware/auth");
 const { User, validateSignUp, validateSignIn } = require("../models/user_model");
 
 router.post("/register", async (req, res) => {
+    if (!req.body) {
+        return res.status(400).send("Request body is missing.");
+    }
+
     const { error, value } = validateSignUp.validate(req.body);
     if (error) {
         res.status(400).send(error.details[0].message);
