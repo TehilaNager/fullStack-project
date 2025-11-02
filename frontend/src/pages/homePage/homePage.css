@@ -1,0 +1,135 @@
+.home-page {
+  direction: rtl;
+  text-align: center;
+  font-family: "Heebo", sans-serif;
+  color: #1c1c1c;
+  background-color: #fff4d7;
+}
+
+.hero-section {
+  position: relative;
+  background-image: url("../../images/background-soldiers.png");
+  background-size: cover;
+  background-position: center center;
+  height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  /* background: rgba(0, 0, 0, 0.25); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  max-width: 800px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.main-title {
+  font-size: 8rem;
+  font-weight: 900;
+  font-family: "Playfair Display", serif;
+  margin-bottom: 1rem;
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* ===== HERO BUTTONS ===== */
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn.primary {
+  background-color: #2e5b3f;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: #244c33;
+  transform: scale(1.05);
+}
+
+.btn.secondary {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn.secondary:hover {
+  background-color: white;
+  color: #2e5b3f;
+  transform: scale(1.05);
+}
+
+/* ===== ABOUT PREVIEW ===== */
+.about-preview {
+  padding: 4rem 1rem;
+  background-color: #f8f9fa;
+}
+
+.about-preview h2 {
+  font-size: 2.5rem;
+  color: #2e5b3f;
+  margin-bottom: 1rem;
+}
+
+.about-preview p {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+}
+
+.btn.learn-more {
+  background-color: #2e5b3f;
+  color: white;
+  text-decoration: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn.learn-more:hover {
+  background-color: #244c33;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 5rem;
+  }
+  .subtitle {
+    font-size: 2rem;
+  }
+  .btn {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+  }
+}

@@ -11,7 +11,8 @@
 }
 
 .logo-text {
-  color: white;
+  /* color: white; */
+  color: #515730;
   font-size: 1.4rem;
   font-weight: bold;
 }
@@ -19,7 +20,8 @@
 .logo-subtext {
   font-size: 0.9rem;
   font-weight: normal;
-  color: #dfe6e9;
+  /* color: #dfe6e9; */
+  color: #515730;
 }
 
 @media (max-width: 576px) {

@@ -3,7 +3,7 @@ import "./navbar.css";
 
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-army navbar-shadow">
+    <nav className="navbar navbar-expand-lg navbar-white bg-army">
       <div className="container">
         <Logo />
 

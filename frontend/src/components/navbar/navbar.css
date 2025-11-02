@@ -1,11 +1,18 @@
 .bg-army {
-  background-color: #4b5320;
+  /* background-color: #515730dd; */
+  background-color: rgba(81, 87, 48, 0.8);
+  background-color: #fbfff2;
+  background-color: #fff;
+  background-color: #f6ce60;
 }
 
 .navbar {
   min-height: 100px;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 50px 50px rgba(0, 0, 0, 0.5);
 }
 
 .navbar,
