@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Logo from "../common/logo/logo";
 import "./navbar.css";
 
@@ -18,6 +19,10 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
+        <Link to="/">בית</Link>
+        <Link to="/about">אודות</Link>
+        <Link to="/requests-donations">תרומות ובקשות</Link>
       </div>
     </nav>
   );
