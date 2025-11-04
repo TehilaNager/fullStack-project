@@ -15,12 +15,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.9;
 }
 
 .overlay {
   position: absolute;
   inset: 0;
-  /* background: rgba(0, 0, 0, 0.25); */
+  background: rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +31,7 @@
   position: relative;
   z-index: 1;
   color: white;
-  max-width: 800px;
+  max-width: 1000px;
   padding: 2rem;
   text-align: center;
 }
@@ -44,89 +45,39 @@
 }
 
 .subtitle {
-  font-size: 3rem;
+  font-size: 2rem;
+  font-style: italic;
   font-weight: 500;
   margin-bottom: 2rem;
   text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
 }
 
-/* ===== HERO BUTTONS ===== */
-.hero-buttons {
+.btn-section {
+  padding-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 2.5rem;
 }
 
-.btn {
-  text-decoration: none;
-  padding: 1rem 2.5rem;
-  border-radius: 12px;
-  font-size: 1.5rem;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.btn.primary {
-  background-color: #2e5b3f;
-  color: white;
-}
-
-.btn.primary:hover {
-  background-color: #244c33;
-  transform: scale(1.05);
-}
-
-.btn.secondary {
-  background-color: transparent;
-  border: 2px solid white;
-  color: white;
-}
-
-.btn.secondary:hover {
-  background-color: white;
-  color: #2e5b3f;
-  transform: scale(1.05);
-}
-
-/* ===== ABOUT PREVIEW ===== */
-.about-preview {
-  padding: 4rem 1rem;
-  background-color: #f8f9fa;
-}
-
-.about-preview h2 {
-  font-size: 2.5rem;
-  color: #2e5b3f;
-  margin-bottom: 1rem;
-}
-
-.about-preview p {
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  line-height: 1.8;
-}
-
-.btn.learn-more {
-  background-color: #2e5b3f;
-  color: white;
-  text-decoration: none;
-  padding: 0.85rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.btn.learn-more:hover {
-  background-color: #244c33;
-  transform: scale(1.05);
+.btn-warning {
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 35px;
+  padding: 12px 35px;
 }
 
 @media (max-width: 768px) {
+  .btn-section {
+    padding-top: 10px;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
   .main-title {
-    font-size: 5rem;
+    font-size: 4rem;
   }
   .subtitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .btn {
     font-size: 1.2rem;

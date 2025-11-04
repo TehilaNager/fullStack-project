@@ -5,8 +5,14 @@ async function createUser(values) {
     return response.data;
 }
 
+async function logIn(values) {
+    const response = await httpService.post("/auth/login", values);
+    return response.data;
+}
+
 const userService = {
-    createUser
+    createUser,
+    logIn
 }
 
 export default userService;

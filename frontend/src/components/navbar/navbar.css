@@ -1,9 +1,7 @@
 .bg-army {
-  /* background-color: #515730dd; */
-  background-color: rgba(81, 87, 48, 0.8);
-  background-color: #fbfff2;
-  background-color: #fff;
-  background-color: #f6ce60;
+  /* background-color: #f8f5c2; */
+  /* background-color: #fecf4c; */
+  background-color: #ffc107;
 }
 
 .navbar {
@@ -12,15 +10,10 @@
   padding-bottom: 1rem;
   position: relative;
   z-index: 10;
-  box-shadow: 0 50px 50px rgba(0, 0, 0, 0.5);
 }
 
 .navbar,
 body {
   direction: rtl;
   text-align: right;
-}
-
-.navbar-shadow {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
