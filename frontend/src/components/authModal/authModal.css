@@ -1,0 +1,104 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  width: 60%;
+  max-width: 90%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.close {
+  z-index: 1000;
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: red;
+}
+
+.body-modal {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.modal-image {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.modal-image img {
+  max-width: 100%;
+}
+
+.image-caption {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  padding: 15px 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.modal-tabs {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-buttons button {
+  flex: 1;
+  padding: 10px 0;
+  cursor: pointer;
+  border: none;
+  background: #f1f1f1;
+  color: #000;
+  transition: 0.3s;
+  font-size: 1.3rem;
+  margin: 0 3px;
+  border-radius: 5px 5px 0 0;
+}
+
+.tab-buttons button.active {
+  background: #656f31;
+  color: #fff;
+  font-weight: bold;
+}
