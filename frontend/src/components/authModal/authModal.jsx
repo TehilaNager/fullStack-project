@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./authModal.css";
-import AuthModalImg from "../../images/authModal.png";
+import AuthModalImg from "../../images/authModalImg.png";
+import AuthModalMobileImg from "../../images/AuthModalMobileImg.png";
 import RegisterForm from "./registerForm";
 import LoginForm from "./loginForm";
 
@@ -11,12 +12,15 @@ function AuthModal({ closeModal }) {
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={closeModal}>
-          <i class="bi bi-x-circle-fill"></i>
+          <i className="bi bi-x-circle-fill"></i>
         </span>
 
         <div className="body-modal">
           <div className="modal-image">
-            <img src={AuthModalImg} alt="Support" />
+            <picture>
+              <source media="(max-width: 900px)" srcSet={AuthModalMobileImg} />
+              <img src={AuthModalImg} alt="Support" />
+            </picture>
             <div className="image-caption">
               נרשמים, מבקשים, תורמים — <br />
               יחד עושים את ההבדל!
