@@ -1,53 +1,39 @@
 import { useState } from "react";
-import "./authModal.css";
-import AuthModalImg from "../../images/authModalImg.png";
-import AuthModalMobileImg from "../../images/AuthModalMobileImg.png";
-import RegisterForm from "./registerForm";
 import LoginForm from "./loginForm";
+import RegisterForm from "./registerForm";
+import "./authModal.css";
 
 function AuthModal({ closeModal }) {
   const [activeTab, setActiveTab] = useState("login");
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={closeModal}>
-          <i className="bi bi-x-circle-fill"></i>
-        </span>
+    <div className="auth-overlay">
+      <div className="auth-modal">
+        <button className="close-btn" onClick={closeModal}>
+          &times;
+        </button>
 
-        <div className="body-modal">
-          <div className="modal-image">
-            <picture>
-              <source media="(max-width: 900px)" srcSet={AuthModalMobileImg} />
-              <img src={AuthModalImg} alt="Support" />
-            </picture>
-            <div className="image-caption">
-              נרשמים, מבקשים, תורמים — <br />
-              יחד עושים את ההבדל!
-            </div>
-          </div>
+        <div className="auth-tabs">
+          <button
+            className={`tab-btn ${activeTab === "login" ? "active" : ""}`}
+            onClick={() => setActiveTab("login")}
+          >
+            התחברות
+          </button>
+          <button
+            className={`tab-btn ${activeTab === "register" ? "active" : ""}`}
+            onClick={() => setActiveTab("register")}
+          >
+            הרשמה
+          </button>
+        </div>
 
-          <div className="modal-tabs">
-            <div className="tab-buttons">
-              <button
-                className={activeTab === "register" ? "active" : ""}
-                onClick={() => setActiveTab("register")}
-              >
-                הרשמה
-              </button>
-              <button
-                className={activeTab === "login" ? "active" : ""}
-                onClick={() => setActiveTab("login")}
-              >
-                התחברות
-              </button>
-            </div>
-
-            <div className="tab-content">
-              {activeTab === "login" && <LoginForm />}
-              {activeTab === "register" && <RegisterForm />}
-            </div>
-          </div>
+        <div className="auth-content">
+          {activeTab === "login" ? (
+            <LoginForm switchToRegister={() => setActiveTab("register")} />
+          ) : (
+            <RegisterForm switchToLogin={() => setActiveTab("login")} />
+          )}
         </div>
       </div>
     </div>
