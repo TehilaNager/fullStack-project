@@ -1,8 +1,12 @@
+import { useState } from "react";
 import "./loginRegisterForms.css";
 
 function RegisterForm({ switchToLogin }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   return (
-    <div className="form">
+    <form className="form">
       <h2 className="form-title">צור חשבון חדש</h2>
 
       <div className="form-group">
@@ -11,9 +15,26 @@ function RegisterForm({ switchToLogin }) {
       <div className="form-group">
         <input type="email" placeholder="אימייל" />
       </div>
-      <div className="form-group">
-        <input type="password" placeholder="סיסמה" />
+
+      <div className="form-group password-group">
+        <input type={showPassword ? "text" : "password"} placeholder="סיסמה" />
+        <i
+          className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}
+          onClick={() => setShowPassword(!showPassword)}
+        ></i>
       </div>
+
+      <div className="form-group password-group">
+        <input
+          type={showConfirmPassword ? "text" : "password"}
+          placeholder="אימות סיסמה"
+        />
+        <i
+          className={`bi ${showConfirmPassword ? "bi-eye" : "bi-eye-slash"}`}
+          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+        ></i>
+      </div>
+
       <div className="form-group">
         <input type="text" placeholder="טלפון" />
       </div>
@@ -29,7 +50,7 @@ function RegisterForm({ switchToLogin }) {
           התחבר כאן
         </span>
       </div>
-    </div>
+    </form>
   );
 }
 
