@@ -21,7 +21,9 @@ function LoginForm({ switchToRegister }) {
       </div>
 
       <div className="forgot">שכחתי סיסמה</div>
-      <button className="submit-btn">התחבר</button>
+      <button type="submit" className="submit-btn">
+        התחבר
+      </button>
 
       <div className="no-account">
         אין לך חשבון עדיין?{" "}
