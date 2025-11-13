@@ -1,26 +1,43 @@
-import { useState } from "react";
+import { useFormik } from "formik";
+import Input from "../common/inputs/input";
+import InputPassword from "../common/inputs/inputPassword";
 import "./loginRegisterForms.css";
 
 function LoginForm({ switchToRegister }) {
-  const [showPassword, setShowPassword] = useState(false);
+  const { handleSubmit, getFieldProps, errors, touched } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values) => {
+      console.log("Login data:", values);
+    },
+  });
 
   return (
-    <form className="form">
+    <form
+      className="form"
+      onSubmit={handleSubmit}
+      noValidate
+      autoComplete="off"
+    >
       <h2 className="form-title">ברוך הבא</h2>
 
-      <div className="form-group">
-        <input type="email" placeholder="אימייל" />
-      </div>
+      <Input
+        type="email"
+        placeholder="אימייל"
+        fieldProps={getFieldProps("email")}
+        error={touched.email && errors.email}
+      />
 
-      <div className="form-group password-group">
-        <input type={showPassword ? "text" : "password"} placeholder="סיסמה" />
-        <i
-          className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}
-          onClick={() => setShowPassword(!showPassword)}
-        ></i>
-      </div>
+      <InputPassword
+        placeholder="סיסמה"
+        fieldProps={getFieldProps("password")}
+        error={touched.password && errors.password}
+      />
 
       <div className="forgot">שכחתי סיסמה</div>
+
       <button type="submit" className="submit-btn">
         התחבר
       </button>

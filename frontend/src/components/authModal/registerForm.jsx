@@ -1,12 +1,10 @@
-import { useState } from "react";
 import { useFormik } from "formik";
+import Input from "../common/inputs/input";
+import InputPassword from "../common/inputs/inputPassword";
 import "./loginRegisterForms.css";
 
 function RegisterForm({ switchToLogin }) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const { handleSubmit, getFieldProps } = useFormik({
+  const { handleSubmit, getFieldProps, errors, touched } = useFormik({
     initialValues: {
       fullName: "",
       email: "",
@@ -16,7 +14,7 @@ function RegisterForm({ switchToLogin }) {
       city: "",
     },
     onSubmit: (values) => {
-      console.log("Form data:", values);
+      console.log("Register data:", values);
     },
   });
 
@@ -29,53 +27,44 @@ function RegisterForm({ switchToLogin }) {
     >
       <h2 className="form-title">צור חשבון חדש</h2>
 
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="שם מלא"
-          {...getFieldProps("fullName")}
-        />
-      </div>
-      <div className="form-group">
-        <input type="email" placeholder="אימייל" {...getFieldProps("email")} />
-      </div>
+      <Input
+        placeholder="שם מלא"
+        fieldProps={getFieldProps("fullName")}
+        error={touched.fullName && errors.fullName}
+      />
 
-      <div className="form-group password-group">
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="סיסמה"
-          {...getFieldProps("password")}
-          autoComplete="new-password"
-        />
-        <i
-          className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}
-          onClick={() => setShowPassword(!showPassword)}
-        ></i>
-      </div>
+      <Input
+        type="email"
+        placeholder="אימייל"
+        fieldProps={getFieldProps("email")}
+        error={touched.email && errors.email}
+      />
 
-      <div className="form-group password-group">
-        <input
-          type={showConfirmPassword ? "text" : "password"}
-          placeholder="אימות סיסמה"
-          {...getFieldProps("confirmPassword")}
-          autoComplete="new-password"
-        />
-        <i
-          className={`bi ${showConfirmPassword ? "bi-eye" : "bi-eye-slash"}`}
-          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-        ></i>
-      </div>
+      <InputPassword
+        placeholder="סיסמה"
+        fieldProps={getFieldProps("password")}
+        error={touched.password && errors.password}
+      />
 
-      <div className="form-group">
-        <input type="text" placeholder="טלפון" {...getFieldProps("phone")} />
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="עיר מגורים"
-          {...getFieldProps("city")}
-        />
-      </div>
+      <InputPassword
+        placeholder="אימות סיסמה"
+        fieldProps={getFieldProps("confirmPassword")}
+        error={touched.confirmPassword && errors.confirmPassword}
+      />
+
+      <Input
+        type="text"
+        placeholder="טלפון"
+        fieldProps={getFieldProps("phone")}
+        error={touched.phone && errors.phone}
+      />
+
+      <Input
+        type="text"
+        placeholder="עיר מגורים"
+        fieldProps={getFieldProps("city")}
+        error={touched.city && errors.city}
+      />
 
       <button type="submit" className="submit-btn register">
         הרשמה
