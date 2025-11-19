@@ -1,17 +1,266 @@
-.bg-army {
-  background-color: #f8f5c2;
+/* .navbar {
+  width: 100%;
+  background-color: #0f5c82;
+  padding: 1.5rem 2rem;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.navbar {
-  min-height: 100px;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
-  z-index: 10;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex: 1;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.profile-icon {
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: white;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.profile-icon:hover {
+  color: #ffd966;
 }
 
 .navbar,
-body {
+.navbar-container {
   direction: rtl;
   text-align: right;
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.8rem 1rem;
+  }
+  .profile-icon {
+    font-size: 1.5rem;
+  }
+} */
+
+/* גגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגגג */
+/* 
+.nav-wrapper-shield {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(90deg, #0f2b33, #1e4a53);
+  padding: 1.2rem 0;
+  box-shadow: 0 3px 18px rgba(0, 0, 0, 0.3);
+  direction: rtl;
+  overflow: hidden;
+}
+
+.nav-shield {
+  position: absolute;
+  bottom: -40px;
+  right: 50%;
+  transform: translateX(50%);
+  width: 240px;
+  height: 110px;
+  background: #1e4a53;
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+.nav-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  z-index: 3;
+  position: relative;
+}
+
+.nav-links {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(216, 192, 140, 0.1);
+  color: #f8f6f1;
+  transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+  background: rgba(216, 192, 140, 0.25);
+  color: #fff7d8;
+  transform: translateY(-2px);
+}
+
+.nav-profile {
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: #d8c08c; 
+  transition: 0.25s ease;
+}
+
+.nav-profile:hover {
+  color: #f0e4c2;
+  transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-profile {
+    margin-right: auto;
+  }
+} */
+
+/* NAVBAR */
+.navbar {
+  width: 100%;
+  background: #1a1a1a; /* שחור עמוק, בוגר */
+  padding: 1rem 2rem;
+  direction: rtl;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* CONTAINER */
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* RIGHT – Logo + Links */
+.navbar-right-links {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* לוגו */
+.navbar-logo {
+  height: 50px;
+  width: auto;
+}
+
+/* קישורים – מודרני ובוגר */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: #ffffff; /* לבן על רקע שחור */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 6px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* underline מודרני */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: #f4d35e; /* זהב מודרני */
+  bottom: -3px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #f4d35e; /* זהב בהיר */
+}
+
+/* LEFT – Profile */
+.navbar-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-icon {
+  font-size: 2rem;
+  color: #f4d35e; /* זהב */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-icon:hover {
+  color: #ffd166; /* שינוי צבע בהיר יותר */
+  transform: scale(1.1);
+}
+
+/* רספונסיביות */
+@media (max-width: 1024px) {
+  .nav-links a {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* ניתן להוסיף תפריט בורגר */
+  }
 }

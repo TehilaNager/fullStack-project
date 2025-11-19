@@ -18,6 +18,9 @@
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
   direction: rtl;
   transition: all 0.3s ease;
+  max-height: 95vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .close-btn {

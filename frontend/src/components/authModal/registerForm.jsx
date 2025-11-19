@@ -1,7 +1,8 @@
 import { useFormik } from "formik";
+import "./loginRegisterForms.css";
 import Input from "../common/inputs/input";
 import InputPassword from "../common/inputs/inputPassword";
-import "./loginRegisterForms.css";
+import { validateSignUp } from "../../helpers/userValidation";
 
 function RegisterForm({ switchToLogin }) {
   const { handleSubmit, getFieldProps, errors, touched } = useFormik({
@@ -12,6 +13,9 @@ function RegisterForm({ switchToLogin }) {
       confirmPassword: "",
       phone: "",
       city: "",
+    },
+    validate: (values) => {
+      const schema = validateSignUp;
     },
     onSubmit: (values) => {
       console.log("Register data:", values);

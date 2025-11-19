@@ -6,15 +6,21 @@ function InputPassword({ placeholder, fieldProps, error }) {
 
   return (
     <div className="form-group password-group">
-      <input
-        type={showPassword ? "text" : "password"}
-        placeholder={placeholder}
-        {...fieldProps}
-      />
-      <i
-        className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}
-        onClick={() => setShowPassword((prev) => !prev)}
-      ></i>
+      <div className="input-wrapper">
+        <input
+          type={showPassword ? "text" : "password"}
+          {...fieldProps}
+          required
+          dir="rtl"
+        />
+        <label className={fieldProps.value ? "filled" : ""}>
+          {placeholder}
+        </label>
+        <i
+          className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}
+          onClick={() => setShowPassword((prev) => !prev)}
+        ></i>
+      </div>
       {error && <div className="error-message">{error}</div>}
     </div>
   );

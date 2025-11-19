@@ -1,40 +1,107 @@
-.logo {
+/* .logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
+  text-decoration: none;
+  color: #00264d;
+  position: relative;
 }
 
-.logo img {
-  width: 65px;
-  max-width: 15vw;
-  padding-top: 5px;
+.logo-circle {
+  background: linear-gradient(135deg, #ffc947, #ffd966);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  transform: translateY(10%);
+  flex-shrink: 0;
 }
 
-.logo-text {
-  /* color: white; */
-  color: #515730;
-  font-size: 1.4rem;
-  font-weight: bold;
+.logo-icon {
+  font-size: 1.5rem;
 }
 
-.logo-subtext {
-  font-size: 0.9rem;
-  font-weight: normal;
-  /* color: #dfe6e9; */
-  color: #515730;
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: right;
 }
 
-@media (max-width: 576px) {
-  .logo {
-    margin-right: 0.5rem;
+.logo-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logo-sub {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .logo-circle {
+    width: 50px;
+    height: 50px;
   }
-  .logo-text {
-    font-size: 1rem;
+  .logo-icon {
+    font-size: 1.3rem;
   }
-  .logo-subtext {
+  .logo-title {
+    font-size: 1.15rem;
+  }
+  .logo-sub {
     font-size: 0.75rem;
   }
-  .logo img {
-    width: 50px;
+}
+
+@media (max-width: 480px) {
+  .logo-circle {
+    width: 40px;
+    height: 40px;
   }
+  .logo-icon {
+    font-size: 1.1rem;
+  }
+  .logo-title {
+    font-size: 1rem;
+  }
+  .logo-sub {
+    font-size: 0.7rem;
+  }
+} */
+
+.modern-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #2c3e31; /* ירוק צבאי כהה */
+  text-decoration: none;
+}
+
+.shield-svg {
+  width: 42px;
+  height: 42px;
+  stroke: #2c3e31;
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e31;
+}
+
+.logo-sub {
+  font-size: 0.85rem;
+  color: #7a8f7e; /* ירוק מודרני בהיר */
 }
