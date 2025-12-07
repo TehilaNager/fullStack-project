@@ -1,4 +1,4 @@
-.home-page {
+/* .home-page {
   direction: rtl;
   font-family: "Montserrat", "Helvetica", sans-serif;
 }
@@ -84,4 +84,95 @@
     font-size: 1.2rem;
     padding: 1rem 2.2rem;
   }
+} */
+
+/* כל העמוד */
+.home-page {
+  direction: rtl;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Assistant", sans-serif;
+}
+
+/* אזור ההירו */
+.hero-section {
+  position: relative;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #2457c5 0%, #4b78db 50%, #6aa4f7 100%);
+  color: white;
+  padding: 0 20px;
+}
+
+/* שכבת טשטוש קלה */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+/* תוכן במרכז */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+/* כותרת */
+.hero-title {
+  font-size: 5rem;
+  margin: 10px 0;
+  font-weight: 700;
+  color: #f5d279; /* זהב */
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+/* פסקת משנה */
+.hero-subtitle {
+  font-size: 1.4rem;
+  line-height: 1.8;
+  margin-top: 15px;
+  color: #ffffff;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* כל הכפתורים */
+.hero-content button {
+  margin-top: 35px;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* כפתור צפו בבקשות */
+.requests-btn {
+  background: #f4b000;
+  color: #000;
+  margin-left: 10px;
+}
+
+.requests-btn:hover {
+  background: #ffcc33;
+  transform: translateY(-3px);
+}
+
+/* כפתור צפו בתרומות */
+.donations-btn {
+  background: #ffffff;
+  color: #000;
+  border: 2px solid #fff;
+}
+
+.donations-btn:hover {
+  background: #f1f1f1;
+  transform: translateY(-3px);
 }
