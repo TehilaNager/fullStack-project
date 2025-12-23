@@ -1,178 +1,464 @@
-/* .home-page {
-  direction: rtl;
-  font-family: "Montserrat", "Helvetica", sans-serif;
+:root {
+  --nav-height: 80px;
 }
 
-.hero-section {
-  position: relative;
-  width: 100%;
-  min-height: 75vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 2rem;
-  text-align: center;
-  color: #fff;
-  overflow: hidden;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 920px;
-  animation: fadeInUp 1.2s ease forwards;
-}
-
-.hero-title {
-  font-size: 5rem;
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-  color: #f6c235;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
-  letter-spacing: 1.5px;
-}
-
-.hero-subtitle {
-  font-size: 1.45rem;
-  line-height: 2.1;
-  margin-bottom: 2.8rem;
-  color: #000;
-}
-.hero-subtitle strong {
-  color: #000;
-  font-size: 1.55rem;
-}
-
-.cta-btn {
-  background: linear-gradient(90deg, #ffe08c, #ffc55a);
-  color: #1f2d1a;
-  font-size: 1.45rem;
-  font-weight: 700;
-  padding: 1.2rem 3rem;
-  border-radius: 60px;
-  border: none;
-  cursor: pointer;
-  transition: 0.35s;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
-}
-
-.cta-btn:hover {
-  transform: translateY(-4px);
-  background: linear-gradient(90deg, #ffecb1, #ffd98a);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(55px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 900px) {
-  .hero-title {
-    font-size: 3.3rem;
-  }
-  .hero-subtitle {
-    font-size: 1.25rem;
-  }
-  .cta-btn {
-    font-size: 1.2rem;
-    padding: 1rem 2.2rem;
-  }
-} */
-
-/* כל העמוד */
 .home-page {
   direction: rtl;
-  width: 100%;
-  min-height: 100vh;
-  overflow-x: hidden;
-  font-family: "Assistant", sans-serif;
+  font-family: "Assistant", "Heebo", sans-serif;
 }
 
-/* אזור ההירו */
 .hero-section {
   position: relative;
-  height: 85vh;
+  height: calc(100vh - var(--nav-height));
+
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  background: linear-gradient(180deg, #2457c5 0%, #4b78db 50%, #6aa4f7 100%);
-  color: white;
-  padding: 0 20px;
+  overflow: hidden;
+
+  /* background-image: linear-gradient(
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.18)
+    ),
+    url("../../images/backgroundHomePage.png"); */
+
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05)
+    ),
+    url("../../images/backgroundHomePage.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* שכבת טשטוש קלה */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.15);
-}
-
-/* תוכן במרכז */
 .hero-content {
   position: relative;
-  z-index: 2;
-  max-width: 800px;
+  z-index: 10;
+  max-width: 780px;
+  padding: 20px 30px;
+  border-radius: 20px;
 }
 
-/* כותרת */
-.hero-title {
-  font-size: 5rem;
-  margin: 10px 0;
+/* .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: none;
+} */
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 780px;
+}
+
+.hero-content > div {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 40px;
+  font-size: 1.15rem;
   font-weight: 700;
-  color: #f5d279; /* זהב */
-  text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+
+  background: rgba(255, 216, 82, 0.92);
+  color: #444;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-/* פסקת משנה */
+.hero-title {
+  font-size: 6rem;
+  font-weight: 900;
+  margin: 22px 0 10px;
+
+  background: linear-gradient(180deg, #ffeab9, #d6a85b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
 .hero-subtitle {
-  font-size: 1.4rem;
-  line-height: 1.8;
-  margin-top: 15px;
   color: #ffffff;
-  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-}
-
-/* כל הכפתורים */
-.hero-content button {
-  margin-top: 35px;
-  padding: 12px 30px;
-  font-size: 1.2rem;
-  border-radius: 50px;
-  border: none;
-  cursor: pointer;
+  margin-bottom: 35px;
+  font-size: 1.75rem;
   font-weight: 600;
-  transition: 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  line-height: 1.7;
+  letter-spacing: 0.4px;
 }
 
-/* כפתור צפו בבקשות */
+.hero-subtitle span {
+  font-weight: 400;
+  font-size: 1.45rem;
+  letter-spacing: 0.2px;
+}
+
+.requests-btn,
+.donations-btn {
+  padding: 10px 38px;
+  border-radius: 40px;
+  border: none;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+  margin: 20px;
+  color: #444;
+}
+
 .requests-btn {
-  background: #f4b000;
-  color: #000;
-  margin-left: 10px;
+  background: #ffd24b;
+  box-shadow: 0 4px 12px rgba(255, 205, 72, 0.55);
 }
 
-.requests-btn:hover {
-  background: #ffcc33;
-  transform: translateY(-3px);
-}
-
-/* כפתור צפו בתרומות */
 .donations-btn {
   background: #ffffff;
-  color: #000;
-  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.45);
 }
 
+.requests-btn:hover,
 .donations-btn:hover {
-  background: #f1f1f1;
   transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.8rem;
+  }
+  .hero-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+  }
+  .hero-content > div {
+    font-size: 1rem;
+    padding: 8px 18px;
+  }
+}
+
+/* עיצוב שלי */
+/* .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+} */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.home-section {
+  margin-top: 4rem;
+}
+
+.requests-header {
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 576px) {
+  .requests-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .requests-header button {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  .home-section {
+    margin-top: 2.5rem;
+  }
+}
+
+/* אזור איך זה עובד */
+.workflow-section {
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* כרטיסי המסלול */
+.workflow-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.workflow-card h3 {
+  font-size: 1.8rem;
+  color: #003366;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.workflow-card h3 i {
+  font-size: 2rem;
+  color: #0077ff;
+}
+
+/* שורה של שלבים */
+.steps-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* כל שלב בכרטיס */
+.step-card {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  flex: 1 1 30%;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+.step-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0077ff;
+  margin-bottom: 0.5rem;
+}
+
+.step-card h4 {
+  font-size: 1.1rem;
+  color: #003366;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.step-card h4 i {
+  font-size: 1.2rem;
+  color: #0077ff;
+}
+
+.step-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* רספונסיביות */
+@media (max-width: 1000px) {
+  .steps-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+/* אזור מי אנחנו */
+.about-section {
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 1rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  font-family: "Arial", sans-serif;
+}
+
+.about-icon i {
+  font-size: 3rem;
+  color: #ff4d6d;
+  margin-bottom: 1rem;
+}
+
+.about-title {
+  font-size: 2rem;
+  color: #003366;
+  margin: 0;
+}
+
+.about-text {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 700px;
+}
+
+.about-btn {
+  background: linear-gradient(90deg, #0077ff, #004aad);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* רספונסיביות */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .about-title {
+    font-size: 1.7rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+  }
+
+  .about-btn {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-title {
+    font-size: 1.5rem;
+  }
+
+  .about-text {
+    font-size: 0.95rem;
+  }
+
+  .about-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .about-icon i {
+    font-size: 2.5rem;
+  }
+}
+/* אזור אמון וביטחון באתר */
+.trust-section {
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  text-align: center;
+  font-family: "Arial", sans-serif;
+}
+
+.trust-title {
+  font-size: 2.2rem;
+  color: #003366;
+  margin-bottom: 0.5rem;
+}
+
+.trust-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 3rem;
+}
+
+.trust-cards {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.trust-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  flex: 1 1 30%;
+  min-width: 220px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trust-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}
+
+.trust-card i {
+  font-size: 2.5rem;
+  color: #0077ff;
+  margin-bottom: 1rem;
+}
+
+.trust-card h3 {
+  font-size: 1.3rem;
+  color: #003366;
+  margin: 0.5rem 0;
+}
+
+.trust-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* רספונסיביות */
+@media (max-width: 900px) {
+  .trust-cards {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .trust-card {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-title {
+    font-size: 1.8rem;
+  }
+
+  .trust-subtitle {
+    font-size: 1rem;
+  }
+
+  .trust-card i {
+    font-size: 2rem;
+  }
+
+  .trust-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .trust-card p {
+    font-size: 0.9rem;
+  }
 }

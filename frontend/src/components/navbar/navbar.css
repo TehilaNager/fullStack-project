@@ -166,7 +166,7 @@
 /* NAVBAR */
 .navbar {
   width: 100%;
-  background: #1a1a1a; /* שחור עמוק, בוגר */
+  background: #222; /* שחור עמוק, בוגר */
   padding: 1rem 2rem;
   direction: rtl;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);

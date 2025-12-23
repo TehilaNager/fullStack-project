@@ -8,7 +8,7 @@ export default function App() {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className="container">
         <AppRoutes />
       </main>
       <footer>
