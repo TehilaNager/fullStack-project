@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import "./cardHome.css";
+import { Link } from "react-router";
 
 const priorityColors = {
   נמוכה: {
@@ -35,7 +36,7 @@ const categoryColors = {
   אחר: { background: "#f5f5f5", color: "#333" },
 };
 
-function CardHome({ title, category, description, city, priority }) {
+function CardHome({ title, category, description, city, priority, idCard }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
   const descriptionRef = useRef(null);
@@ -74,9 +75,9 @@ function CardHome({ title, category, description, city, priority }) {
           </p>
         )}
       </div>
-      <button className="view-details-btn">
+      <Link to={`/card-details/${idCard}`} className="view-details-btn">
         צפייה בפרטים <i className="bi bi-arrow-left-short"></i>
-      </button>
+      </Link>
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>

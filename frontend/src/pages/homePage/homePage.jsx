@@ -1,11 +1,17 @@
+import { Link } from "react-router";
 import "./homePage.css";
 import CardHome from "../../components/cardHome/cardHome";
-import WhyDonate from "../../components/whyDonate/whyDonate";
-import requestService from "../../services/requestService";
-
-requestService.getAllRequests();
+import WhyOffer from "../../components/whyOffer/whyOffer";
+import { useRequest } from "../../context/requestContext";
+import { useOffer } from "../../context/offerContext";
+import getLatestItems from "../../helpers/getLatestItems";
 
 function HomePage() {
+  const { requests } = useRequest();
+  const { offers } = useOffer();
+  const latestRequests = getLatestItems(requests);
+  const latestOffers = getLatestItems(offers);
+
   return (
     <div className="home-page">
       {/* חלק עליון */}
@@ -24,12 +30,14 @@ function HomePage() {
               חיבור נעים ומכבד שמייצר קהילה חמה ופועלת יום-יום למען הלוחמים שלנו
             </span>
           </p>
-          <button className="requests-btn">
+
+          <Link className="requests-btn" to="/requests">
             <i className="bi bi-gift"></i> צפו בבקשות
-          </button>
-          <button className="donations-btn">
+          </Link>
+
+          <Link className="offers-btn" to="/offers">
             <i className="bi bi-people"></i> צפו בתרומות
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -41,115 +49,50 @@ function HomePage() {
             <p>חיילים ומילואימניקים שזקוקים לעזרתכם</p>
           </div>
 
-          <button>
+          <Link to="/requests">
             כל הבקשות <i className="bi bi-arrow-left-short"></i>
-          </button>
+          </Link>
         </div>
 
         <div className="cards">
-          <CardHome
-            title="מזון חם ליחידה בצפון"
-            category="מזון"
-            description="אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית."
-            city="תל אביב"
-            priority="גבוהה"
-          />
-          <CardHome
-            title="מזון חם ליחידה בצפון"
-            category="ציוד רפואי"
-            description="יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית.  יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית."
-            city="אילת"
-            priority="נמוכה"
-          />
-          <CardHome
-            title="מזון חם ליחידה בצפון"
-            category="ספרים וחומרי לימוד"
-            description="יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית.  יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית."
-            city="טירת יהודה"
-            priority="דחופה"
-          />
-          <CardHome
-            title="מזון חם ליחידה בצפון"
-            category="תחבורה"
-            description="יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית.  יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית."
-            city="יהוד"
-            priority="בינונית"
-          />
-          <CardHome
-            title="מזון חם ליחידה בצפון"
-            category="ביגוד"
-            description="יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית.  יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית."
-            city="אלקנה"
-            priority="דחופה"
-          />
-          <CardHome
-            title="מזון חם ליחידה בצפון"
-            category="ציוד צבאי"
-            description="יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית.  יחידה של 15 לוחמים בצפון תשמח מאוד למזון חם או ארוחות מוכנות.  אנחנו בשטח כבר כמה שבועות והיינו מעריכים מאוד ארוחה ביתית."
-            city="קרני שומרון"
-            priority="גבוהה"
-          />
+          {latestRequests.map((request) => (
+            <CardHome
+              key={request._id}
+              idCard={request._id}
+              title={request.title}
+              category={request.category}
+              description={request.description}
+              city={request.city}
+              priority={request.priority}
+            />
+          ))}
         </div>
       </section>
 
       {/* אזור תרומות אחרונות */}
       <section className="home-section">
         <div className="requests-header d-flex justify-content-between align-items-center">
-          {/* <div className="d-flex justify-content-between"> */}
           <div>
             <h2>תרומות אחרונות</h2>
             <p>אזרחים שרוצים לתרום ולעזור</p>
           </div>
 
-          <button>
+          <Link to="/offers">
             כל התרומות <i className="bi bi-arrow-left-short"></i>
-          </button>
+          </Link>
         </div>
 
         <div className="cards">
-          <CardHome
-            title="אוזניות אלחוטיות סמסונג"
-            category="ציוד אלקטרוני"
-            description=" אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק.  אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק."
-            city="תל אביב"
-          />
-          <CardHome
-            title="אוזניות אלחוטיות סמסונג"
-            category="ציוד רפואי"
-            description=" אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק."
-            city="תל אביב"
-          />
-          <CardHome
-            title="אוזניות אלחוטיות סמסונג"
-            category="ציוד צבאי"
-            description=" אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק."
-            city="תל אביב"
-          />
-          <CardHome
-            title="אוזניות אלחוטיות סמסונג"
-            category="מזון"
-            description=" אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק."
-            city="תל אביב"
-          />
-          <CardHome
-            title="אוזניות אלחוטיות סמסונג"
-            category="תחבורה"
-            description=" אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק."
-            city="תל אביב"
-          />
-          <CardHome
-            title="אוזניות אלחוטיות סמסונג"
-            category="ציוד אלקטרוני"
-            description=" אוזניות Galaxy Buds במצב מצוין, כמעט לא בשימוש. כולל קייס טעינה.
-              אשמח לתרום לחייל או מילואימניק."
-            city="תל אביב"
-          />
+          {latestOffers.map((offer) => (
+            <CardHome
+              key={offer._id}
+              idCard={offer._id}
+              title={offer.title}
+              category={offer.category}
+              description={offer.description}
+              city={offer.city}
+            />
+          ))}
         </div>
       </section>
 
@@ -251,9 +194,9 @@ function HomePage() {
           לבין לוחמיהם ולוודא שכל תרומה מגיעה למקום הנכון.
         </p>
 
-        <button className="about-btn">
+        <Link className="about-btn" to="/about">
           עוד קצת עלינו <i className="bi bi-arrow-left-short"></i>
-        </button>
+        </Link>
       </section>
 
       {/* אזור אמון וביטחון באתר */}
@@ -283,7 +226,7 @@ function HomePage() {
       </section>
 
       {/* אזור למה כדאי לתרום?*/}
-      <WhyDonate />
+      <WhyOffer />
     </div>
   );
 }

@@ -16,7 +16,7 @@
 //           <div className="nav-links">
 //             <Link to="/">בית</Link>
 //             <Link to="/about">אודות</Link>
-//             <Link to="/requests-donations">בקשות ותרומות</Link>
+//             <Link to="/requests-offers">בקשות ותרומות</Link>
 //             <Link to="/personal-area">אזור אישי</Link>
 //             <Link to="/favorites">מועדפים</Link>
 //             <Link to="/admin">ניהול משתמשים</Link>
@@ -52,7 +52,7 @@
 //           <div className="nav-links">
 //             <Link to="/">בית</Link>
 //             <Link to="/about">אודות</Link>
-//             <Link to="/requests-donations">בקשות ותרומות</Link>
+//             <Link to="/requests-offers">בקשות ותרומות</Link>
 //             <Link to="/personal-area">אזור אישי</Link>
 //             <Link to="/favorites">מועדפים</Link>
 //             <Link to="/admin">ניהול משתמשים</Link>
@@ -93,7 +93,8 @@ function Navbar() {
             <div className="nav-links">
               <Link to="/">בית</Link>
               <Link to="/about">אודות</Link>
-              <Link to="/requests-donations">בקשות ותרומות</Link>
+              <Link to="/requests">בקשות</Link>
+              <Link to="/offers">תרומות</Link>
               <Link to="/personal-area">אזור אישי</Link>
               <Link to="/favorites">מועדפים</Link>
               <Link to="/admin">ניהול משתמשים</Link>

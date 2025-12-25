@@ -15,6 +15,6 @@ function authMW(req, res, next) {
     } catch (error) {
         res.status(400).send("Invalide token.");
     }
-};
+}
 
 module.exports = authMW;

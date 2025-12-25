@@ -97,7 +97,7 @@
 }
 
 .requests-btn,
-.donations-btn {
+.offers-btn {
   padding: 10px 38px;
   border-radius: 40px;
   border: none;
@@ -114,13 +114,13 @@
   box-shadow: 0 4px 12px rgba(255, 205, 72, 0.55);
 }
 
-.donations-btn {
+.offers-btn {
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.45);
 }
 
 .requests-btn:hover,
-.donations-btn:hover {
+.offers-btn:hover {
   transform: translateY(-3px);
 }
 
@@ -214,7 +214,6 @@
   color: #0077ff;
 }
 
-/* שורה של שלבים */
 .steps-row {
   display: flex;
   gap: 2rem;

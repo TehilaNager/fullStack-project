@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function WhyDonate() {
+export default function WhyOffer() {
   const messages = [
     "תרומה קטנה יכולה לעשות הבדל גדול בחיי חיילים ומילואים.",
     "כל תרומה מקרבת אותנו למען הקהילה ולתמיכה בלוחמים שלנו.",
@@ -26,15 +26,15 @@ export default function WhyDonate() {
   }, []);
 
   return (
-    <section className="donate-section">
+    <section className="offer-section">
       <h2>למה כדאי לתרום?</h2>
-      <p className="donate-message">{messages[currentMessage]}</p>
+      <p className="offer-message">{messages[currentMessage]}</p>
 
-      <div className="donate-buttons">
-        <button className="donate-btn requests-btn">
+      <div className="offer-buttons">
+        <button className="offer-btn requests-btn">
           צפו בבקשות <i className="bi bi-gift"></i>
         </button>
-        <button className="donate-btn donations-btn">
+        <button className="offer-btn offers-btn">
           צפו בתרומות <i className="bi bi-people"></i>
         </button>
       </div>

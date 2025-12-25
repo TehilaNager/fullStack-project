@@ -1,4 +1,4 @@
-.donate-section {
+.offer-section {
   padding: 4rem 2rem;
   background-color: #f4f8ff;
   text-align: center;
@@ -13,13 +13,13 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
-.donate-section h2 {
+.offer-section h2 {
   font-size: 2.2rem;
   color: #003366;
   margin-bottom: 1rem;
 }
 
-.donate-message {
+.offer-message {
   font-size: 1.2rem;
   color: #0077ff;
   max-width: 700px;
@@ -29,7 +29,7 @@
 }
 
 /* כפתורים */
-.donate-buttons {
+.offer-buttons {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -37,7 +37,7 @@
 }
 
 .requests-btn,
-.donations-btn {
+.offers-btn {
   background: linear-gradient(90deg, #0077ff, #004aad);
   color: #fff;
   border: none;
@@ -52,43 +52,43 @@
 }
 
 .requests-btn:hover,
-.donations-btn:hover {
+.offers-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* רספונסיביות */
 @media (max-width: 768px) {
-  .donate-section {
+  .offer-section {
     padding: 3rem 1.5rem;
   }
 
-  .donate-section h2 {
+  .offer-section h2 {
     font-size: 1.8rem;
   }
 
-  .donate-message {
+  .offer-message {
     font-size: 1.1rem;
   }
 
   .requests-btn,
-  .donations-btn {
+  .offers-btn {
     font-size: 0.95rem;
     padding: 0.6rem 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .donate-section h2 {
+  .offer-section h2 {
     font-size: 1.6rem;
   }
 
-  .donate-message {
+  .offer-message {
     font-size: 1rem;
   }
 
   .requests-btn,
-  .donations-btn {
+  .offers-btn {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
   }
