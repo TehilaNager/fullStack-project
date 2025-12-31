@@ -1,6 +1,6 @@
-.offer-section {
+.inspiring-section {
   padding: 4rem 2rem;
-  background-color: #f4f8ff;
+  background-color: #f0f8ff;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -13,15 +13,15 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
-.offer-section h2 {
+.inspiring-title {
   font-size: 2.2rem;
   color: #003366;
   margin-bottom: 1rem;
 }
 
-.offer-message {
+.inspiring-message {
   font-size: 1.2rem;
-  color: #0077ff;
+  color: #004aad;
   max-width: 700px;
   margin-bottom: 2rem;
   font-weight: 500;
@@ -29,15 +29,14 @@
 }
 
 /* כפתורים */
-.offer-buttons {
+.inspiring-buttons {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.requests-btn,
-.offers-btn {
+.inspiring-btn {
   background: linear-gradient(90deg, #0077ff, #004aad);
   color: #fff;
   border: none;
@@ -51,44 +50,41 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.requests-btn:hover,
-.offers-btn:hover {
+.inspiring-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* רספונסיביות */
 @media (max-width: 768px) {
-  .offer-section {
+  .inspiring-section {
     padding: 3rem 1.5rem;
   }
 
-  .offer-section h2 {
+  .inspiring-title {
     font-size: 1.8rem;
   }
 
-  .offer-message {
+  .inspiring-message {
     font-size: 1.1rem;
   }
 
-  .requests-btn,
-  .offers-btn {
+  .inspiring-btn {
     font-size: 0.95rem;
     padding: 0.6rem 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .offer-section h2 {
+  .inspiring-title {
     font-size: 1.6rem;
   }
 
-  .offer-message {
+  .inspiring-message {
     font-size: 1rem;
   }
 
-  .requests-btn,
-  .offers-btn {
+  .inspiring-btn {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
   }

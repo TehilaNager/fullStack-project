@@ -1,29 +1,8 @@
-// import { Link } from "react-router";
-// import "./logo.css";
-
-// function Logo() {
-//   return (
-//     <Link to="/" className="logo">
-//       <div className="logo-circle">
-//         <div className="logo-icon">⚔️</div>
-//       </div>
-
-//       <div className="logo-text-group">
-//         <div className="logo-title">חבר ללוחם</div>
-//         <div className="logo-sub">קהילה למען החיילים</div>
-//       </div>
-//     </Link>
-//   );
-// }
-
-// export default Logo;
-
-import { Link } from "react-router";
 import "./logo.css";
 
 function Logo() {
   return (
-    <Link to="/" className="logo modern-logo">
+    <div className="logo modern-logo">
       <div className="shield-icon">
         <svg
           viewBox="0 0 64 64"
@@ -47,7 +26,7 @@ function Logo() {
         <div className="logo-title">חבר ללוחם</div>
         <div className="logo-sub">קהילה למען החיילים</div>
       </div>
-    </Link>
+    </div>
   );
 }
 

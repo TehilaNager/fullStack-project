@@ -1,7 +1,8 @@
 import { Link } from "react-router";
-import "./homePage.css";
+import "./hero.css";
+import "./latestItems.css";
 import CardHome from "../../components/cardHome/cardHome";
-import WhyOffer from "../../components/whyOffer/whyOffer";
+import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/requestContext";
 import { useOffer } from "../../context/offerContext";
 import getLatestItems from "../../helpers/getLatestItems";
@@ -15,84 +16,89 @@ function HomePage() {
   return (
     <div className="home-page">
       {/* חלק עליון */}
-      <section className="hero-section">
-        <div className="hero-overlay"></div>
+      <section className="hero">
         <div className="hero-content">
-          <div>
-            <i className="bi bi-heart-fill"></i> קהילה של תמיכה והערכה
+          <div className="hero-badge">
+            <i className="bi bi-heart-fill"></i> קהילה אזרחית תומכת
           </div>
+
           <h1 className="hero-title">חבר ללוחם</h1>
+
           <p className="hero-subtitle">
             פלטפורמה שמחברת בין חיילים ומילואימניקים הזקוקים לעזרה לבין אזרחים
-            שרוצים לתת
-            <br />
-            <span>
-              חיבור נעים ומכבד שמייצר קהילה חמה ופועלת יום-יום למען הלוחמים שלנו
-            </span>
+            שרוצים לתת — <br />
+            בצורה פשוטה, מכבדת ובטוחה
           </p>
 
-          <Link className="requests-btn" to="/requests">
-            <i className="bi bi-gift"></i> צפו בבקשות
-          </Link>
-
-          <Link className="offers-btn" to="/offers">
-            <i className="bi bi-people"></i> צפו בתרומות
-          </Link>
+          <div className="hero-actions">
+            <Link to="/requests" className="hero-btn primary">
+              צפו בבקשות
+            </Link>
+            <Link to="/offers" className="hero-btn secondary">
+              צפו בתרומות
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* אזור בקשות אחרונות */}
-      <section className="home-section">
-        <div className="requests-header d-flex justify-content-between align-items-center">
-          <div>
-            <h2>בקשות אחרונות</h2>
-            <p>חיילים ומילואימניקים שזקוקים לעזרתכם</p>
+      <section className="home-section latest-requests-section">
+        <div className="container">
+          <div className="requests-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 className="requests-title">בקשות אחרונות</h2>
+              <p className="requests-subtitle">
+                חיילים ומילואימניקים שזקוקים לעזרתכם
+              </p>
+            </div>
+
+            <Link to="/requests" className="requests-link">
+              כל הבקשות <i className="bi bi-arrow-left-short fs-5 pe-1"></i>
+            </Link>
           </div>
 
-          <Link to="/requests">
-            כל הבקשות <i className="bi bi-arrow-left-short"></i>
-          </Link>
-        </div>
-
-        <div className="cards">
-          {latestRequests.map((request) => (
-            <CardHome
-              key={request._id}
-              idCard={request._id}
-              title={request.title}
-              category={request.category}
-              description={request.description}
-              city={request.city}
-              priority={request.priority}
-            />
-          ))}
+          <div className="cards">
+            {latestRequests.map((request) => (
+              <CardHome
+                key={request._id}
+                idCard={request._id}
+                title={request.title}
+                category={request.category}
+                description={request.description}
+                city={request.city}
+                priority={request.priority}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
       {/* אזור תרומות אחרונות */}
-      <section className="home-section">
-        <div className="requests-header d-flex justify-content-between align-items-center">
-          <div>
-            <h2>תרומות אחרונות</h2>
-            <p>אזרחים שרוצים לתרום ולעזור</p>
+      <section className="home-section latest-offers-section">
+        <div className="container">
+          <div className="offers-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 className="offers-title">תרומות אחרונות</h2>
+              <p className="offers-subtitle">אזרחים שרוצים לתרום ולעזור</p>
+            </div>
+
+            <Link to="/offers" className="offers-link">
+              כל התרומות <i className="bi bi-arrow-left-short fs-5 pe-1"></i>
+            </Link>
           </div>
 
-          <Link to="/offers">
-            כל התרומות <i className="bi bi-arrow-left-short"></i>
-          </Link>
-        </div>
-
-        <div className="cards">
-          {latestOffers.map((offer) => (
-            <CardHome
-              key={offer._id}
-              idCard={offer._id}
-              title={offer.title}
-              category={offer.category}
-              description={offer.description}
-              city={offer.city}
-            />
-          ))}
+          <div className="cards">
+            {latestOffers.map((offer) => (
+              <CardHome
+                key={offer._id}
+                idCard={offer._id}
+                title={offer.title}
+                category={offer.category}
+                description={offer.description}
+                city={offer.city}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -181,6 +187,62 @@ function HomePage() {
         </div>
       </section>
 
+      {/* אזור איך אפשר לעזור */}
+
+      <section className="help-section">
+        <h2>איך אפשר לעזור?</h2>
+
+        <p className="help-intro">
+          הפלטפורמה מאפשרת מגוון רחב של דרכי סיוע לחיילים ולאנשי מילואים, בהתאם
+          לצרכים שעולים מהשטח.
+          <br />
+          הרשימה שלהלן מציגה דוגמאות נפוצות לסוגי עזרה, אך אינה מוגבלת — כל
+          תרומה, יוזמה או הצעה לעזרה מתקבלות בברכה.
+          <br />
+          ניתן לעיין בבקשות קיימות או לפרסם תרומה חדשה — גם אם אינה מופיעה
+          ברשימה.
+        </p>
+
+        <div className="help-options">
+          <div className="help-card">
+            <h3>תרומות וציוד</h3>
+            <ul>
+              <li>ציוד צבאי</li>
+              <li>ביגוד</li>
+              <li>מזון</li>
+              <li>ציוד אלקטרוני</li>
+              <li>ספרים וחומרי לימוד</li>
+              <li>ציוד רפואי</li>
+            </ul>
+            <p>
+              כל דבר שתוכלו לתרום — גם אם אינו מופיע ברשימה — יתקבל בברכה ויעזור
+              מאוד.
+            </p>
+          </div>
+
+          <div className="help-card">
+            <h3>תמיכה נפשית וחברתית</h3>
+            <ul>
+              <li>תמיכה נפשית וחברתית</li>
+              <li>ליווי אישי ושיחות</li>
+              <li>סיוע רגשי בהתאם לצורך שעולה</li>
+            </ul>
+            <p>גם תרומה של זמן, הקשבה ונוכחות היא בעלת ערך משמעותי.</p>
+          </div>
+
+          <div className="help-card">
+            <h3>תחבורה וסיוע נוסף</h3>
+            <ul>
+              <li>הסעות</li>
+              <li>הובלת ציוד</li>
+              <li>סיוע לוגיסטי</li>
+              <li>עזרה כללית מכל סוג</li>
+            </ul>
+            <p>אם יש ברשותכם אפשרות לעזור — סביר להניח שיש מי שזקוק לה.</p>
+          </div>
+        </div>
+      </section>
+
       {/* אזור מי אנחנו */}
       <section className="about-section">
         <div className="about-icon">
@@ -194,7 +256,7 @@ function HomePage() {
           לבין לוחמיהם ולוודא שכל תרומה מגיעה למקום הנכון.
         </p>
 
-        <Link className="about-btn" to="/about">
+        <Link className="about-btn" to="/aboutPage">
           עוד קצת עלינו <i className="bi bi-arrow-left-short"></i>
         </Link>
       </section>
@@ -226,7 +288,7 @@ function HomePage() {
       </section>
 
       {/* אזור למה כדאי לתרום?*/}
-      <WhyOffer />
+      <InspiringMessages />
     </div>
   );
 }

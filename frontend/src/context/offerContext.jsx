@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import offerService from "../services/offerService";
 
-const offerContext = createContext();
-offerContext.displayName = "Offer";
+const OfferContext = createContext();
+OfferContext.displayName = "Offer";
 
 export function OfferProvider({ children }) {
   const [offers, setOffers] = useState();
@@ -21,12 +21,12 @@ export function OfferProvider({ children }) {
   }, []);
 
   return (
-    <offerContext.Provider value={{ offers, setOffers }}>
+    <OfferContext.Provider value={{ offers, setOffers }}>
       {children}
-    </offerContext.Provider>
+    </OfferContext.Provider>
   );
 }
 
 export function useOffer() {
-  return useContext(offerContext);
+  return useContext(OfferContext);
 }

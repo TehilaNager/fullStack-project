@@ -1,0 +1,171 @@
+/* aboutPage.css */
+
+/* עיצוב כללי */
+.about-page {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  direction: rtl;
+}
+
+/* כותרת עליונה */
+.about-hero {
+  text-align: center;
+  background: #f7f9fc;
+  padding: 4rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.about-hero p {
+  font-size: 1.25rem;
+  color: #555;
+}
+
+/* חזון */
+.about-vision {
+  margin-bottom: 3rem;
+}
+
+.about-vision h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.about-vision p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* ערכים */
+.about-values {
+  background: #eef2f7;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.about-values h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.about-values ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.about-values li {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+/* תהליך */
+.about-process {
+  margin-bottom: 3rem;
+}
+
+.about-process h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.about-process ol {
+  padding-left: 1.5rem;
+}
+
+.about-process li {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* הצלחות ודוגמאות */
+.about-success {
+  background: #f7f9fc;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.about-success h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.about-success p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* קריאה לפעולה */
+.about-cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #dff4e5;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.about-cta h2 {
+  font-size: 2rem;
+  color: #27ae60;
+  margin-bottom: 1rem;
+}
+
+.about-cta p {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.about-cta-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background-color: #27ae60;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.about-cta-btn:hover {
+  background-color: #1e8449;
+}
+
+/* רספונסיבי */
+@media (max-width: 768px) {
+  .about-page {
+    padding: 1rem;
+  }
+
+  .about-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .about-hero p {
+    font-size: 1rem;
+  }
+
+  .about-values h2,
+  .about-process h2,
+  .about-success h2,
+  .about-cta h2 {
+    font-size: 1.7rem;
+  }
+}

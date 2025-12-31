@@ -39,6 +39,13 @@ const validateSignUp = Joi.object({
             "string.base": "הסיסמה לא תקינה",
             "any.required": "יש למלא סיסמה"
         }),
+    confirmPassword: Joi.any()
+        .valid(Joi.ref("password"))
+        .required()
+        .messages({
+            "any.only": "סיסמה ואימות סיסמה חייבים להיות זהים",
+            "any.required": "יש למלא אימות סיסמה"
+        }),
     phone: Joi.string()
         .pattern(phoneRegex)
         .message(phoneMessage)

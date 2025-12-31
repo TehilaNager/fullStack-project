@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import requestService from "../services/requestService";
 
-const requestContext = createContext();
-requestContext.displayName = "Request";
+const RequestContext = createContext();
+RequestContext.displayName = "Request";
 
 export function RequestProvider({ children }) {
   const [requests, setRequests] = useState([]);
@@ -21,12 +21,12 @@ export function RequestProvider({ children }) {
   }, []);
 
   return (
-    <requestContext.Provider value={{ requests, setRequests }}>
+    <RequestContext.Provider value={{ requests, setRequests }}>
       {children}
-    </requestContext.Provider>
+    </RequestContext.Provider>
   );
 }
 
 export function useRequest() {
-  return useContext(requestContext);
+  return useContext(RequestContext);
 }

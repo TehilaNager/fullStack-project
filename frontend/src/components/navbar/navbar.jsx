@@ -1,81 +1,5 @@
-// import { useState } from "react";
-// import { Link } from "react-router";
-// import "./navbar.css";
-// import Logo from "../common/logo/logo";
-// import AuthModal from "../authModal/authModal";
-
-// function Navbar() {
-//   const [modalOpen, setModalOpen] = useState(false);
-
-//   return (
-//     <>
-//       <nav className="navbar">
-//         <div className="navbar-container">
-//           <Logo />
-
-//           <div className="nav-links">
-//             <Link to="/">בית</Link>
-//             <Link to="/about">אודות</Link>
-//             <Link to="/requests-offers">בקשות ותרומות</Link>
-//             <Link to="/personal-area">אזור אישי</Link>
-//             <Link to="/favorites">מועדפים</Link>
-//             <Link to="/admin">ניהול משתמשים</Link>
-//           </div>
-
-//           <div className="profile-icon" onClick={() => setModalOpen(true)}>
-//             <i className="bi bi-person-circle"></i>
-//           </div>
-//         </div>
-//       </nav>
-//       {modalOpen && <AuthModal closeModal={() => setModalOpen(false)} />}
-//     </>
-//   );
-// }
-
-// export default Navbar;
-
-// import { useState } from "react";
-// import { Link } from "react-router";
-// import "./navbar.css";
-// import Logo from "../common/logo/logo";
-// import AuthModal from "../authModal/authModal";
-
-// function Navbar() {
-//   const [modalOpen, setModalOpen] = useState(false);
-
-//   return (
-//     <>
-//       <nav className="nav-wrapper-shield">
-//         <div className="nav-inner">
-//           <Logo />
-
-//           <div className="nav-links">
-//             <Link to="/">בית</Link>
-//             <Link to="/about">אודות</Link>
-//             <Link to="/requests-offers">בקשות ותרומות</Link>
-//             <Link to="/personal-area">אזור אישי</Link>
-//             <Link to="/favorites">מועדפים</Link>
-//             <Link to="/admin">ניהול משתמשים</Link>
-//           </div>
-
-//           <div className="nav-profile" onClick={() => setModalOpen(true)}>
-//             <i className="bi bi-person-fill"></i>
-//           </div>
-//         </div>
-
-//         {/* המגן */}
-//         <div className="nav-shield"></div>
-//       </nav>
-
-//       {modalOpen && <AuthModal closeModal={() => setModalOpen(false)} />}
-//     </>
-//   );
-// }
-
-// export default Navbar;
-
 import { useState } from "react";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 import "./navbar.css";
 import Logo from "../common/logo/logo";
 import AuthModal from "../authModal/authModal";
@@ -85,27 +9,57 @@ function Navbar() {
 
   return (
     <>
-      <nav className="navbar">
-        <div className="navbar-container">
-          {/* RIGHT – Logo + Links */}
-          <div className="navbar-right-links">
+      <nav className="navbar navbar-expand-lg fixed-top custom-navbar">
+        <div className="container">
+          <NavLink className="navbar-brand" to="/">
             <Logo className="navbar-logo" />
-            <div className="nav-links">
-              <Link to="/">בית</Link>
-              <Link to="/about">אודות</Link>
-              <Link to="/requests">בקשות</Link>
-              <Link to="/offers">תרומות</Link>
-              <Link to="/personal-area">אזור אישי</Link>
-              <Link to="/favorites">מועדפים</Link>
-              <Link to="/admin">ניהול משתמשים</Link>
-            </div>
-          </div>
+          </NavLink>
 
-          {/* LEFT – Profile Icon */}
-          <div className="navbar-left">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+
+          <div className="collapse navbar-collapse" id="mainNavbar">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/" end>
+                  בית
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/aboutPage">
+                  אודות
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/requests">
+                  בקשות
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/offers">
+                  תרומות
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/favorites">
+                  מועדפים
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/admin">
+                  ניהול משתמשים
+                </NavLink>
+              </li>
+            </ul>
+
             <div className="profile-icon" onClick={() => setModalOpen(true)}>
-              <i className="bi bi-person-circle"></i>{" "}
-              {/* אייקון Bootstrap יפה, מודרני */}
+              <i className="bi bi-person-circle"></i>
             </div>
           </div>
         </div>
