@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import "./hero.css";
 import "./latestItems.css";
-import CardHome from "../../components/cardHome/cardHome";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/requestContext";
 import { useOffer } from "../../context/offerContext";
 import getLatestItems from "../../helpers/getLatestItems";
+import Carousel from "../../components/carousel/carousel";
 
 function HomePage() {
   const { requests } = useRequest();
@@ -42,65 +42,26 @@ function HomePage() {
       </section>
 
       {/* אזור בקשות אחרונות */}
-      <section className="home-section latest-requests-section">
-        <div className="container">
-          <div className="requests-header d-flex justify-content-between align-items-center">
-            <div>
-              <h2 className="requests-title">בקשות אחרונות</h2>
-              <p className="requests-subtitle">
-                חיילים ומילואימניקים שזקוקים לעזרתכם
-              </p>
-            </div>
 
-            <Link to="/requests" className="requests-link">
-              כל הבקשות <i className="bi bi-arrow-left-short fs-5 pe-1"></i>
-            </Link>
-          </div>
-
-          <div className="cards">
-            {latestRequests.map((request) => (
-              <CardHome
-                key={request._id}
-                idCard={request._id}
-                title={request.title}
-                category={request.category}
-                description={request.description}
-                city={request.city}
-                priority={request.priority}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <Carousel
+        // id="requestsCarousel"
+        title="בקשות אחרונות"
+        subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
+        linkText="כל הבקשות"
+        linkUrl="/requests"
+        items={latestRequests}
+      />
 
       {/* אזור תרומות אחרונות */}
-      <section className="home-section latest-offers-section">
-        <div className="container">
-          <div className="offers-header d-flex justify-content-between align-items-center">
-            <div>
-              <h2 className="offers-title">תרומות אחרונות</h2>
-              <p className="offers-subtitle">אזרחים שרוצים לתרום ולעזור</p>
-            </div>
 
-            <Link to="/offers" className="offers-link">
-              כל התרומות <i className="bi bi-arrow-left-short fs-5 pe-1"></i>
-            </Link>
-          </div>
-
-          <div className="cards">
-            {latestOffers.map((offer) => (
-              <CardHome
-                key={offer._id}
-                idCard={offer._id}
-                title={offer.title}
-                category={offer.category}
-                description={offer.description}
-                city={offer.city}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
+      <Carousel
+        // id="offersCarousel"
+        title="תרומות אחרונות"
+        subtitle="אזרחים שרוצים לתרום ולעזור"
+        linkText="כל התרומות"
+        linkUrl="/offers"
+        items={latestOffers}
+      />
 
       {/* אזור איך זה עובד */}
       <section className="workflow-section">

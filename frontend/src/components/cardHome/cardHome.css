@@ -1,10 +1,9 @@
-.card {
+/* .card {
   background: #fff;
   border-radius: 1rem;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   height: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -111,4 +110,84 @@
 
 .modal-content p {
   line-height: 1.5;
+} */
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px; /* גובה אחיד */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+.card .title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0a0f25;
+  margin-bottom: 0.5rem;
+}
+
+.card .description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0.5rem 0 1rem 0;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.card .read-more {
+  font-size: 0.85rem;
+  color: #f1c40f;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card .d-flex {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-label,
+.priority-label {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.card .city {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.view-details-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1rem;
+  color: #0a0f25;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.view-details-btn:hover {
+  color: #f1c40f;
 }
