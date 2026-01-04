@@ -49,35 +49,50 @@ function CardHome({ title, category, description, city, priority, idCard }) {
   }, [description]);
 
   return (
-    <div className="card">
-      <div className="d-flex justify-content-between align-items-start">
-        <h2 className="title">{title}</h2>
-        <span className="category-label" style={categoryColors[category]}>
-          {category}
-        </span>
-      </div>
-      <p
-        ref={descriptionRef}
-        className={`description ${!showReadMore ? "with-spacing" : ""}`}
-      >
-        {description}
-      </p>
-      {showReadMore && (
-        <button className="read-more" onClick={() => setIsModalOpen(true)}>
-          קרא עוד
-        </button>
-      )}
-      <div className="d-flex justify-content-between">
-        <p className="city">📍{city}</p>
-        {priority && (
-          <p className="priority-label" style={priorityColors[priority]}>
-            {priority}
-          </p>
+    <div className="card shadow-sm h-100">
+      <div className="card-body d-flex flex-column">
+        <div className="d-flex justify-content-between mb-2">
+          <span className="badge" style={categoryColors[category]}>
+            {category}
+          </span>
+
+          {priority && (
+            <span className="badge" style={priorityColors[priority]}>
+              {priority}
+            </span>
+          )}
+        </div>
+
+        <h5 className="card-title fw-bold">{title}</h5>
+
+        <p
+          ref={descriptionRef}
+          className="card-text text-muted flex-grow-1"
+          style={{ maxHeight: "4.5em", overflow: "hidden" }}
+        >
+          {description}
+        </p>
+
+        {showReadMore && (
+          <button
+            className="btn btn-link p-0 text-warning fw-semibold mb-2"
+            onClick={() => setIsModalOpen(true)}
+          >
+            קרא עוד
+          </button>
         )}
+
+        <div className="d-flex justify-content-between align-items-center mt-2">
+          <small className="text-muted">📍 {city}</small>
+
+          <Link
+            to={`/card-details/${idCard}`}
+            className="btn btn-outline-dark btn-sm"
+          >
+            צפייה בפרטים
+          </Link>
+        </div>
       </div>
-      <Link to={`/card-details/${idCard}`} className="view-details-btn">
-        צפייה בפרטים <i className="bi bi-arrow-left-short"></i>
-      </Link>
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>

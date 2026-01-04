@@ -1,11 +1,13 @@
 import { Link } from "react-router";
 import "./hero.css";
 import "./latestItems.css";
+import "./workflow.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/requestContext";
 import { useOffer } from "../../context/offerContext";
 import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/carousel/carousel";
+import CardHome from "../../components/cardHome/cardHome";
 
 function HomePage() {
   const { requests } = useRequest();
