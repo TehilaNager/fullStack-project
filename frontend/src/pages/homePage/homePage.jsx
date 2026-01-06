@@ -2,11 +2,14 @@ import { Link } from "react-router";
 import "./hero.css";
 import "./latestItems.css";
 import "./workflow.css";
+import "./help-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/requestContext";
 import { useOffer } from "../../context/offerContext";
 import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/carousel/carousel";
+import helpCards from "../../helpers/helpData";
+import HelpCard from "../../components/helpCard/helpCard";
 
 function HomePage() {
   const { requests } = useRequest();
@@ -59,91 +62,6 @@ function HomePage() {
         items={latestOffers}
       />
 
-      {/* אזור איך זה עובד */}
-      {/* <section className="workflow-section">
-        <div className="workflow-card">
-          <h3>
-            <i className="bi bi-heart"></i> צריך עזרה?
-          </h3>
-
-          <div className="steps-row">
-            <div className="step-card">
-              <p className="step-number">1</p>
-              <h4>
-                <i className="bi bi-search"></i> בדקו אם יש תרומה מתאימה
-              </h4>
-              <p>
-                חפשו באזור התרומות אם מישהו כבר פרסם משהו שיכול לתת לכם מענה. אם
-                מצאתם, צרו קשר דרך מערכת ההודעות.
-              </p>
-            </div>
-
-            <div className="step-card">
-              <p className="step-number">2</p>
-              <h4>
-                <i className="bi bi-file-earmark-text"></i> פרסמו בקשה חדשה
-              </h4>
-              <p>
-                תמיד אפשר לפרסם בקשה חדשה. פרטו מה בדיוק אתם צריכים, עבור מי
-                ובאיזה מיקום.
-              </p>
-            </div>
-
-            <div className="step-card">
-              <p className="step-number">3</p>
-              <h4>
-                <i className="bi bi-chat"></i> המתינו לעזרה
-              </h4>
-              <p>
-                מידי פעם עברו על רשימת התרומות. מי שיכול לעזור ייצור קשר איתכם
-                דרך מערכת ההודעות.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="workflow-card">
-          <h3>
-            <i className="bi bi-gift"></i> רוצה לתת?
-          </h3>
-
-          <div className="steps-row">
-            <div className="step-card">
-              <p className="step-number">1</p>
-              <h4>
-                <i className="bi bi-search"></i> בדקו בקשות קיימות
-              </h4>
-              <p>
-                חפשו אם מישהו זקוק בדיוק למה שאתם יכולים לתת. אם מצאתם בקשה
-                מתאימה, צרו קשר דרך מערכת ההודעות.
-              </p>
-            </div>
-
-            <div className="step-card">
-              <p className="step-number">2</p>
-              <h4>
-                <i className="bi bi-file-earmark-text"></i> פרסמו תרומה חדשה
-              </h4>
-              <p>
-                תמיד אפשר להציע תרומה בעצמכם. שתפו מה תוכלו להציע כדי לעזור
-                לאחרים.
-              </p>
-            </div>
-
-            <div className="step-card">
-              <p className="step-number">3</p>
-              <h4>
-                <i className="bi bi-chat"></i> המתינו לקשר
-              </h4>
-              <p>
-                מי שזקוק לתרומה ייצור איתכם קשר. כדאי מידי פעם לבדוק באזור
-                הבקשות – אולי מישהו פרסם בקשה חדשה שתתאים לכם.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       <section className="workflow-section">
         <h2 className="workflow-title">איך זה עובד?</h2>
         <p className="workflow-subtitle">
@@ -151,7 +69,6 @@ function HomePage() {
         </p>
 
         <div className="workflow-grid">
-          {/* צריך עזרה */}
           <div className="workflow-card need">
             <div className="workflow-card-header">
               <div className="workflow-icon">
@@ -166,8 +83,8 @@ function HomePage() {
                 <div>
                   <h4>בדקו אם יש תרומה מתאימה</h4>
                   <p>
-                    חפשו באזור התרומות אם מישהו כבר פרסם משהו שיכול לתת לכם
-                    מענה.
+                    חפשו באזור התרומות אם כבר יש מישהו שיכול לעזור.
+                    <br /> מצאתם? לחצו על התרומה וצרו קשר.
                   </p>
                 </div>
               </div>
@@ -176,7 +93,7 @@ function HomePage() {
                 <span className="step-index">2</span>
                 <div>
                   <h4>פרסמו בקשה חדשה</h4>
-                  <p>פרטו מה בדיוק אתם צריכים, עבור מי ובאיזה מיקום.</p>
+                  <p>תוכלו ליצור בקשה חדשה בכל זמן ולפנות בקלות לתורמים.</p>
                 </div>
               </div>
 
@@ -184,13 +101,12 @@ function HomePage() {
                 <span className="step-index">3</span>
                 <div>
                   <h4>המתינו לעזרה</h4>
-                  <p>מי שיכול לעזור ייצור איתכם קשר דרך מערכת ההודעות.</p>
+                  <p>מי שיכול לעזור עשוי ליצור איתכם קשר דרך מערכת ההודעות.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* רוצה לתת */}
           <div className="workflow-card give">
             <div className="workflow-card-header">
               <div className="workflow-icon">
@@ -203,8 +119,11 @@ function HomePage() {
               <div className="workflow-step">
                 <span className="step-index">1</span>
                 <div>
-                  <h4>בדקו בקשות קיימות</h4>
-                  <p>חפשו אם מישהו זקוק בדיוק למה שאתם יכולים לתת.</p>
+                  <h4>בדקו אם יש בקשה מתאימה</h4>
+                  <p>
+                    חפשו באזור הבקשות של החיילים ואנשי מילואים אם מישהו זקוק למה
+                    שאתם יכולים להציע.
+                  </p>
                 </div>
               </div>
 
@@ -212,7 +131,10 @@ function HomePage() {
                 <span className="step-index">2</span>
                 <div>
                   <h4>פרסמו תרומה חדשה</h4>
-                  <p>שתפו מה תוכלו להציע כדי לעזור לאחרים.</p>
+                  <p>
+                    תוכלו ליצור תרומה חדשה בכל זמן ולהציע עזרה לחיילים ואנשי
+                    מילואים.
+                  </p>
                 </div>
               </div>
 
@@ -220,7 +142,7 @@ function HomePage() {
                 <span className="step-index">3</span>
                 <div>
                   <h4>המתינו לקשר</h4>
-                  <p>מי שזקוק לתרומה ייצור איתכם קשר דרך המערכת.</p>
+                  <p>מי שזקוק לתרומה שלכם עשוי ליצור איתכם קשר דרך המערכת.</p>
                 </div>
               </div>
             </div>
@@ -228,10 +150,8 @@ function HomePage() {
         </div>
       </section>
 
-      {/* אזור איך אפשר לעזור */}
-
       <section className="help-section">
-        <h2>איך אפשר לעזור?</h2>
+        <h2 className="help-section-title">איך אפשר לעזור?</h2>
 
         <p className="help-intro">
           הפלטפורמה מאפשרת מגוון רחב של דרכי סיוע לחיילים ולאנשי מילואים, בהתאם
@@ -240,47 +160,21 @@ function HomePage() {
           הרשימה שלהלן מציגה דוגמאות נפוצות לסוגי עזרה, אך אינה מוגבלת — כל
           תרומה, יוזמה או הצעה לעזרה מתקבלות בברכה.
           <br />
-          ניתן לעיין בבקשות קיימות או לפרסם תרומה חדשה — גם אם אינה מופיעה
-          ברשימה.
+          <span className="help-intro-muted">
+            ניתן לעיין בבקשות קיימות או לפרסם תרומה חדשה — גם אם אינה מופיעה
+            ברשימה.
+          </span>
         </p>
 
         <div className="help-options">
-          <div className="help-card">
-            <h3>תרומות וציוד</h3>
-            <ul>
-              <li>ציוד צבאי</li>
-              <li>ביגוד</li>
-              <li>מזון</li>
-              <li>ציוד אלקטרוני</li>
-              <li>ספרים וחומרי לימוד</li>
-              <li>ציוד רפואי</li>
-            </ul>
-            <p>
-              כל דבר שתוכלו לתרום — גם אם אינו מופיע ברשימה — יתקבל בברכה ויעזור
-              מאוד.
-            </p>
-          </div>
-
-          <div className="help-card">
-            <h3>תמיכה נפשית וחברתית</h3>
-            <ul>
-              <li>תמיכה נפשית וחברתית</li>
-              <li>ליווי אישי ושיחות</li>
-              <li>סיוע רגשי בהתאם לצורך שעולה</li>
-            </ul>
-            <p>גם תרומה של זמן, הקשבה ונוכחות היא בעלת ערך משמעותי.</p>
-          </div>
-
-          <div className="help-card">
-            <h3>תחבורה וסיוע נוסף</h3>
-            <ul>
-              <li>הסעות</li>
-              <li>הובלת ציוד</li>
-              <li>סיוע לוגיסטי</li>
-              <li>עזרה כללית מכל סוג</li>
-            </ul>
-            <p>אם יש ברשותכם אפשרות לעזור — סביר להניח שיש מי שזקוק לה.</p>
-          </div>
+          {helpCards.map((card, index) => (
+            <HelpCard
+              key={index}
+              title={card.title}
+              items={card.items}
+              text={card.text}
+            />
+          ))}
         </div>
       </section>
 

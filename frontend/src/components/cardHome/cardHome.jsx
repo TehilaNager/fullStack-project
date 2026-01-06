@@ -53,7 +53,7 @@ function CardHome({
   return (
     <div className="card">
       <div className="card-body d-flex flex-column">
-        <div className="d-flex justify-content-between mb-2">
+        <div className="card-badges">
           <span className="badge" style={categoryColors[category]}>
             {category}
           </span>
