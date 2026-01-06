@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import "./cardHome.css";
 import { Link } from "react-router";
 
@@ -24,6 +24,7 @@ const priorityColors = {
     border: "1px solid #842029",
   },
 };
+
 const categoryColors = {
   "ציוד צבאי": { background: "#e7f1ff", color: "#003366" },
   ביגוד: { background: "#f9e7ff", color: "#4b0082" },
@@ -36,26 +37,26 @@ const categoryColors = {
   אחר: { background: "#f5f5f5", color: "#333" },
 };
 
-function CardHome({ title, category, description, city, priority, idCard }) {
+function CardHome({
+  title,
+  updatedAt,
+  category,
+  description,
+  city,
+  priority,
+  idCard,
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showReadMore, setShowReadMore] = useState(false);
-  const descriptionRef = useRef(null);
 
-  useEffect(() => {
-    const el = descriptionRef.current;
-    if (el) {
-      setShowReadMore(el.scrollHeight > el.clientHeight);
-    }
-  }, [description]);
+  const isTruncated = description.split(" ").length > 20;
 
   return (
-    <div className="card shadow-sm h-100">
+    <div className="card">
       <div className="card-body d-flex flex-column">
         <div className="d-flex justify-content-between mb-2">
           <span className="badge" style={categoryColors[category]}>
             {category}
           </span>
-
           {priority && (
             <span className="badge" style={priorityColors[priority]}>
               {priority}
@@ -65,26 +66,32 @@ function CardHome({ title, category, description, city, priority, idCard }) {
 
         <h5 className="card-title fw-bold">{title}</h5>
 
-        <p
-          ref={descriptionRef}
-          className="card-text text-muted flex-grow-1"
-          style={{ maxHeight: "4.5em", overflow: "hidden" }}
-        >
-          {description}
-        </p>
+        <small className="card-updated">
+          עודכן:{" "}
+          {(() => {
+            const d = new Date(updatedAt);
+            const day = String(d.getDate()).padStart(2, "0");
+            const month = String(d.getMonth() + 1).padStart(2, "0");
+            const year = d.getFullYear();
+            return `${day}/${month}/${year}`;
+          })()}
+        </small>
 
-        {showReadMore && (
-          <button
-            className="btn btn-link p-0 text-warning fw-semibold mb-2"
-            onClick={() => setIsModalOpen(true)}
-          >
-            קרא עוד
-          </button>
-        )}
+        <p className="card-text">{description}</p>
 
-        <div className="d-flex justify-content-between align-items-center mt-2">
+        <div className="read-more-wrapper">
+          {isTruncated && (
+            <span
+              className="read-more-inline"
+              onClick={() => setIsModalOpen(true)}
+            >
+              קרא עוד
+            </span>
+          )}
+        </div>
+
+        <div className="card-footer mt-auto d-flex justify-content-between align-items-center">
           <small className="text-muted">📍 {city}</small>
-
           <Link
             to={`/card-details/${idCard}`}
             className="btn btn-outline-dark btn-sm"
@@ -96,11 +103,14 @@ function CardHome({ title, category, description, city, priority, idCard }) {
 
       {isModalOpen && (
         <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modal-content-popup"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 className="modal-title">תוכן הבקשה</h3>
             <p>{description}</p>
             <button
-              className="close-modal"
+              className="close-modal-popup"
               onClick={() => setIsModalOpen(false)}
             >
               סגור

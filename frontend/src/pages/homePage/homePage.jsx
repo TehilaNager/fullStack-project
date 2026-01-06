@@ -7,7 +7,6 @@ import { useRequest } from "../../context/requestContext";
 import { useOffer } from "../../context/offerContext";
 import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/carousel/carousel";
-import CardHome from "../../components/cardHome/cardHome";
 
 function HomePage() {
   const { requests } = useRequest();
@@ -17,7 +16,6 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      {/* חלק עליון */}
       <section className="hero">
         <div className="hero-content">
           <div className="hero-badge">
@@ -43,10 +41,8 @@ function HomePage() {
         </div>
       </section>
 
-      {/* אזור בקשות אחרונות */}
-
       <Carousel
-        // id="requestsCarousel"
+        className="section-light"
         title="בקשות אחרונות"
         subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
         linkText="כל הבקשות"
@@ -54,10 +50,8 @@ function HomePage() {
         items={latestRequests}
       />
 
-      {/* אזור תרומות אחרונות */}
-
       <Carousel
-        // id="offersCarousel"
+        className="section-muted"
         title="תרומות אחרונות"
         subtitle="אזרחים שרוצים לתרום ולעזור"
         linkText="כל התרומות"
@@ -66,7 +60,7 @@ function HomePage() {
       />
 
       {/* אזור איך זה עובד */}
-      <section className="workflow-section">
+      {/* <section className="workflow-section">
         <div className="workflow-card">
           <h3>
             <i className="bi bi-heart"></i> צריך עזרה?
@@ -145,6 +139,90 @@ function HomePage() {
                 מי שזקוק לתרומה ייצור איתכם קשר. כדאי מידי פעם לבדוק באזור
                 הבקשות – אולי מישהו פרסם בקשה חדשה שתתאים לכם.
               </p>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      <section className="workflow-section">
+        <h2 className="workflow-title">איך זה עובד?</h2>
+        <p className="workflow-subtitle">
+          שני מסלולים פשוטים לחיבור בין מי שצריך עזרה למי שרוצה לתת
+        </p>
+
+        <div className="workflow-grid">
+          {/* צריך עזרה */}
+          <div className="workflow-card need">
+            <div className="workflow-card-header">
+              <div className="workflow-icon">
+                <i className="bi bi-heart"></i>
+              </div>
+              <h3>מסלול 1 – צריך עזרה?</h3>
+            </div>
+
+            <div className="workflow-steps">
+              <div className="workflow-step">
+                <span className="step-index">1</span>
+                <div>
+                  <h4>בדקו אם יש תרומה מתאימה</h4>
+                  <p>
+                    חפשו באזור התרומות אם מישהו כבר פרסם משהו שיכול לתת לכם
+                    מענה.
+                  </p>
+                </div>
+              </div>
+
+              <div className="workflow-step">
+                <span className="step-index">2</span>
+                <div>
+                  <h4>פרסמו בקשה חדשה</h4>
+                  <p>פרטו מה בדיוק אתם צריכים, עבור מי ובאיזה מיקום.</p>
+                </div>
+              </div>
+
+              <div className="workflow-step">
+                <span className="step-index">3</span>
+                <div>
+                  <h4>המתינו לעזרה</h4>
+                  <p>מי שיכול לעזור ייצור איתכם קשר דרך מערכת ההודעות.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* רוצה לתת */}
+          <div className="workflow-card give">
+            <div className="workflow-card-header">
+              <div className="workflow-icon">
+                <i className="bi bi-gift"></i>
+              </div>
+              <h3>מסלול 2 – רוצה לתת?</h3>
+            </div>
+
+            <div className="workflow-steps">
+              <div className="workflow-step">
+                <span className="step-index">1</span>
+                <div>
+                  <h4>בדקו בקשות קיימות</h4>
+                  <p>חפשו אם מישהו זקוק בדיוק למה שאתם יכולים לתת.</p>
+                </div>
+              </div>
+
+              <div className="workflow-step">
+                <span className="step-index">2</span>
+                <div>
+                  <h4>פרסמו תרומה חדשה</h4>
+                  <p>שתפו מה תוכלו להציע כדי לעזור לאחרים.</p>
+                </div>
+              </div>
+
+              <div className="workflow-step">
+                <span className="step-index">3</span>
+                <div>
+                  <h4>המתינו לקשר</h4>
+                  <p>מי שזקוק לתרומה ייצור איתכם קשר דרך המערכת.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
