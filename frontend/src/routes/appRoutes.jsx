@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import HomePage from "../pages/homePage/homePage.jsx";
+import HomePage from "../pages/HomePage/HomePage.jsx";
 import AboutPage from "../pages/AboutPage/AboutPage.jsx";
 import RequestsPage from "../pages/requestsPage/requestsPage.jsx";
 import OffersPage from "../pages/offersPage.jsx";
