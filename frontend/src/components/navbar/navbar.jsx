@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router";
-import "./navbar.css";
+import "./nav-bar.css";
 import Logo from "../common/Logo/Logo";
 import AuthModal from "../AuthModal/AuthModal";
 

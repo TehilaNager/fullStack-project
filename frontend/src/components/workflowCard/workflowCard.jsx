@@ -1,4 +1,4 @@
-import "./WorkflowCard.css";
+import "./workflow-card.css";
 
 function WorkflowCard({ type, icon, title, steps = [] }) {
   return (

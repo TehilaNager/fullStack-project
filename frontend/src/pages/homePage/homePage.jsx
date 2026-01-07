@@ -11,7 +11,7 @@ import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/Carousel/Carousel";
 import helpCards from "../../helpers/helpData";
 import HelpCard from "../../components/HelpCard/HelpCard";
-import WorkflowCard from "../../components/workflowCard/workflowCard";
+import WorkflowCard from "../../components/WorkflowCard/WorkflowCard";
 import workflowCards from "../../helpers/workflowData";
 
 function HomePage() {
