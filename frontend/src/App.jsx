@@ -1,6 +1,6 @@
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
-import AppRoutes from "./routes/appRoutes";
+import AppRoutes from "./routes/AppRoutes";
 
 export default function App() {
   return (
