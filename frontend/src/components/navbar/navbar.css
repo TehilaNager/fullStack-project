@@ -53,6 +53,8 @@
   transform: scale(1.15);
 } */
 
+/* עיצוב אחר: */
+/* 
 * {
   padding: 0;
   margin: 0;
@@ -62,8 +64,8 @@
 
 .custom-navbar {
   height: 90px;
-  background: rgba(255, 255, 255, 0.96); /* נשאר כפי שביקשת */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15); /* מעט יותר מודגש ומקצועי */
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   align-items: center;
@@ -81,13 +83,13 @@
 .navbar-nav {
   display: flex;
   align-items: center;
-  gap: 1.6rem; /* יותר מרווח בין הקישורים */
+  gap: 1.6rem;
 }
 
 .nav-link {
   font-size: 1.15rem;
   font-weight: 600;
-  color: #1e2b4d !important; /* כחול כהה מקצועי */
+  color: #1e2b4d !important;
   padding: 0.55rem 1rem;
   border-radius: 12px;
   position: relative;
@@ -102,7 +104,7 @@
   transform: translateX(-50%) scaleX(0);
   width: 50%;
   height: 2px;
-  background: #f1c40f; /* קו זהב מודגש */
+  background: #f1c40f;
   transition: transform 0.3s ease;
   transform-origin: center;
 }
@@ -112,28 +114,27 @@
 }
 
 .nav-link:hover {
-  background-color: rgba(241, 196, 15, 0.15); /* אפקט עדין של זהב */
-  color: #0a0f25 !important; /* כחול כהה על hover */
+  background-color: rgba(241, 196, 15, 0.15);
+  color: #0a0f25 !important;
 }
 
 .nav-link.active {
-  color: #f1c40f !important; /* צבע זהב ברור למצב פעיל */
+  color: #f1c40f !important;
   font-weight: 700;
 }
 
 .profile-icon {
   font-size: 2rem;
-  color: #1e2b4d; /* כחול כהה */
+  color: #1e2b4d;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .profile-icon:hover {
-  color: #f1c40f; /* זהב בהיר */
+  color: #f1c40f;
   transform: scale(1.2);
 }
 
-/* Toggle button למובייל */
 .navbar-toggler {
   border: none;
   background: transparent;
@@ -146,11 +147,125 @@
   color: #1e2b4d;
 }
 
-/* RESPONSIVE */
 @media (max-width: 992px) {
   .navbar-nav {
     flex-direction: column;
     background: rgba(255, 255, 255, 0.95);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+} */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  direction: rtl;
+}
+
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  background: linear-gradient(to left, #f1c40f, #0a0f25);
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  z-index: 1000;
+  transition: box-shadow 0.3s ease;
+}
+
+.custom-navbar:hover {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+}
+
+.custom-navbar .container,
+.nav-link,
+.profile-icon {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.nav-link {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #000 !important;
+  padding: 0.55rem 1rem;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 50%;
+  height: 2px;
+  background: #f1c40f;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-link:hover {
+  background-color: rgba(241, 196, 15, 0.25);
+  color: #0a0f25 !important;
+}
+
+.nav-link.active {
+  color: #f1c40f !important;
+  font-weight: 700;
+}
+
+.profile-icon {
+  font-size: 2rem;
+  color: #f1c40f;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.profile-icon:hover {
+  transform: scale(1.2);
+}
+
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.navbar-toggler-icon {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: column;
+    background: linear-gradient(to left, #f1c40f, #0a0f25);
     padding: 1rem 2rem;
     border-radius: 12px;
   }

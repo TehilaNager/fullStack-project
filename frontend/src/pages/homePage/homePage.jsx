@@ -10,6 +10,8 @@ import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/carousel/carousel";
 import helpCards from "../../helpers/helpData";
 import HelpCard from "../../components/helpCard/helpCard";
+import WorkflowCard from "../../components/workflowCard/workflowCard";
+import workflowCards from "../../helpers/workflowData";
 
 function HomePage() {
   const { requests } = useRequest();
@@ -69,85 +71,19 @@ function HomePage() {
         </p>
 
         <div className="workflow-grid">
-          <div className="workflow-card need">
-            <div className="workflow-card-header">
-              <div className="workflow-icon">
-                <i className="bi bi-heart"></i>
-              </div>
-              <h3>מסלול 1 – צריך עזרה?</h3>
-            </div>
-
-            <div className="workflow-steps">
-              <div className="workflow-step">
-                <span className="step-index">1</span>
-                <div>
-                  <h4>בדקו אם יש תרומה מתאימה</h4>
-                  <p>
-                    חפשו באזור התרומות אם כבר יש מישהו שיכול לעזור.
-                    <br /> מצאתם? לחצו על התרומה וצרו קשר.
-                  </p>
-                </div>
-              </div>
-
-              <div className="workflow-step">
-                <span className="step-index">2</span>
-                <div>
-                  <h4>פרסמו בקשה חדשה</h4>
-                  <p>תוכלו ליצור בקשה חדשה בכל זמן ולפנות בקלות לתורמים.</p>
-                </div>
-              </div>
-
-              <div className="workflow-step">
-                <span className="step-index">3</span>
-                <div>
-                  <h4>המתינו לעזרה</h4>
-                  <p>מי שיכול לעזור עשוי ליצור איתכם קשר דרך מערכת ההודעות.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="workflow-card give">
-            <div className="workflow-card-header">
-              <div className="workflow-icon">
-                <i className="bi bi-gift"></i>
-              </div>
-              <h3>מסלול 2 – רוצה לתת?</h3>
-            </div>
-
-            <div className="workflow-steps">
-              <div className="workflow-step">
-                <span className="step-index">1</span>
-                <div>
-                  <h4>בדקו אם יש בקשה מתאימה</h4>
-                  <p>
-                    חפשו באזור הבקשות של החיילים ואנשי מילואים אם מישהו זקוק למה
-                    שאתם יכולים להציע.
-                  </p>
-                </div>
-              </div>
-
-              <div className="workflow-step">
-                <span className="step-index">2</span>
-                <div>
-                  <h4>פרסמו תרומה חדשה</h4>
-                  <p>
-                    תוכלו ליצור תרומה חדשה בכל זמן ולהציע עזרה לחיילים ואנשי
-                    מילואים.
-                  </p>
-                </div>
-              </div>
-
-              <div className="workflow-step">
-                <span className="step-index">3</span>
-                <div>
-                  <h4>המתינו לקשר</h4>
-                  <p>מי שזקוק לתרומה שלכם עשוי ליצור איתכם קשר דרך המערכת.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          {workflowCards.map((card, index) => (
+            <WorkflowCard
+              key={index}
+              type={card.type}
+              icon={card.icon}
+              title={card.title}
+              steps={card.steps}
+            />
+          ))}
         </div>
+        <p className="workflow-bridge">
+          עכשיו, כשברור איך זה עובד — נפרוס חלק מדרכי העזרה האפשריות.
+        </p>
       </section>
 
       <section className="help-section">
