@@ -4,7 +4,7 @@ import "./login-register-forms.css";
 import Input from "../common/Inputs/Input";
 import InputPassword from "../common/Inputs/InputPassword";
 import { validateSignIn } from "../../helpers/userValidation";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/AuthContext";
 
 function LoginForm({ switchToRegister }) {
   const { login } = useAuth();

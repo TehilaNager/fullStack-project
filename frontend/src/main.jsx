@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router";
 import App from "./App.jsx";
 import { RequestProvider } from "./context/requestContext.jsx";
 import { OfferProvider } from "./context/offerContext.jsx";
-import { AuthProvider } from "./context/authContext.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
