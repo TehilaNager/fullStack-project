@@ -1,3 +1,5 @@
+import "./footer";
+
 function Footer() {
   return <div></div>;
 }

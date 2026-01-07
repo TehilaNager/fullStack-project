@@ -1,5 +1,5 @@
 import Navbar from "./components/navbar/navbar";
-import Footer from "./components/footer/footer";
+import Footer from "./components/Footer/Footer";
 import AppRoutes from "./routes/appRoutes";
 
 export default function App() {
