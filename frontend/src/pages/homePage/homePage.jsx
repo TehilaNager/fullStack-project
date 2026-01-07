@@ -5,7 +5,7 @@ import "./workflow-section.css";
 import "./help-section.css";
 import "./about-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
-import { useRequest } from "../../context/requestContext";
+import { useRequest } from "../../context/RequestContext";
 import { useOffer } from "../../context/OfferContext";
 import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/Carousel/Carousel";
