@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import "./inspiring-messages.css";
 
 function InspiringMessages() {
   const messages = [
