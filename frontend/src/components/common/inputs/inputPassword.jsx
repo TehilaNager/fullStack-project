@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./inputPassword.css";
+import "./input-password.css";
 
 function InputPassword({ placeholder, fieldProps, error }) {
   const [showPassword, setShowPassword] = useState(false);

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import "./login-register-forms.css";
-import Input from "../common/inputs/input";
-import InputPassword from "../common/inputs/inputPassword";
+import Input from "../common/Inputs/input";
+import InputPassword from "../common/Inputs/InputPassword";
 import { validateSignUp } from "../../helpers/userValidation";
 import { useAuth } from "../../context/authContext";
 
