@@ -1,4 +1,4 @@
-import Navbar from "./components/navbar/navbar";
+import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import AppRoutes from "./routes/appRoutes";
 
