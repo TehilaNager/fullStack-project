@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import HomePage from "../pages/HomePage/HomePage.jsx";
 import AboutPage from "../pages/AboutPage/AboutPage.jsx";
 import RequestsPage from "../pages/RequestsPage/RequestsPage.jsx";
-import OffersPage from "../pages/offersPage.jsx";
+import OffersPage from "../pages/OffersPage/OffersPage.jsx";
 import DetailsCard from "../pages/detailsCard.jsx";
 
 function AppRoutes() {
