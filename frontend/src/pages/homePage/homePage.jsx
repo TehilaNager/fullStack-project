@@ -6,7 +6,7 @@ import "./help-section.css";
 import "./about-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/requestContext";
-import { useOffer } from "../../context/offerContext";
+import { useOffer } from "../../context/OfferContext";
 import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/Carousel/Carousel";
 import helpCards from "../../helpers/helpData";
