@@ -10,7 +10,7 @@ import { useOffer } from "../../context/offerContext";
 import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/Carousel/Carousel";
 import helpCards from "../../helpers/helpData";
-import HelpCard from "../../components/helpCard/helpCard";
+import HelpCard from "../../components/HelpCard/HelpCard";
 import WorkflowCard from "../../components/workflowCard/workflowCard";
 import workflowCards from "../../helpers/workflowData";
 

@@ -1,4 +1,4 @@
-import "./helpCard.css";
+import "./help-card.css";
 
 function HelpCard({ title, items = [], text }) {
   return (
