@@ -1,3 +1,5 @@
+import "./offers-page.css";
+
 function OffersPage() {
   return <div>Offers page</div>;
 }
