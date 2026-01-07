@@ -1,3 +1,5 @@
+import "./details-card.css";
+
 function DetailsCard() {
   return <div>Detail Card Home</div>;
 }
