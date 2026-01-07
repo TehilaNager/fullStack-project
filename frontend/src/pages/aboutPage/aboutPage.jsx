@@ -1,4 +1,4 @@
-import "./aboutPage.css";
+import "./about-page.css";
 import { Link } from "react-router";
 
 function AboutPage() {
