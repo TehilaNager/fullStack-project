@@ -1,7 +1,7 @@
 import { useState } from "react";
-import LoginForm from "./loginForm";
-import RegisterForm from "./registerForm";
-import "./authModal.css";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import "./auth-modal.css";
 
 function AuthModal({ closeModal }) {
   const [activeTab, setActiveTab] = useState("login");

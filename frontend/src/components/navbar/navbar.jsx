@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 import "./navbar.css";
 import Logo from "../common/logo/logo";
-import AuthModal from "../authModal/authModal";
+import AuthModal from "../AuthModal/AuthModal";
 
 function Navbar() {
   const [modalOpen, setModalOpen] = useState(false);

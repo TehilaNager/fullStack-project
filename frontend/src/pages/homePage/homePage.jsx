@@ -1,8 +1,9 @@
 import { Link } from "react-router";
-import "./hero.css";
-import "./latestItems.css";
-import "./workflow.css";
+import "./hero-section.css";
+import "./latestItems-section.css";
+import "./workflow-section.css";
 import "./help-section.css";
+import "./about-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/requestContext";
 import { useOffer } from "../../context/offerContext";
@@ -115,6 +116,23 @@ function HomePage() {
       </section>
 
       {/* אזור מי אנחנו */}
+      {/* <section className="about-section">
+        <div className="about-icon">
+          <i className="bi bi-heart"></i>
+        </div>
+
+        <h2 className="about-title">מי אנחנו?</h2>
+
+        <p className="about-text">
+          אנחנו קהילה שמטרתה לתמוך בחיילים ובמילואים, ליצור חיבור בין אזרחים
+          לבין לוחמיהם ולוודא שכל תרומה מגיעה למקום הנכון.
+        </p>
+
+        <Link className="about-btn" to="/aboutPage">
+          עוד קצת עלינו <i className="bi bi-arrow-left-short"></i>
+        </Link>
+      </section> */}
+
       <section className="about-section">
         <div className="about-icon">
           <i className="bi bi-heart"></i>
@@ -125,6 +143,11 @@ function HomePage() {
         <p className="about-text">
           אנחנו קהילה שמטרתה לתמוך בחיילים ובמילואים, ליצור חיבור בין אזרחים
           לבין לוחמיהם ולוודא שכל תרומה מגיעה למקום הנכון.
+        </p>
+
+        <p className="about-subtext">
+          כאן תוכלו גם לקבל הצצה איך המערכת שלנו עובדת, מה המסלולים השונים ואיך
+          תוכלו להצטרף ולתרום בדרכים שונות.
         </p>
 
         <Link className="about-btn" to="/aboutPage">

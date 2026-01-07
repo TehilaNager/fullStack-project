@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import "./loginRegisterForms.css";
+import "./login-register-forms.css";
 import Input from "../common/inputs/input";
 import InputPassword from "../common/inputs/inputPassword";
 import { validateSignIn } from "../../helpers/userValidation";
