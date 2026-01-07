@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./cardHome.css";
+import "./card-home.css";
 import { Link } from "react-router";
 
 const priorityColors = {

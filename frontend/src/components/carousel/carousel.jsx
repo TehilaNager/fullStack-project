@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import "./carousel.css";
-import CardHome from "../cardHome/cardHome";
+import CardHome from "../CardHome/CardHome";
 import { useState, useEffect } from "react";
 
 function Carousel({
