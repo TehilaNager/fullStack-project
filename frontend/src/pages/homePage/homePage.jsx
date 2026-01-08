@@ -25,7 +25,7 @@ function HomePage() {
 
   return (
     <div className="home-page">
-      <section className="hero">
+      <section className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">
             <i className="bi bi-heart-fill"></i> קהילה אזרחית תומכת
@@ -50,23 +50,25 @@ function HomePage() {
         </div>
       </section>
 
-      <Carousel
-        className="section-light"
-        title="בקשות אחרונות"
-        subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
-        linkText="כל הבקשות"
-        linkUrl="/requests"
-        items={latestRequests}
-      />
+      <section className="latestItems-section requests">
+        <Carousel
+          title="בקשות אחרונות"
+          subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
+          linkText="כל הבקשות"
+          linkUrl="/requests"
+          items={latestRequests}
+        />
+      </section>
 
-      <Carousel
-        className="section-muted"
-        title="תרומות אחרונות"
-        subtitle="אזרחים שרוצים לתרום ולעזור"
-        linkText="כל התרומות"
-        linkUrl="/offers"
-        items={latestOffers}
-      />
+      <section className="latestItems-section offers">
+        <Carousel
+          title="תרומות אחרונות"
+          subtitle="אזרחים שרוצים לתרום ולעזור"
+          linkText="כל התרומות"
+          linkUrl="/offers"
+          items={latestOffers}
+        />
+      </section>
 
       <section className="workflow-section">
         <h2 className="workflow-title">איך זה עובד?</h2>
@@ -160,7 +162,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* אזור למה כדאי לתרום?*/}
       <InspiringMessages />
     </div>
   );
