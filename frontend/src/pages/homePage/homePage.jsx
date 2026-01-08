@@ -4,6 +4,7 @@ import "./latestItems-section.css";
 import "./workflow-section.css";
 import "./help-section.css";
 import "./about-section.css";
+import "./trust-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/RequestContext";
 import { useOffer } from "../../context/OfferContext";
@@ -115,68 +116,79 @@ function HomePage() {
         </div>
       </section>
 
-      {/* אזור מי אנחנו */}
-      {/* <section className="about-section">
-        <div className="about-icon">
-          <i className="bi bi-heart"></i>
-        </div>
-
-        <h2 className="about-title">מי אנחנו?</h2>
-
-        <p className="about-text">
-          אנחנו קהילה שמטרתה לתמוך בחיילים ובמילואים, ליצור חיבור בין אזרחים
-          לבין לוחמיהם ולוודא שכל תרומה מגיעה למקום הנכון.
-        </p>
-
-        <Link className="about-btn" to="/aboutPage">
-          עוד קצת עלינו <i className="bi bi-arrow-left-short"></i>
-        </Link>
-      </section> */}
-
       <section className="about-section">
         <div className="about-icon">
-          <i className="bi bi-heart"></i>
+          <i className="bi bi-people"></i>
         </div>
 
         <h2 className="about-title">מי אנחנו?</h2>
 
         <p className="about-text">
-          אנחנו קהילה שמטרתה לתמוך בחיילים ובמילואים, ליצור חיבור בין אזרחים
-          לבין לוחמיהם ולוודא שכל תרומה מגיעה למקום הנכון.
+          קהילה שמחברת בין חיילים ומילואים שצריכים תמיכה לבין מי שרוצה להושיט
+          יד. כאן כל אחד יכול לתת תמיכה, לעזור ולהרגיש מחובר – להיות חלק ממעגל
+          של חיזוק ותמיכה הדדית.
         </p>
 
         <p className="about-subtext">
-          כאן תוכלו גם לקבל הצצה איך המערכת שלנו עובדת, מה המסלולים השונים ואיך
-          תוכלו להצטרף ולתרום בדרכים שונות.
+          לחצו כאן כדי להכיר את הקהילה לעומק, להבין איך אנחנו פועלים באתר, ללמוד
+          על המסלולים השונים להשתתפות ולראות איך גם אתם יכולים להצטרף ולהיות חלק
+          מהחיזוק והתמיכה.
         </p>
 
-        <Link className="about-btn" to="/aboutPage">
-          עוד קצת עלינו <i className="bi bi-arrow-left-short"></i>
+        <Link className="about-btn" to="/about">
+          למידע נוסף על הקהילה <i className="bi bi-arrow-left-short"></i>
         </Link>
       </section>
 
-      {/* אזור אמון וביטחון באתר */}
       <section className="trust-section">
-        <h2 className="trust-title">אמון וביטחון באתר</h2>
-        <p className="trust-subtitle">אנחנו דואגים לכם ולנתונים שלכם בכל רגע</p>
+        <h2 className="trust-title">כאן אפשר להרגיש בטוחים</h2>
+        <p className="trust-subtitle">
+          בקהילת חבר ללוחם כל אחד ואחת בידיים טובות
+        </p>
 
         <div className="trust-cards">
           <div className="trust-card">
-            <i className="bi bi-shield"></i>
-            <h3>שקיפות מלאה</h3>
-            <p>כל התרומות מנוהלות בצורה שקופה וניתן לעקוב אחריהן בזמן אמת</p>
+            <div className="trust-card-header">
+              <i className="trust-icon bi bi-shield"></i>
+              <h3 className="trust-heading">שקיפות מלאה</h3>
+            </div>
+            <p className="trust-text">
+              כל תרומה וכל בקשה מטופלות באופן שקוף וברור, כך שתמיד תוכלו להיות
+              בטוחים שהתרומה שלכם מגיעה למקום הנכון.
+            </p>
           </div>
 
           <div className="trust-card">
-            <i className="bi bi-lock"></i>
-            <h3>אבטחת מידע</h3>
-            <p>המידע שלכם מאובטח ומוגן ברמה הגבוהה ביותר</p>
+            <div className="trust-card-header">
+              <i className="trust-icon bi bi-lock"></i>
+              <h3 className="trust-heading">אבטחת מידע</h3>
+            </div>
+            <p className="trust-text">
+              המידע שלכם נשמר ומוגן ברמה הגבוהה ביותר, כדי שתוכלו להיות רגועים
+              ובטוחים שהנתונים האישיים שלכם מוגנים.
+            </p>
           </div>
 
           <div className="trust-card">
-            <i className="bi bi-check2-circle"></i>
-            <h3>טיפול מקצועי</h3>
-            <p>אנחנו מבטיחים שכל בקשה תטופל במקצועיות וביעילות</p>
+            <div className="trust-card-header">
+              <i className="trust-icon bi bi-people"></i>
+              <h3 className="trust-heading">מקצועיות ואכפתיות</h3>
+            </div>
+            <p className="trust-text">
+              כל בקשה מטופלת על ידי צוות מקצועי ואכפתי, שמבין את הצרכים ופועל
+              בקפדנות.
+            </p>
+          </div>
+
+          <div className="trust-card">
+            <div className="trust-card-header">
+              <i className="trust-icon bi bi-hand-thumbs-up"></i>
+              <h3 className="trust-heading">אמינות ומחויבות</h3>
+            </div>
+            <p className="trust-text">
+              הקהילה מחויבת לפעול באמינות ובמסירות, ומקפידה שכל פעולה תתבצע
+              בצורה אחראית.
+            </p>
           </div>
         </div>
       </section>
