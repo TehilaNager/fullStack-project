@@ -12,8 +12,10 @@ import getLatestItems from "../../helpers/getLatestItems";
 import Carousel from "../../components/Carousel/Carousel";
 import helpCards from "../../helpers/helpData";
 import HelpCard from "../../components/HelpCard/HelpCard";
-import WorkflowCard from "../../components/WorkflowCard/WorkflowCard";
 import workflowCards from "../../helpers/workflowData";
+import WorkflowCard from "../../components/WorkflowCard/WorkflowCard";
+import trustCards from "../../helpers/trustData";
+import TrustCard from "../../components/TrustCard/TrustCard";
 
 function HomePage() {
   const { requests } = useRequest();
@@ -147,49 +149,14 @@ function HomePage() {
         </p>
 
         <div className="trust-cards">
-          <div className="trust-card">
-            <div className="trust-card-header">
-              <i className="trust-icon bi bi-shield"></i>
-              <h3 className="trust-heading">שקיפות מלאה</h3>
-            </div>
-            <p className="trust-text">
-              כל תרומה וכל בקשה מטופלות באופן שקוף וברור, כך שתמיד תוכלו להיות
-              בטוחים שהתרומה שלכם מגיעה למקום הנכון.
-            </p>
-          </div>
-
-          <div className="trust-card">
-            <div className="trust-card-header">
-              <i className="trust-icon bi bi-lock"></i>
-              <h3 className="trust-heading">אבטחת מידע</h3>
-            </div>
-            <p className="trust-text">
-              המידע שלכם נשמר ומוגן ברמה הגבוהה ביותר, כדי שתוכלו להיות רגועים
-              ובטוחים שהנתונים האישיים שלכם מוגנים.
-            </p>
-          </div>
-
-          <div className="trust-card">
-            <div className="trust-card-header">
-              <i className="trust-icon bi bi-people"></i>
-              <h3 className="trust-heading">מקצועיות ואכפתיות</h3>
-            </div>
-            <p className="trust-text">
-              כל בקשה מטופלת על ידי צוות מקצועי ואכפתי, שמבין את הצרכים ופועל
-              בקפדנות.
-            </p>
-          </div>
-
-          <div className="trust-card">
-            <div className="trust-card-header">
-              <i className="trust-icon bi bi-hand-thumbs-up"></i>
-              <h3 className="trust-heading">אמינות ומחויבות</h3>
-            </div>
-            <p className="trust-text">
-              הקהילה מחויבת לפעול באמינות ובמסירות, ומקפידה שכל פעולה תתבצע
-              בצורה אחראית.
-            </p>
-          </div>
+          {trustCards.map((card, index) => (
+            <TrustCard
+              key={index}
+              iconClass={card.iconClass}
+              title={card.title}
+              text={card.text}
+            />
+          ))}
         </div>
       </section>
 
