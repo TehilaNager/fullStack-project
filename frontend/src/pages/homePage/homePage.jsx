@@ -5,6 +5,7 @@ import "./workflow-section.css";
 import "./help-section.css";
 import "./about-section.css";
 import "./trust-section.css";
+import "./inspiring-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/RequestContext";
 import { useOffer } from "../../context/OfferContext";
@@ -50,7 +51,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="latestItems-section requests">
+      <section className="latestItems-section">
         <Carousel
           title="בקשות אחרונות"
           subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
@@ -60,7 +61,7 @@ function HomePage() {
         />
       </section>
 
-      <section className="latestItems-section offers">
+      <section className="latestItems-section">
         <Carousel
           title="תרומות אחרונות"
           subtitle="אזרחים שרוצים לתרום ולעזור"
@@ -162,7 +163,9 @@ function HomePage() {
         </div>
       </section>
 
-      <InspiringMessages />
+      <section className="inspiring-section">
+        <InspiringMessages />
+      </section>
     </div>
   );
 }

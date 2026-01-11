@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 import "./inspiring-messages.css";
 
 function InspiringMessages() {
@@ -23,23 +24,27 @@ function InspiringMessages() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMessage((prev) => (prev + 1) % messages.length);
-    }, 4000);
+    }, 7000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="inspiring-section">
+    <div className="inspiring-container">
+      <div className="inspiring-icon">
+        <i className="bi bi-heart-fill"></i>
+      </div>
+
       <p className="inspiring-message">{messages[currentMessage]}</p>
 
       <div className="inspiring-buttons">
-        <button className="inspiring-btn requests-btn">
+        <Link to="/requests" className="inspiring-btn requests-btn">
           צפו בבקשות <i className="bi bi-gift"></i>
-        </button>
-        <button className="inspiring-btn offers-btn">
+        </Link>
+        <Link to="/offers" className="inspiring-btn offers-btn">
           צפו בתרומות <i className="bi bi-people"></i>
-        </button>
+        </Link>
       </div>
-    </section>
+    </div>
   );
 }
 

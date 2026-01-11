@@ -1,0 +1,12 @@
+.inspiring-section {
+  padding: 7rem 2rem;
+  background: linear-gradient(to bottom, #fefefe 0%, #f0f4fa 100%);
+  text-align: center;
+  position: relative;
+}
+
+@media (max-width: 480px) {
+  .inspiring-section {
+    padding: 4rem 1.5rem 6rem;
+  }
+}
