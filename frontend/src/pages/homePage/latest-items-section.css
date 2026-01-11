@@ -1,9 +1,9 @@
-.latestItems-section {
+.latest-items-section {
   padding: 7rem 0 1rem;
 }
 
 @media (max-width: 575px) {
-  .latestItems-section {
+  .latest-items-section {
     padding-top: 4.5rem;
   }
 }

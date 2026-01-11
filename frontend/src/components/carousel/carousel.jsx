@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import "./carousel.css";
-import CardHome from "../CardHome/CardHome";
+import LatestItemCard from "../LatestItemCard/LatestItemCard";
 import { useState, useEffect } from "react";
 
 function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
@@ -47,7 +47,7 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
                 <div className="carousel-slide">
                   {slideItems.map((item) => (
                     <div className="carousel-card" key={item._id}>
-                      <CardHome {...item} idCard={item._id} />
+                      <LatestItemCard {...item} idCard={item._id} />
                     </div>
                   ))}
                 </div>
@@ -72,7 +72,7 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
           <div className="grid-large">
             {items.map((item) => (
               <div className="carousel-card" key={item._id}>
-                <CardHome {...item} idCard={item._id} />
+                <LatestItemCard {...item} idCard={item._id} />
               </div>
             ))}
           </div>

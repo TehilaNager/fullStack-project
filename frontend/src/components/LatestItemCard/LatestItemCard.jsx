@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./card-home.css";
+import "./latest-item-card.css";
 import { Link } from "react-router";
 
 const priorityColors = {
@@ -37,7 +37,7 @@ const categoryColors = {
   אחר: { background: "#f5f5f5", color: "#333" },
 };
 
-function CardHome({
+function LatestItemCard({
   title,
   updatedAt,
   category,
@@ -122,4 +122,4 @@ function CardHome({
   );
 }
 
-export default CardHome;
+export default LatestItemCard;

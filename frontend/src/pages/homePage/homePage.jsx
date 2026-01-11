@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import "./hero-section.css";
-import "./latestItems-section.css";
+import "./latest-items-section.css";
 import "./workflow-section.css";
 import "./help-section.css";
 import "./about-section.css";
@@ -51,7 +51,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="latestItems-section">
+      <section className="latest-items-section">
         <Carousel
           title="בקשות אחרונות"
           subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
@@ -61,7 +61,7 @@ function HomePage() {
         />
       </section>
 
-      <section className="latestItems-section">
+      <section className="latest-items-section">
         <Carousel
           title="תרומות אחרונות"
           subtitle="אזרחים שרוצים לתרום ולעזור"
