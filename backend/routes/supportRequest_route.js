@@ -26,7 +26,7 @@ router.post("/", authMW, async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    const { search, category, region, city, priority } = req.query;
+    const { search, category, region, city, priority, status } = req.query;
 
     let filter = {};
 
@@ -41,6 +41,7 @@ router.get("/", async (req, res) => {
     if (region) filter.region = region;
     if (city) filter.city = city;
     if (priority) filter.priority = priority;
+    if (status) filter.status = status;
 
     const requests = await Request.find(filter, { __v: 0 }).sort({ createdAt: -1 });
     res.json(requests);
