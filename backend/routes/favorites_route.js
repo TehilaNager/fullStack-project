@@ -20,14 +20,14 @@ router.patch("/request/:id", authMW, async (req, res) => {
     const request = await Request.findById(requestId);
 
     if (!request) {
-        res.status(400).send("Request not found. Please provide a valid request ID.");
+        res.status(404).send("Request not found. Please provide a valid request ID.");
         return;
     }
 
     const user = await User.findById(req.user._id);
 
     if (!user) {
-        res.status(400).send("User not found.");
+        res.status(404).send("User not found.");
         return;
     }
 
@@ -40,7 +40,7 @@ router.patch("/request/:id", authMW, async (req, res) => {
 
     await user.save();
 
-    const filteredUser = _.pick(user, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
+    const filteredUser = _.pick(user, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
 
     res.json(filteredUser);
 });
@@ -56,14 +56,14 @@ router.patch("/offer/:id", authMW, async (req, res) => {
     const offer = await Offer.findById(offerId);
 
     if (!offer) {
-        res.status(400).send("Offer not found. Please provide a valid offer ID.");
+        res.status(404).send("Offer not found. Please provide a valid offer ID.");
         return;
     }
 
     const user = await User.findById(req.user._id);
 
     if (!user) {
-        res.status(400).send("User not found.");
+        res.status(404).send("User not found.");
         return;
     }
 
@@ -76,7 +76,7 @@ router.patch("/offer/:id", authMW, async (req, res) => {
 
     await user.save();
 
-    const filteredUser = _.pick(user, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
+    const filteredUser = _.pick(user, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
 
     res.json(filteredUser);
 });
@@ -85,7 +85,7 @@ router.get("/", authMW, authMW, async (req, res) => {
     const user = await User.findById(req.user._id);
 
     if (!user) {
-        res.status(400).send("User not found.");
+        res.status(404).send("User not found.");
         return;
     }
 

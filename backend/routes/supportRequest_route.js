@@ -56,7 +56,7 @@ router.get("/:id", async (req, res) => {
     const request = await Request.findById(req.params.id, { __v: 0 });
 
     if (!request) {
-        res.status(400).send("Request not found.");
+        res.status(404).send("Request not found.");
         return;
     }
 
@@ -79,15 +79,15 @@ router.put("/:id", authMW, async (req, res) => {
     const request = await Request.findById(req.params.id);
 
     if (!request) {
-        res.status(400).send("Request not found.");
+        res.status(404).send("Request not found.");
         return;
     }
 
-    const isUser = request.requester.toString() === req.user._id;
-    const isAdmin = req.user.isAdmin;
+    const isUser = request.requester.toString() === req.user._id.toString();
+    const isUserAdmin = req.user.role === "userAdmin";
 
-    if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. Only an admin or the user who created the request can update it.");
+    if (!isUser && !isUserAdmin) {
+        res.status(403).send("Access denied. Only the requester or a userAdmin can update this request.");
         return;
     }
 
@@ -108,36 +108,51 @@ router.delete("/:id", authMW, async (req, res) => {
     const request = await Request.findById(req.params.id);
 
     if (!request) {
-        res.status(400).send("Request not found.");
+        res.status(404).send("Request not found.");
         return;
     }
 
-    const isUser = request.requester.toString() === req.user._id;
-    const isAdmin = req.user.isAdmin;
+    const isUser = request.requester.toString() === req.user._id.toString();
+    const isUserAdmin = req.user.role === "userAdmin";
 
-    if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. Only an admin or the user who created this request can delete it.");
+    if (!isUser && !isUserAdmin) {
+        res.status(403).send("Access denied. Only the requester or a userAdmin can delete this request.");
         return;
     }
 
-    const deletedRequest = await Request.findByIdAndDelete(req.params.id);
+    await request.deleteOne();
 
-    const filteredRequest = _.pick(deletedRequest, ["_id", "requester", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
+    const filteredRequest = _.pick(request, ["_id", "requester", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
 
     res.json(filteredRequest);
 });
 
+router.patch("/:id/status", authMW, async (req, res) => {
+    const { status } = req.body;
 
+    if (!['פתוחה', 'בטיפול', 'הושלמה'].includes(status)) {
+        return res.status(400).send("Invalid status value.");
+    }
 
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
 
+    const request = await Request.findById(req.params.id);
+    if (!request) return res.status(404).send("Request not found.");
 
+    const isOwner = request.requester.toString() === req.user._id.toString();
+    const isUserAdmin = req.user.role === "userAdmin";
 
+    if (!isOwner && !isUserAdmin) {
+        return res.status(403).send("Access denied. Only the requester or a userAdmin can change the status.");
+    }
 
+    request.status = status;
+    await request.save();
 
-
-
-
-
-
+    res.json(_.pick(request, ["_id", "status"]));
+});
 
 module.exports = router;

@@ -13,18 +13,18 @@ router.get("/:id", authMW, async (req, res) => {
         return;
     }
 
-    const isUser = req.params.id === req.user._id;
-    const isAdmin = req.user.isAdmin;
+    const isUser = req.params.id === req.user._id.toString();
+    const isAdmin = req.user.role === "admin";
 
     if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. You can only view your own profile or you must be an admin to view others' profiles.")
+        res.status(403).send("Access denied. You can only view your own profile or an admin can view others' profiles.")
         return;
     }
 
     const user = await User.findById(req.params.id, { password: 0, __v: 0 });
 
     if (!user) {
-        res.status(400).send("User not found.");
+        res.status(404).send("User not found.");
         return;
     }
 
@@ -43,22 +43,22 @@ router.put("/:id", authMW, async (req, res) => {
         return;
     }
 
-    const isUser = req.params.id === req.user._id;
-    const isAdmin = req.user.isAdmin;
+    const isUser = req.params.id === req.user._id.toString();
+    const isAdmin = req.user.role === "admin";
 
-    if (!isAdmin && !isUser) {
-        res.status(400).send("Access denied. You can only update your own profile or you must be an admin to update others' profiles.");
+    if (!isUser && !isAdmin) {
+        res.status(403).send("Access denied. You can only update your own profile or an admin can update others' profiles.");
         return;
     }
 
     const updatedUser = await User.findByIdAndUpdate(req.params.id, value, { new: true });
 
     if (!updatedUser) {
-        res.status(400).send("User not found");
+        res.status(404).send("User not found");
         return;
     }
 
-    const filteredUser = _.pick(updatedUser, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]);
+    const filteredUser = _.pick(updatedUser, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]);
 
     res.json(filteredUser);
 });
@@ -69,30 +69,30 @@ router.delete("/:id", authMW, async (req, res) => {
         return;
     }
 
-    const isAdmin = req.user.isAdmin;
+    const isAdmin = req.user.role === "admin";
 
     if (!isAdmin) {
-        res.status(400).send("Access denied. Only an admin can delete user accounts.");
+        res.status(403).send("Access denied. Only an admin can delete user accounts.");
         return;
     }
 
     const deletedUser = await User.findByIdAndDelete(req.params.id);
 
     if (!deletedUser) {
-        res.status(400).send("User not found");
+        res.status(404).send("User not found");
         return;
     }
 
-    const filteredUser = _.pick(deletedUser, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]);
+    const filteredUser = _.pick(deletedUser, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]);
 
     res.json(filteredUser);
 });
 
 router.get("/", authMW, async (req, res) => {
-    const isAdmin = req.user.isAdmin;
+    const isAdmin = req.user.role === "admin";
 
     if (!isAdmin) {
-        res.status(400).send("Access denied. Only an admin can view the list of all users.");
+        res.status(403).send("Access denied. Only an admin can view the list of all users.");
         return;
     }
 
@@ -107,24 +107,31 @@ router.put("/:id/admin", authMW, async (req, res) => {
         return;
     }
 
-    const isAdmin = req.user.isAdmin;
+    const isAdmin = req.user.role === "admin";
 
     if (!isAdmin) {
-        res.status(400).send("Access denied. Only an admin can toggle the isAdmin status of a user.");
+        res.status(403).send("Access denied. Only an admin can change user roles.");
         return;
     }
 
     const updatedUser = await User.findById(req.params.id);
 
     if (!updatedUser) {
-        res.status(400).send("User not found.");
+        res.status(404).send("User not found.");
         return;
     }
 
-    updatedUser.isAdmin = !updatedUser.isAdmin;
-    updatedUser.save();
+    if (updatedUser.role === "admin") {
+        return res
+            .status(400)
+            .send("Cannot change role of another admin.");
+    }
 
-    const filteredUser = _.pick(updatedUser, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
+    updatedUser.role = updatedUser.role === "userAdmin" ? "user" : "userAdmin";
+
+    await updatedUser.save();
+
+    const filteredUser = _.pick(updatedUser, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"])
 
     res.json(filteredUser);
 });

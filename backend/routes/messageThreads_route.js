@@ -7,6 +7,10 @@ const authMW = require("../middleware/auth");
 
 const { Thread, validateMessageThread, validateMessage } = require("../models/messageThread_model");
 
+function filterThread(thread) {
+    return _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
+}
+
 router.post("/thread", authMW, async (req, res) => {
     const { error, value } = validateMessageThread.validate(req.body);
 
@@ -17,7 +21,9 @@ router.post("/thread", authMW, async (req, res) => {
 
     let participants = req.body.participants || [];
 
-    participants.push(req.user._id);
+    if (!participants.includes(req.user._id.toString())) {
+        participants.push(req.user._id);
+    }
 
     const existingThread = await Thread.findOne({
         relatedType: req.body.relatedType,
@@ -26,8 +32,7 @@ router.post("/thread", authMW, async (req, res) => {
     });
 
     if (existingThread) {
-        const filteredThread = _.pick(existingThread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
-        res.json(filteredThread);
+        res.json(filterThread(existingThread));
         return;
     } else {
         const messagesArray = [];
@@ -53,8 +58,7 @@ router.post("/thread", authMW, async (req, res) => {
             messages: messagesArray
         }).save();
 
-        const filteredThread = _.pick(newThread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
-        res.json(filteredThread);
+        res.json(filterThread(newThread));
     }
 });
 
@@ -67,19 +71,20 @@ router.get("/thread/:id", authMW, async (req, res) => {
     const thread = await Thread.findById(req.params.id, { __v: 0 });
 
     if (!thread) {
-        res.status(400).send("Thread not found.");
+        res.status(404).send("Thread not found.");
         return;
     }
 
     const isUser = thread.participants.some(p => p.toString() === req.user._id);
-    const isAdmin = req.user.isAdmin;
+    const isUserAdmin = req.user.role === "userAdmin";
 
-    if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. Only an admin or a participant of this thread can view it.");
+    if (!isUser && !isUserAdmin) {
+        res.status(403).send("Access denied. Only the user who participates in this thread or a userAdmin can view it.");
         return;
     }
 
-    res.json(thread);
+    res.json(filterThread(thread));
+
 });
 
 router.post("/thread/:id/message", authMW, async (req, res) => {
@@ -103,15 +108,15 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
     const thread = await Thread.findById(req.params.id);
 
     if (!thread) {
-        res.status(400).send("Thread not found.");
+        res.status(404).send("Thread not found.");
         return;
     }
 
     const isUser = thread.participants.some(p => p.toString() === req.user._id);
-    const isAdmin = req.user.isAdmin;
+    const isUserAdmin = req.user.role === "userAdmin";
 
-    if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. Only an admin or a participant of this thread can send messages.");
+    if (!isUser && !isUserAdmin) {
+        res.status(403).send("Access denied. Only the user who participates in this thread or a userAdmin can send messages.");
         return;
     }
 
@@ -121,17 +126,14 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
         return;
     }
 
-    const messagesArray = thread.messages;
-
-    messagesArray.push({
+    thread.messages.push({
         sender: req.user._id,
         content: req.body.content
     });
 
     await thread.save();
 
-    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
-    res.json(filteredThread);
+    res.json(filterThread(thread));
 });
 
 router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
@@ -145,7 +147,7 @@ router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
     const thread = await Thread.findById(threadId);
 
     if (!thread) {
-        res.status(400).send("Thread not found.");
+        res.status(404).send("Thread not found.");
         return;
     }
 
@@ -164,12 +166,12 @@ router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
     const message = thread.messages.find(msg => msg._id.toString() === messageId);
 
     if (!message) {
-        res.status(400).send("Message not found.");
+        res.status(404).send("Message not found.");
         return;
     }
 
     if (message.sender.toString() !== req.user._id) {
-        res.status(400).send("Access denied. You can only edit messages you have created.");
+        res.status(403).send("Access denied. You can only edit messages you have created.");
         return;
     }
 
@@ -177,9 +179,7 @@ router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
 
     await thread.save();
 
-    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
-
-    res.json(filteredThread);
+    res.json(filterThread(thread));
 });
 
 router.delete("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
@@ -193,21 +193,22 @@ router.delete("/thread/:threadId/message/:messageId", authMW, async (req, res) =
     const thread = await Thread.findById(threadId);
 
     if (!thread) {
-        res.status(400).send("Thread not found.");
+        res.status(404).send("Thread not found.");
         return;
     }
 
     const message = thread.messages.find(msg => msg._id.toString() === messageId);
 
     if (!message) {
-        res.status(400).send("Message not found.");
+        res.status(404).send("Message not found.");
         return;
     }
 
-    if (message.sender.toString() !== req.user._id && !req.user.isAdmin) {
-        res.status(400).send("Access denied. Only the sender or an admin can delete this message.");
+    if (message.sender.toString() !== req.user._id && req.user.role !== "userAdmin") {
+        res.status(403).send("Access denied. Only the sender of the message or a userAdmin can delete it.");
         return;
     }
+
 
     const messageIndex = thread.messages.findIndex(msg => msg._id.toString() === messageId);
 
@@ -215,9 +216,7 @@ router.delete("/thread/:threadId/message/:messageId", authMW, async (req, res) =
 
     await thread.save();
 
-    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
-
-    res.json(filteredThread);
+    res.json(filterThread(thread));
 });
 
 router.get("/user/:userId", authMW, async (req, res) => {
@@ -228,8 +227,8 @@ router.get("/user/:userId", authMW, async (req, res) => {
         return;
     }
 
-    if (req.user._id !== userId && !req.user.isAdmin) {
-        res.status(400).send("Access denied. You can only view your own threads unless you are an admin.");
+    if (req.user._id.toString() !== userId && req.user.role !== "userAdmin") {
+        res.status(403).send("Access denied. You can only view your own threads unless you are a userAdmin.");
         return;
     }
 
@@ -250,23 +249,21 @@ router.delete("/thread/:id", authMW, async (req, res) => {
         return;
     }
 
-    if (!req.user.isAdmin) {
-        res.status(400).send("Access denied. Only admins can delete threads.");
+    if (req.user.role !== "userAdmin") {
+        res.status(403).send("Access denied. Only a userAdmin can delete threads.");
         return;
     }
 
     const thread = await Thread.findById(req.params.id);
 
     if (!thread) {
-        res.status(400).send("Thread not found.");
+        res.status(404).send("Thread not found.");
         return;
     }
 
-    await Thread.findByIdAndDelete(req.params.id);
+    await thread.deleteOne();
 
-    const filteredThread = _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
-
-    res.json(filteredThread);
+    res.json(filterThread(thread));
 });
 
 module.exports = router;

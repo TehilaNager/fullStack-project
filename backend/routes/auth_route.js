@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
         password: await bcrypt.hash(req.body.password, 14)
     }).save();
 
-    res.send(_.pick(user, ["_id", "fullName", "email", "isAdmin", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]));
+    res.send(_.pick(user, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]));
 });
 
 router.post("/login", async (req, res) => {
@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
         return;
     }
 
-    const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_KEY);
+    const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_KEY);
 
     res.send({ token });
 });

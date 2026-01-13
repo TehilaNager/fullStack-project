@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
     const offer = await Offer.findById(req.params.id, { __v: 0 });
 
     if (!offer) {
-        res.status(400).send("Offer not found.");
+        res.status(404).send("Offer not found.");
         return;
     }
 
@@ -78,15 +78,15 @@ router.put("/:id", authMW, async (req, res) => {
     const offer = await Offer.findById(req.params.id);
 
     if (!offer) {
-        res.status(400).send("Offer not found.");
+        res.status(404).send("Offer not found.");
         return;
     }
 
-    const isUser = offer.supporter.toString() === req.user._id;
-    const isAdmin = req.user.isAdmin;
+    const isUser = offer.supporter.toString() === req.user._id.toString();
+    const isUserAdmin = req.user.role === "userAdmin";
 
-    if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. Only an admin or the user who created the offer can update it.");
+    if (!isUser && !isUserAdmin) {
+        res.status(403).send("Access denied. Only a userAdmin or the offer owner can update it.");
         return;
     }
 
@@ -107,34 +107,50 @@ router.delete("/:id", authMW, async (req, res) => {
     const offer = await Offer.findById(req.params.id);
 
     if (!offer) {
-        res.status(400).send("Offer not found.");
+        res.status(404).send("Offer not found.");
         return;
     }
 
-    const isUser = offer.supporter.toString() === req.user._id;
-    const isAdmin = req.user.isAdmin;
+    const isUser = offer.supporter.toString() === req.user._id.toString();
+    const isUserAdmin = req.user.role === "userAdmin";
 
-    if (!isUser && !isAdmin) {
-        res.status(400).send("Access denied. Only an admin or the user who created this offer can delete it.");
+    if (!isUser && !isUserAdmin) {
+        res.status(403).send("Access denied. Only a userAdmin or the offer owner can delete it.");
         return;
     }
 
-    const deletedOffer = await Offer.findByIdAndDelete(req.params.id);
+    await offer.deleteOne();
 
-    const filteredOffer = _.pick(deletedOffer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
+    const filteredOffer = _.pick(offer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
 
     res.json(filteredOffer);
 });
 
+router.patch("/:id/status", authMW, async (req, res) => {
+    const { status } = req.body;
 
+    if (!['פתוחה', 'בטיפול', 'הושלמה'].includes(status)) {
+        return res.status(400).send("Invalid status value");
+    }
 
+    if (!mongoose.isValidObjectId(req.params.id)) {
+        return res.status(400).send("Invalid offer ID");
+    }
 
+    const offer = await Offer.findById(req.params.id);
+    if (!offer) return res.status(404).send("Offer not found");
 
+    const isOwner = offer.supporter.toString() === req.user._id.toString();
+    const isUserAdmin = req.user.role === "userAdmin";
 
+    if (!isOwner && !isUserAdmin) {
+        return res.status(403).send("Access denied. Only the supporter or a userAdmin can change the status.");
+    }
 
+    offer.status = status;
+    await offer.save();
 
-
-
-
+    res.json(_.pick(offer, ["_id", "status"]));
+});
 
 module.exports = router;

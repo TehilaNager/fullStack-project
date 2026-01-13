@@ -12,7 +12,7 @@ const supportRequestSchema = new mongoose.Schema({
     },
     region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
     city: { type: String, required: true },
-    status: { type: String, enum: ['פתוחה', 'הושלמה'], default: 'פתוחה' },
+    status: { type: String, enum: ['פתוחה', 'בטיפול', 'הושלמה'], default: 'פתוחה' },
     priority: { type: String, enum: ['נמוכה', 'בינונית', 'גבוהה', 'דחופה'], required: true }
 }, { timestamps: true });
 
@@ -26,7 +26,7 @@ const validateRequest = Joi.object({
         .required(),
     region: Joi.string().valid('צפון', 'מרכז', 'דרום').required(),
     city: Joi.string().min(2).max(256).required(),
-    status: Joi.string().valid('פתוחה', 'הושלמה').optional(),
+    status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required()
 });
 
@@ -38,7 +38,7 @@ const validateRequestUpdate = Joi.object({
         .optional(),
     region: Joi.string().valid('צפון', 'מרכז', 'דרום').optional(),
     city: Joi.string().min(2).max(256).optional(),
-    status: Joi.string().valid('פתוחה', 'הושלמה').optional(),
+    status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').optional()
 }).min(1);
 
