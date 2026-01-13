@@ -5,29 +5,29 @@
 .footer-main {
   background: linear-gradient(180deg, #0a0f25, #060814);
   text-align: center;
-  padding: 3.5rem 1.5rem 2.5rem;
+  padding: 2rem 1.5rem 1.5rem;
 }
 
 .footer-logo {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: #f1c40f;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .footer-text {
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: #cfd3e6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .footer-links {
   display: flex;
   justify-content: center;
-  gap: 2.2rem;
+  gap: 1.6rem;
   flex-wrap: wrap;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.2rem;
 }
 
 .footer-links a {
@@ -42,7 +42,7 @@
 }
 
 .footer-note {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #9aa0b8;
 }
 
@@ -50,8 +50,8 @@
   background: #060814;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
-  padding: 1rem;
-  font-size: 0.85rem;
+  padding: 0.7rem;
+  font-size: 0.75rem;
   color: #9aa0b8;
 }
 

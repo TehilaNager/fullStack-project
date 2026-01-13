@@ -8,7 +8,7 @@ function Navbar() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <>
+    <header>
       <nav className="navbar navbar-expand-lg fixed-top custom-navbar">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
@@ -66,7 +66,7 @@ function Navbar() {
       </nav>
 
       {modalOpen && <AuthModal closeModal={() => setModalOpen(false)} />}
-    </>
+    </header>
   );
 }
 

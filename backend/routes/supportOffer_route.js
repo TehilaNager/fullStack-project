@@ -26,7 +26,23 @@ router.post("/", authMW, async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    const offers = await Offer.find({}, { __v: 0 });
+    const { search, category, region, city, status } = req.query;
+
+    let filter = {};
+
+    if (search) {
+        filter.$or = [
+            { title: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } }
+        ];
+    }
+
+    if (category) filter.category = category;
+    if (region) filter.region = region;
+    if (city) filter.city = city;
+    if (status) filter.status = status;
+
+    const offers = await Offer.find(filter, { __v: 0 }).sort({ createdAt: -1 });
     res.json(offers);
 });
 
@@ -109,5 +125,16 @@ router.delete("/:id", authMW, async (req, res) => {
 
     res.json(filteredOffer);
 });
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;

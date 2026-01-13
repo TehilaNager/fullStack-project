@@ -68,6 +68,16 @@ GET {{local}}/requests/
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ1MzY0fQ.Q4eKno39zK_Umr0rcf0bGxuOB_Sr5lEBSnoH3rOJzlo
 
 ###
+# SEARCH REQUESTS BY KEYWORD
+GET {{local}}/requests/?search=מזון
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+# FILTER REQUESTS BY PRIORITY
+GET {{local}}/requests/?priority=דחופה
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
 GET {{local}}/requests/68c833ca541a4493c26852f5
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM4MWRlNGJhOGNiOTkwNmNmMjZiODIiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzU3OTQ1MzY0fQ.Q4eKno39zK_Umr0rcf0bGxuOB_Sr5lEBSnoH3rOJzlo
 
@@ -99,6 +109,11 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMj
 
 ###
 GET {{local}}/offers/
+x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
+###
+# SEARCH OFFERS BY KEYWORD
+GET {{local}}/offers/?search=חולצות
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
 
 ###
@@ -174,3 +189,4 @@ x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMj
 ###
 DELETE {{local}}/messages/thread/68c93c8c5f0b394a0d06733b
 x-auth-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3ZTE0NGExOWJmMjVkOTAxMTNkNjMiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTc5Mjk5MjB9.KqLcmjuhl3k3GrTUoTVBWpqhZKJdUQSTJc9MjUbRN-c
+
