@@ -47,7 +47,6 @@ function LatestItemCard({
   idCard,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const isTruncated = description.split(" ").length > 20;
 
   return (
@@ -63,9 +62,7 @@ function LatestItemCard({
             </span>
           )}
         </div>
-
         <h5 className="card-title fw-bold">{title}</h5>
-
         <small className="card-updated">
           עודכן:{" "}
           {(() => {
@@ -76,7 +73,6 @@ function LatestItemCard({
             return `${day}/${month}/${year}`;
           })()}
         </small>
-
         <p className="card-text">{description}</p>
 
         <div className="read-more-wrapper">

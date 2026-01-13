@@ -66,7 +66,6 @@
   box-shadow: 0 18px 40px rgba(10, 15, 37, 0.22);
 }
 
-/* טאבלט */
 @media (max-width: 1024px) {
   .about-title {
     font-size: 3.4rem;
@@ -81,7 +80,6 @@
   }
 }
 
-/* מובייל */
 @media (max-width: 480px) {
   .about-section {
     padding: 7rem 1.5rem 6rem;
