@@ -85,9 +85,10 @@ router.put("/:id", authMW, async (req, res) => {
 
     const isUser = request.requester.toString() === req.user._id.toString();
     const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
 
-    if (!isUser && !isUserAdmin) {
-        res.status(403).send("Access denied. Only the requester or a userAdmin can update this request.");
+    if (!isUser && !isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. Only the requester, a userAdmin, or an admin can update this request.");
         return;
     }
 
@@ -114,9 +115,11 @@ router.delete("/:id", authMW, async (req, res) => {
 
     const isUser = request.requester.toString() === req.user._id.toString();
     const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
 
-    if (!isUser && !isUserAdmin) {
-        res.status(403).send("Access denied. Only the requester or a userAdmin can delete this request.");
+
+    if (!isUser && !isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. Only the requester, a userAdmin, or an admin can delete this request.");
         return;
     }
 
@@ -144,9 +147,10 @@ router.patch("/:id/status", authMW, async (req, res) => {
 
     const isOwner = request.requester.toString() === req.user._id.toString();
     const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
 
-    if (!isOwner && !isUserAdmin) {
-        return res.status(403).send("Access denied. Only the requester or a userAdmin can change the status.");
+    if (!isOwner && !isUserAdmin && !isAdmin) {
+        return res.status(403).send("Access denied. Only the requester, a userAdmin, or an admin can change the status.");
     }
 
     request.status = status;
