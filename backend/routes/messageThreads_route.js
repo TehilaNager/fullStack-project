@@ -19,15 +19,15 @@ router.post("/thread", authMW, async (req, res) => {
         return;
     }
 
-    let participants = req.body.participants || [];
+    let participants = [...(value.participants || [])];
 
     if (!participants.includes(req.user._id.toString())) {
         participants.push(req.user._id);
     }
 
     const existingThread = await Thread.findOne({
-        relatedType: req.body.relatedType,
-        relatedId: req.body.relatedId,
+        relatedType: value.relatedType,
+        relatedId: value.relatedId,
         participants: { $all: participants, $size: participants.length }
     });
 
@@ -93,20 +93,13 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
         return;
     }
 
-    if (!req.body.content || req.body.content.trim() === "") {
-        res.status(400).send("Message content is required.");
-        return;
-    }
-
-    const { error } = validateMessage.validate({ content: req.body.content });
-
+    const { error, value } = validateMessage.validate(req.body);
     if (error) {
         res.status(400).send(error.details[0].message);
         return;
     }
 
     const thread = await Thread.findById(req.params.id);
-
     if (!thread) {
         res.status(404).send("Thread not found.");
         return;
@@ -114,21 +107,20 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
 
     const isUser = thread.participants.some(p => p.toString() === req.user._id);
     const isUserAdmin = req.user.role === "userAdmin";
-
     if (!isUser && !isUserAdmin) {
         res.status(403).send("Access denied. Only the user who participates in this thread or a userAdmin can send messages.");
         return;
     }
 
     const lastMessage = thread.messages[thread.messages.length - 1];
-    if (lastMessage && lastMessage.content === req.body.content && lastMessage.sender.toString() === req.user._id) {
+    if (lastMessage && lastMessage.content === value.content && lastMessage.sender.toString() === req.user._id) {
         res.status(400).send("This is identical to the last message you sent. Please change it before sending again.");
         return;
     }
 
     thread.messages.push({
         sender: req.user._id,
-        content: req.body.content
+        content: value.content
     });
 
     await thread.save();
@@ -145,18 +137,12 @@ router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
     }
 
     const thread = await Thread.findById(threadId);
-
     if (!thread) {
         res.status(404).send("Thread not found.");
         return;
     }
 
-    if (!req.body.content || req.body.content.trim() === "") {
-        res.status(400).send("Message content is required.");
-        return;
-    }
-
-    const { error } = validateMessage.validate(req.body);
+    const { error, value } = validateMessage.validate(req.body);
 
     if (error) {
         res.status(400).send(error.details[0].message);
@@ -175,7 +161,7 @@ router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
         return;
     }
 
-    message.content = req.body.content;
+    message.content = value.content;
 
     await thread.save();
 
@@ -239,8 +225,7 @@ router.get("/user/:userId", authMW, async (req, res) => {
     if (!threads || threads.length === 0) {
         return res.json([]);
     }
-
-    res.json(threads);
+    res.json(threads.map((thread) => filterThread(thread)));
 });
 
 router.delete("/thread/:id", authMW, async (req, res) => {
