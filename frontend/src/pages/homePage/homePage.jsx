@@ -25,7 +25,7 @@ function HomePage() {
   const latestOffers = getLatestItems(offers);
 
   return (
-    <div className="home-page">
+    <div>
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-badge">

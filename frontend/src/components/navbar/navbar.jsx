@@ -46,15 +46,13 @@ function Navbar() {
                   תרומות
                 </NavLink>
               </li>
+              {/* להוסיף to="" */}
               <li className="nav-item">
-                <NavLink className="nav-link" to="/favorites">
-                  מועדפים
-                </NavLink>
+                <NavLink className="nav-link">מועדפים</NavLink>
               </li>
+              {/* להוסיף to="" */}
               <li className="nav-item">
-                <NavLink className="nav-link" to="/admin">
-                  ניהול משתמשים
-                </NavLink>
+                <NavLink className="nav-link">ניהול משתמשים</NavLink>
               </li>
             </ul>
 
