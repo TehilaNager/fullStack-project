@@ -34,32 +34,32 @@ router.post("/thread", authMW, async (req, res) => {
     if (existingThread) {
         res.json(filterThread(existingThread));
         return;
-    } else {
-        const messagesArray = [];
+    }
 
-        if (value.initialMessage) {
-            const { error } = validateMessage.validate({ content: value.initialMessage });
+    const messagesArray = [];
 
-            if (error) {
-                res.status(400).send(error.details[0].message);
-                return;
-            }
+    if (value.initialMessage) {
+        const { error } = validateMessage.validate({ content: value.initialMessage });
 
-            messagesArray.push({
-                sender: req.user._id,
-                content: value.initialMessage
-            });
+        if (error) {
+            res.status(400).send(error.details[0].message);
+            return;
         }
 
-        const newThread = await new Thread({
-            relatedType: value.relatedType,
-            relatedId: value.relatedId,
-            participants: participants,
-            messages: messagesArray
-        }).save();
-
-        res.json(filterThread(newThread));
+        messagesArray.push({
+            sender: req.user._id,
+            content: value.initialMessage
+        });
     }
+
+    const newThread = await new Thread({
+        relatedType: value.relatedType,
+        relatedId: value.relatedId,
+        participants: participants,
+        messages: messagesArray
+    }).save();
+
+    res.json(filterThread(newThread));
 });
 
 router.get("/thread/:id", authMW, async (req, res) => {
@@ -77,9 +77,10 @@ router.get("/thread/:id", authMW, async (req, res) => {
 
     const isUser = thread.participants.some(p => p.toString() === req.user._id);
     const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
 
-    if (!isUser && !isUserAdmin) {
-        res.status(403).send("Access denied. Only the user who participates in this thread or a userAdmin can view it.");
+    if (!isUser && !isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. Only the thread participant, a userAdmin, or an admin can view it.");
         return;
     }
 
@@ -107,8 +108,10 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
 
     const isUser = thread.participants.some(p => p.toString() === req.user._id);
     const isUserAdmin = req.user.role === "userAdmin";
-    if (!isUser && !isUserAdmin) {
-        res.status(403).send("Access denied. Only the user who participates in this thread or a userAdmin can send messages.");
+    const isAdmin = req.user.role === "admin";
+
+    if (!isUser && !isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. Only the thread participant, a userAdmin, or an admin can send messages.");
         return;
     }
 
@@ -190,8 +193,12 @@ router.delete("/thread/:threadId/message/:messageId", authMW, async (req, res) =
         return;
     }
 
-    if (message.sender.toString() !== req.user._id && req.user.role !== "userAdmin") {
-        res.status(403).send("Access denied. Only the sender of the message or a userAdmin can delete it.");
+    const isSender = message.sender.toString() === req.user._id;
+    const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
+
+    if (!isSender && !isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. Only the sender of the message, a userAdmin, or an admin can delete it.");
         return;
     }
 
@@ -213,8 +220,12 @@ router.get("/user/:userId", authMW, async (req, res) => {
         return;
     }
 
-    if (req.user._id.toString() !== userId && req.user.role !== "userAdmin") {
-        res.status(403).send("Access denied. You can only view your own threads unless you are a userAdmin.");
+    const isSelf = req.user._id.toString() === userId;
+    const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
+
+    if (!isSelf && !isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. You can only view your own threads unless you are a userAdmin or an admin.");
         return;
     }
 
@@ -234,8 +245,11 @@ router.delete("/thread/:id", authMW, async (req, res) => {
         return;
     }
 
-    if (req.user.role !== "userAdmin") {
-        res.status(403).send("Access denied. Only a userAdmin can delete threads.");
+    const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
+
+    if (!isUserAdmin && !isAdmin) {
+        res.status(403).send("Access denied. Only a userAdmin or an admin can delete threads.");
         return;
     }
 
