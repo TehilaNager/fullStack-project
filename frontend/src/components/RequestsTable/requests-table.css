@@ -1,0 +1,80 @@
+.table-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.requests-table thead {
+  background-color: #f3f4f6;
+}
+
+.requests-table th,
+.requests-table td {
+  padding: 0.75rem 0.6rem;
+  text-align: right;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.requests-table th {
+  font-weight: 600;
+  color: #374151;
+}
+
+.requests-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.title-cell {
+  font-weight: 500;
+  color: #111827;
+}
+
+/* ---------- Priority Badge ---------- */
+.priority-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.priority-badge.גבוהה {
+  background-color: #dc2626;
+}
+
+.priority-badge.דחופה {
+  background-color: #f97316;
+}
+
+.priority-badge.בינונית {
+  background-color: #facc15;
+  color: #111827;
+}
+
+.priority-badge.נמוכה {
+  background-color: #16a34a;
+}
+
+/* ---------- Action Button ---------- */
+.table-action-btn {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table-action-btn:hover {
+  background-color: #4338ca;
+}

@@ -10,6 +10,8 @@ import {
   filterRequests,
   countActiveFilters,
 } from "../../helpers/filtersLogic";
+import RequestsCards from "../../components/RequestCard/RequestCard";
+import RequestsTable from "../../components/RequestsTable/RequestsTable";
 
 function RequestsPage() {
   const navigate = useNavigate();
@@ -119,7 +121,6 @@ function RequestsPage() {
         נמצאו <span className="countRequests">{resultsCount}</span> בקשות
       </div>
 
-      {/* --- רינדור הבקשות --- */}
       {resultsCount === 0 ? (
         <div className="no-results">
           <i className="no-results-icon bi bi-search"></i>
@@ -153,9 +154,16 @@ function RequestsPage() {
           )}
         </div>
       ) : viewMode === "cards" ? (
-        <div>cards</div>
+        <div className="cards-container">
+          {filteredRequests.map((req) => (
+            <RequestsCards key={req._id} request={req} />
+          ))}
+        </div>
       ) : (
-        <div>table</div>
+        <RequestsTable
+          requests={filteredRequests}
+          onRowClick={(id) => navigate(`/requests/${id}`)}
+        />
       )}
 
       <button
