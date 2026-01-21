@@ -13,7 +13,15 @@ const supportRequestSchema = new mongoose.Schema({
     region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
     city: { type: String, required: true },
     status: { type: String, enum: ['פתוחה', 'בטיפול', 'הושלמה'], default: 'פתוחה' },
-    priority: { type: String, enum: ['נמוכה', 'בינונית', 'גבוהה', 'דחופה'], required: true }
+    priority: { type: String, enum: ['נמוכה', 'בינונית', 'גבוהה', 'דחופה'], required: true },
+    requiredQuantity: { type: Number, required: true, min: 1 },
+    deadline: {
+        type: Date,
+        required: function () {
+            return this.priority === 'דחופה';
+        }
+    },
+    contactInfo: { type: String, trim: true }
 }, { timestamps: true });
 
 const Request = mongoose.model('SupportRequest', supportRequestSchema, "requests");
@@ -27,7 +35,14 @@ const validateRequest = Joi.object({
     region: Joi.string().valid('צפון', 'מרכז', 'דרום').required(),
     city: Joi.string().min(2).max(256).required(),
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
-    priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required()
+    priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required(),
+    requiredQuantity: Joi.number().min(1).required(),
+    deadline: Joi.when('priority', {
+        is: 'דחופה',
+        then: Joi.date().min('now').required(),
+        otherwise: Joi.forbidden()
+    }),
+    contactInfo: Joi.string().max(256).optional(),
 });
 
 const validateRequestUpdate = Joi.object({
@@ -39,7 +54,14 @@ const validateRequestUpdate = Joi.object({
     region: Joi.string().valid('צפון', 'מרכז', 'דרום').optional(),
     city: Joi.string().min(2).max(256).optional(),
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
-    priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').optional()
+    priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').optional(),
+    requiredQuantity: Joi.number().min(1).optional(),
+    deadline: Joi.when('priority', {
+        is: 'דחופה',
+        then: Joi.date().min('now').required(),
+        otherwise: Joi.forbidden()
+    }),
+    contactInfo: Joi.string().max(256).optional(),
 }).min(1);
 
 

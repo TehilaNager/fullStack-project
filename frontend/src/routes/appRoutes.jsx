@@ -4,6 +4,7 @@ import AboutPage from "../pages/AboutPage/AboutPage.jsx";
 import RequestsPage from "../pages/RequestsPage/RequestsPage.jsx";
 import OffersPage from "../pages/OffersPage/OffersPage.jsx";
 import DetailsCard from "../pages/DetailsCard/DetailsCard.jsx";
+import CreateRequest from "../pages/CreateRequest/CreateRequest.jsx";
 
 function AppRoutes() {
   return (
@@ -13,6 +14,7 @@ function AppRoutes() {
       <Route path="/requests" element={<RequestsPage />}></Route>
       <Route path="/offers" element={<OffersPage />}></Route>
       <Route path="/card-details/:id" element={<DetailsCard />}></Route>
+      <Route path="/create-request" element={<CreateRequest />}></Route>
     </Routes>
   );
 }

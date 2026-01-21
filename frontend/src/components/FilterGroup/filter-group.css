@@ -1,0 +1,16 @@
+.filter-group {
+  margin-bottom: 1.2rem;
+}
+
+.filter-title {
+  font-weight: 600;
+  margin-bottom: 0.7rem;
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}

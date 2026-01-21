@@ -20,7 +20,7 @@ router.post("/", authMW, async (req, res) => {
         requester: req.user._id
     }).save();
 
-    const filteredRequest = _.pick(newRequest, ["_id", "requester", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
+    const filteredRequest = _.pick(newRequest, ["_id", "requester", "title", "description", "category", "region", "city", "status", "priority", "requiredQuantity", "deadline", "contactInfo", "createdAt", "updatedAt"]);
 
     res.json(filteredRequest);
 });
@@ -33,13 +33,13 @@ router.get("/", async (req, res) => {
     if (search) {
         filter.$or = [
             { title: { $regex: search, $options: "i" } },
-            { description: { $regex: search, $options: "i" } }
+            { description: { $regex: search, $options: "i" } },
+            { city: { $regex: search, $options: "i" } }
         ];
     }
 
     if (category) filter.category = category;
     if (region) filter.region = region;
-    if (city) filter.city = city;
     if (priority) filter.priority = priority;
     if (status) filter.status = status;
 
@@ -95,7 +95,7 @@ router.put("/:id", authMW, async (req, res) => {
     Object.assign(request, value);
     await request.save();
 
-    const filteredRequest = _.pick(request, ["_id", "requester", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
+    const filteredRequest = _.pick(request, ["_id", "requester", "title", "description", "category", "region", "city", "status", "priority", "requiredQuantity", "deadline", "contactInfo", "createdAt", "updatedAt"]);
 
     res.json(filteredRequest);
 });
@@ -125,7 +125,7 @@ router.delete("/:id", authMW, async (req, res) => {
 
     await request.deleteOne();
 
-    const filteredRequest = _.pick(request, ["_id", "requester", "title", "description", "category", "region", "city", "status", "createdAt", "updatedAt"]);
+    const filteredRequest = _.pick(request, ["_id", "requester", "title", "description", "category", "region", "city", "status", "priority", "requiredQuantity", "deadline", "contactInfo", "createdAt", "updatedAt"]);
 
     res.json(filteredRequest);
 });

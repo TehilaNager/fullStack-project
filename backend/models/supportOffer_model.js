@@ -12,8 +12,10 @@ const supportOfferSchema = new mongoose.Schema({
     },
     region: { type: String, enum: ['צפון', 'מרכז', 'דרום'], required: true },
     city: { type: String, required: true },
-    status: { type: String, enum: ['פתוחה', 'בטיפול', 'הושלמה'], default: 'פתוחה' }
-
+    status: { type: String, enum: ['פתוחה', 'בטיפול', 'הושלמה'], default: 'פתוחה' },
+    availableQuantity: { type: Number, required: true, min: 1 },
+    availableUntil: { type: Date },
+    contactInfo: { type: String, trim: true }
 }, { timestamps: true });
 
 const Offer = mongoose.model('SupportOffer', supportOfferSchema, "offers");
@@ -26,7 +28,10 @@ const validateOffer = Joi.object({
         .required(),
     region: Joi.string().valid('צפון', 'מרכז', 'דרום').required(),
     city: Joi.string().min(2).max(256).required(),
-    status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional()
+    status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
+    availableQuantity: Joi.number().min(1).required(),
+    availableUntil: Joi.date().optional(),
+    contactInfo: Joi.string().max(256).optional(),
 });
 
 const validateOfferUpdate = Joi.object({
@@ -37,7 +42,10 @@ const validateOfferUpdate = Joi.object({
         .optional(),
     region: Joi.string().valid('צפון', 'מרכז', 'דרום').optional(),
     city: Joi.string().min(2).max(256).optional(),
-    status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional()
+    status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
+    availableQuantity: Joi.number().min(1).optional(),
+    availableUntil: Joi.date().optional(),
+    contactInfo: Joi.string().max(256).optional(),
 }).min(1);
 
 module.exports = {
