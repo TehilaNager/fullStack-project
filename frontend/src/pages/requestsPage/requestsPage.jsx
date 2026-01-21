@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router";
 import "./requests-page.css";
 import { useRequest } from "../../context/RequestContext";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
@@ -9,7 +10,6 @@ import {
   filterRequests,
   countActiveFilters,
 } from "../../helpers/filtersLogic";
-import { useNavigate } from "react-router";
 
 function RequestsPage() {
   const navigate = useNavigate();
@@ -17,6 +17,9 @@ function RequestsPage() {
   const [search, setSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState("cards");
+  const [quantityOption, setQuantityOption] = useState("");
+  const [minQuantity, setMinQuantity] = useState("");
+  const [maxQuantity, setMaxQuantity] = useState("");
   const [filters, setFilters] = useState({
     region: [],
     priority: [],
@@ -30,18 +33,36 @@ function RequestsPage() {
   );
 
   const filteredRequests = useMemo(
-    () => filterRequests(requests, search, filters),
-    [requests, search, filters]
+    () =>
+      filterRequests(
+        requests,
+        search,
+        filters,
+        quantityOption,
+        minQuantity,
+        maxQuantity
+      ),
+    [requests, search, filters, quantityOption, minQuantity, maxQuantity]
   );
 
   const toggleFilter = (type, value) =>
     setFilters((prev) => handleToggleFilter(prev, type, value));
 
-  const clearFilters = () => setFilters(handleClearFilters());
+  const clearFilters = () => {
+    setFilters(handleClearFilters());
+    setQuantityOption("");
+    setMinQuantity("");
+    setMaxQuantity("");
+  };
 
   const resultsCount = filteredRequests.length;
 
-  const hasActiveFilters = activeFiltersCount > 0 || search.trim() !== "";
+  const hasActiveFilters =
+    activeFiltersCount > 0 ||
+    search.trim() !== "" ||
+    quantityOption !== "" ||
+    minQuantity !== "" ||
+    maxQuantity !== "";
 
   return (
     <div className="requests-page">
@@ -132,46 +153,7 @@ function RequestsPage() {
           )}
         </div>
       ) : viewMode === "cards" ? (
-        <div className="requests-list cards">
-          {filteredRequests.map((req) => (
-            <article key={req.id} className="request-card">
-              <header className="card-header">
-                <h3 className="card-title">{req.title}</h3>
-
-                <div className="card-badges">
-                  <span className={`badge priority ${req.priority}`}>
-                    {req.priority}
-                  </span>
-                  <span className="badge category">{req.category}</span>
-                </div>
-              </header>
-
-              <p className="card-description">{req.description}</p>
-
-              <div className="card-meta">
-                <div className="meta-item">
-                  <i className="bi bi-geo-alt"></i>
-                  {req.city}
-                </div>
-
-                <div className="meta-item">
-                  <i className="bi bi-person"></i>
-                  {req.unit}
-                </div>
-
-                <div className="meta-item">
-                  <i className="bi bi-clock"></i>
-                  {req.createdAt}
-                </div>
-              </div>
-
-              <button className="card-action-btn">
-                צור קשר לעזרה
-                <i className="bi bi-chat-dots"></i>
-              </button>
-            </article>
-          ))}
-        </div>
+        <div>cards</div>
       ) : (
         <div>table</div>
       )}
@@ -209,6 +191,49 @@ function RequestsPage() {
                 onToggle={(v) => toggleFilter(key, v)}
               />
             ))}
+
+            <div className="filter-group">
+              <p className="filter-title">עבור:</p>
+              <select
+                value={quantityOption}
+                onChange={(e) => setQuantityOption(e.target.value)}
+                className="filter-select"
+              >
+                <option value="">בחר</option>
+                <option value="1">אדם אחד</option>
+                <option value="5">עד 5 אנשים</option>
+                <option value="10">עד 10 אנשים</option>
+                <option value="20">עד 20 אנשים</option>
+                <option value="50">עד 50 אנשים</option>
+                <option
+                  value="range"
+                  title="ניתן להכניס מספר מינימום ומקסימום כדי לקבל סינון מדויק"
+                >
+                  בחר טווח מספרים
+                </option>
+              </select>
+
+              {quantityOption === "range" && (
+                <div className="quantity-range-inputs">
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="מ…"
+                    value={minQuantity}
+                    onChange={(e) => setMinQuantity(e.target.value)}
+                    className="filter-input-number"
+                  />
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="עד…"
+                    value={maxQuantity}
+                    onChange={(e) => setMaxQuantity(e.target.value)}
+                    className="filter-input-number"
+                  />
+                </div>
+              )}
+            </div>
 
             <button className="clear-filters-btn" onClick={clearFilters}>
               נקה סינון

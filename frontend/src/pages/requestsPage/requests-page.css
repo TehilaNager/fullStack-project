@@ -182,133 +182,6 @@
 
 /* cards */
 
-/* GRID */
-.requests-list.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 2rem;
-}
-
-/* CARD */
-.request-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 1.6rem 1.7rem 1.8rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.request-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.14);
-}
-
-/* HEADER */
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.8rem;
-}
-
-.card-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.3;
-}
-
-/* BADGES */
-.card-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.badge {
-  padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.badge.category {
-  background: #e0f2fe;
-  color: #0369a1;
-}
-
-.badge.priority.גבוהה {
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.badge.priority.בינונית {
-  background: #fef9c3;
-  color: #92400e;
-}
-
-.badge.priority.נמוכה {
-  background: #dcfce7;
-  color: #166534;
-}
-
-/* DESCRIPTION */
-.card-description {
-  font-size: 0.95rem;
-  color: #475569;
-  line-height: 1.6;
-  margin: 0.6rem 0 1.2rem;
-  flex-grow: 1;
-}
-
-/* META */
-.card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem 1.2rem;
-  font-size: 0.8rem;
-  color: #64748b;
-  margin-bottom: 1.2rem;
-}
-
-.meta-item {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.meta-item i {
-  font-size: 0.9rem;
-}
-
-/* ACTION */
-.card-action-btn {
-  margin-top: auto;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: #ffffff;
-  border: none;
-  padding: 0.7rem 1.1rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  transition: background 0.25s ease, transform 0.2s ease;
-}
-
-.card-action-btn:hover {
-  transform: translateY(-1px);
-  background: linear-gradient(135deg, #1e40af, #1d4ed8);
-}
-
 /* סוף cards */
 
 .create-request-btn {
@@ -386,6 +259,41 @@
   border: none;
   font-size: 1.3rem;
   cursor: pointer;
+}
+
+.filter-group .filter-select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.filter-group .filter-select:focus {
+  outline: none;
+  border-color: #0000009f;
+}
+
+.filter-group .filter-input-number {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+.filter-group .filter-input-number:focus {
+  outline: none;
+  border-color: #0000009f;
+}
+
+.quantity-range-inputs {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .clear-filters-btn {
