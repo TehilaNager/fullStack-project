@@ -20,7 +20,7 @@ router.post("/", authMW, async (req, res) => {
         supporter: req.user._id
     }).save();
 
-    const filteredOffer = _.pick(newOffer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactInfo", "createdAt", "updatedAt"]);
+    const filteredOffer = _.pick(newOffer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
 
     res.json(filteredOffer);
 
@@ -96,7 +96,7 @@ router.put("/:id", authMW, async (req, res) => {
     Object.assign(offer, value);
     await offer.save();
 
-    const filteredOffer = _.pick(offer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactInfo", "createdAt", "updatedAt"]);
+    const filteredOffer = _.pick(offer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
 
     res.json(filteredOffer);
 });
@@ -126,7 +126,7 @@ router.delete("/:id", authMW, async (req, res) => {
 
     await offer.deleteOne();
 
-    const filteredOffer = _.pick(offer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactInfo", "createdAt", "updatedAt"]);
+    const filteredOffer = _.pick(offer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
 
     res.json(filteredOffer);
 });

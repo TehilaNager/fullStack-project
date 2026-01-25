@@ -21,7 +21,8 @@ const supportRequestSchema = new mongoose.Schema({
             return this.priority === 'דחופה';
         }
     },
-    contactInfo: { type: String, trim: true }
+    contactPhone: { type: String, trim: true },
+    contactEmail: { type: String, trim: true },
 }, { timestamps: true });
 
 const Request = mongoose.model('SupportRequest', supportRequestSchema, "requests");
@@ -37,12 +38,9 @@ const validateRequest = Joi.object({
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required(),
     requiredQuantity: Joi.number().min(1).required(),
-    deadline: Joi.when('priority', {
-        is: 'דחופה',
-        then: Joi.date().min('now').required(),
-        otherwise: Joi.forbidden()
-    }),
-    contactInfo: Joi.string().max(256).optional(),
+    deadline: Joi.when('priority', { is: 'דחופה', then: Joi.date().min('now').required(), otherwise: Joi.forbidden() }),
+    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
+    contactEmail: Joi.string().email().optional(),
 });
 
 const validateRequestUpdate = Joi.object({
@@ -61,7 +59,8 @@ const validateRequestUpdate = Joi.object({
         then: Joi.date().min('now').required(),
         otherwise: Joi.forbidden()
     }),
-    contactInfo: Joi.string().max(256).optional(),
+    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
+    contactEmail: Joi.string().email().optional(),
 }).min(1);
 
 
