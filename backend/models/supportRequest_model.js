@@ -14,7 +14,7 @@ const supportRequestSchema = new mongoose.Schema({
     city: { type: String, required: true },
     status: { type: String, enum: ['פתוחה', 'בטיפול', 'הושלמה'], default: 'פתוחה' },
     priority: { type: String, enum: ['נמוכה', 'בינונית', 'גבוהה', 'דחופה'], required: true },
-    requiredQuantity: { type: Number, required: true, min: 1 },
+    requiredQuantity: { type: Number, min: 1, default: null },
     deadline: {
         type: Date,
         required: function () {
@@ -37,7 +37,7 @@ const validateRequest = Joi.object({
     city: Joi.string().min(2).max(256).required(),
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required(),
-    requiredQuantity: Joi.number().min(1).required(),
+    requiredQuantity: Joi.number().min(1).optional().allow(null),
     deadline: Joi.when('priority', { is: 'דחופה', then: Joi.date().min('now').required(), otherwise: Joi.forbidden() }),
     contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
     contactEmail: Joi.string().email().optional(),
@@ -53,7 +53,7 @@ const validateRequestUpdate = Joi.object({
     city: Joi.string().min(2).max(256).optional(),
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').optional(),
-    requiredQuantity: Joi.number().min(1).optional(),
+    requiredQuantity: Joi.number().min(1).optional().allow(null),
     deadline: Joi.when('priority', {
         is: 'דחופה',
         then: Joi.date().min('now').required(),
