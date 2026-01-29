@@ -49,6 +49,7 @@
   .input-wrapper input {
     font-size: 0.9rem;
     padding: 9px 12px;
+    margin-bottom: 10px;
   }
   .input-wrapper label {
     font-size: 0.9rem;

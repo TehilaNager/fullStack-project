@@ -1,12 +1,14 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import "./login-register-forms.css";
-import Input from "../common/Inputs/Input";
-import InputPassword from "../common/Inputs/InputPassword";
+import { Link, useNavigate } from "react-router";
+import "./sign-in.css";
+import Input from "../../components/common/Inputs/Input";
+import InputPassword from "../../components/common/Inputs/InputPassword";
 import { validateSignIn } from "../../helpers/userValidation";
 import { useAuth } from "../../context/AuthContext";
 
-function LoginForm({ switchToRegister }) {
+function SignIn() {
+  const navigate = useNavigate();
   const { login } = useAuth();
   const [apiError, setApiError] = useState("");
 
@@ -41,7 +43,7 @@ function LoginForm({ switchToRegister }) {
 
       try {
         await login(values);
-        console.log("login success");
+        navigate("/");
       } catch (err) {
         const backendMessage = err.response?.data || "אירעה שגיאה בהתחברות";
         const message = errorMessages[backendMessage] || "אירעה שגיאה בהתחברות";
@@ -82,12 +84,12 @@ function LoginForm({ switchToRegister }) {
 
       <div className="no-account">
         אין לך חשבון עדיין?{" "}
-        <span className="link-text" onClick={switchToRegister}>
+        <Link className="link-text" to="/sign-up">
           הירשם עכשיו
-        </span>
+        </Link>
       </div>
     </form>
   );
 }
 
-export default LoginForm;
+export default SignIn;

@@ -6,6 +6,12 @@ function RequestsCard({ request }) {
 
   const showReadMore = request.description.length > 100;
 
+  const getQuantityLabel = (quantity) => {
+    if (quantity === null) return "לא צוין";
+    if (quantity === 1) return "אדם אחד";
+    return `${quantity} אנשים`;
+  };
+
   return (
     <div className="request-card">
       <div className="card-header">
@@ -38,20 +44,13 @@ function RequestsCard({ request }) {
       </div>
 
       <div className="card-info">
-        {request.deadline && (
-          <div className="info-item">
-            <i className="bi bi-clock-fill"></i> תוקף:{" "}
-            {new Date(request.deadline).toLocaleDateString("he-IL")}
-          </div>
-        )}
-
         <div className="info-item">
-          <i className="bi bi-geo-alt-fill"></i> אזור: {request.region}
+          <i className="bi bi-person-fill"></i> עבור:{" "}
+          {getQuantityLabel(request.requiredQuantity)}
         </div>
 
         <div className="info-item">
-          <i className="bi bi-person-fill"></i> עבור: {request.requiredQuantity}{" "}
-          אנשים
+          <i className="bi bi-geo-alt-fill"></i> אזור: {request.region}
         </div>
       </div>
 

@@ -302,6 +302,14 @@
   margin-top: 0.5rem;
 }
 
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+}
+
 .clear-filters-btn {
   margin-top: 1rem;
   width: 100%;

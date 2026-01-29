@@ -22,6 +22,7 @@ function RequestsPage() {
   const [quantityOption, setQuantityOption] = useState("");
   const [minQuantity, setMinQuantity] = useState("");
   const [maxQuantity, setMaxQuantity] = useState("");
+  const [includeUnknownQuantity, setIncludeUnknownQuantity] = useState(true);
   const [filters, setFilters] = useState({
     region: [],
     priority: [],
@@ -42,9 +43,18 @@ function RequestsPage() {
         filters,
         quantityOption,
         minQuantity,
-        maxQuantity
+        maxQuantity,
+        includeUnknownQuantity
       ),
-    [requests, search, filters, quantityOption, minQuantity, maxQuantity]
+    [
+      requests,
+      search,
+      filters,
+      quantityOption,
+      minQuantity,
+      maxQuantity,
+      includeUnknownQuantity,
+    ]
   );
 
   const toggleFilter = (type, value) =>
@@ -55,6 +65,7 @@ function RequestsPage() {
     setQuantityOption("");
     setMinQuantity("");
     setMaxQuantity("");
+    setIncludeUnknownQuantity(true);
   };
 
   const resultsCount = filteredRequests.length;
@@ -201,7 +212,7 @@ function RequestsPage() {
             ))}
 
             <div className="filter-group">
-              <p className="filter-title">עבור:</p>
+              <p className="filter-title">מספר האנשים הזקוקים לעזרה:</p>
               <select
                 value={quantityOption}
                 onChange={(e) => setQuantityOption(e.target.value)}
@@ -241,6 +252,19 @@ function RequestsPage() {
                   />
                 </div>
               )}
+
+              <div className="unknown-quantity-checkbox">
+                <label className="filter-option">
+                  <input
+                    type="checkbox"
+                    checked={includeUnknownQuantity}
+                    onChange={(e) =>
+                      setIncludeUnknownQuantity(e.target.checked)
+                    }
+                  />
+                  כלול בקשות בלי ציון מספר אנשים
+                </label>
+              </div>
             </div>
 
             <button className="clear-filters-btn" onClick={clearFilters}>

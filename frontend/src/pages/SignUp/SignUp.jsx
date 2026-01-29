@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { useFormik } from "formik";
-import "./login-register-forms.css";
-import Input from "../common/Inputs/input";
-import InputPassword from "../common/Inputs/InputPassword";
+import "./sign-up.css";
+import Input from "../../components/common/Inputs/Input";
+import InputPassword from "../../components/common/Inputs/InputPassword";
 import { validateSignUp } from "../../helpers/userValidation";
 import { useAuth } from "../../context/AuthContext";
 
-function RegisterForm({ switchToLogin }) {
+function RegisterForm() {
+  const navigate = useNavigate();
   const { createUser } = useAuth();
   const [apiError, setApiError] = useState("");
 
@@ -46,6 +48,7 @@ function RegisterForm({ switchToLogin }) {
     onSubmit: async (values) => {
       const { confirmPassword, ...userData } = values;
       setApiError("");
+      navigate("/");
       try {
         await createUser(userData);
       } catch (err) {
@@ -112,9 +115,9 @@ function RegisterForm({ switchToLogin }) {
 
       <div className="no-account">
         כבר יש לך חשבון?{" "}
-        <span className="link-text" onClick={switchToLogin}>
+        <Link className="link-text" to="/sign-in">
           התחבר כאן
-        </span>
+        </Link>
       </div>
     </form>
   );

@@ -20,7 +20,8 @@ export function filterRequests(
     filters,
     quantityOption,
     minQuantity,
-    maxQuantity
+    maxQuantity,
+    includeUnknownQuantity = true
 ) {
     const searchText = search.toLowerCase().trim();
 
@@ -40,17 +41,21 @@ export function filterRequests(
             filters.category.length === 0 || filters.category.includes(req.category);
 
         let matchesQuantity = true;
+        const qty = req.requiredQuantity;
 
-        if (quantityOption) {
-            if (quantityOption === "range") {
-                const minQ = minQuantity ? Number(minQuantity) : 0;
-                const maxQ = maxQuantity ? Number(maxQuantity) : Infinity;
-                matchesQuantity =
-                    req.requiredQuantity >= minQ && req.requiredQuantity <= maxQ;
-            } else {
-                const maxQ = Number(quantityOption);
-                matchesQuantity = req.requiredQuantity <= maxQ;
-            }
+        if (quantityOption === "range") {
+            const minQ = minQuantity ? Number(minQuantity) : 0;
+            const maxQ = maxQuantity ? Number(maxQuantity) : Infinity;
+            matchesQuantity = qty !== null && qty >= minQ && qty <= maxQ;
+        } else if (quantityOption) {
+            const maxQ = Number(quantityOption);
+            matchesQuantity = qty !== null && qty <= maxQ;
+        }
+
+        if (!includeUnknownQuantity && qty === null) {
+            matchesQuantity = false;
+        } else if (includeUnknownQuantity && qty === null) {
+            matchesQuantity = true;
         }
 
         return (

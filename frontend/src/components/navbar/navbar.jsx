@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { NavLink } from "react-router";
+import { NavLink, Link } from "react-router";
 import "./nav-bar.css";
 import Logo from "../common/Logo/Logo";
-import AuthModal from "../AuthModal/AuthModal";
+import { useAuth } from "../../context/authContext";
 
 function Navbar() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
     <header>
@@ -56,14 +56,77 @@ function Navbar() {
               </li>
             </ul>
 
-            <div className="profile-icon" onClick={() => setModalOpen(true)}>
-              <i className="bi bi-person-circle"></i>
-            </div>
+            {user ? (
+              <div
+                className="dropdown text-center"
+                style={{ display: "inline-block", position: "relative" }}
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/1896/1896513.png"
+                  alt="Profile"
+                  className="dropdown-toggle mx-3"
+                  data-bs-toggle="dropdown"
+                  style={{
+                    width: "50px",
+                    cursor: "pointer",
+                    borderRadius: "50%",
+                  }}
+                />
+                <ul
+                  className="dropdown-menu shadow text-center"
+                  style={{
+                    position: "absolute",
+                    top: "60px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  <li>
+                    <Link
+                      className="dropdown-item text-danger px-4 py-2"
+                      to={`/edit-user/${user?.id}`}
+                    >
+                      Edit
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item text-danger px-4 py-2"
+                      // to="/sign-out"
+                    >
+                      Log out
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      "nav-link" + (isActive ? " active" : "")
+                    }
+                    to="/sign-up"
+                  >
+                    Sign Up
+                  </NavLink>
+                </li>
+
+                <li className="nav-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      "nav-link" + (isActive ? " active" : "")
+                    }
+                    to="/sign-in"
+                  >
+                    Sign In
+                  </NavLink>
+                </li>
+              </>
+            )}
           </div>
         </div>
       </nav>
-
-      {modalOpen && <AuthModal closeModal={() => setModalOpen(false)} />}
     </header>
   );
 }
