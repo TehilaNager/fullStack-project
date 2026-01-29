@@ -84,7 +84,7 @@ function Navbar() {
                   <li>
                     <Link
                       className="dropdown-item text-danger px-4 py-2"
-                      to={`/edit-user/${user?.id}`}
+                      to={`/edit-user/${user?._id}`}
                     >
                       Edit
                     </Link>
@@ -92,7 +92,7 @@ function Navbar() {
                   <li>
                     <Link
                       className="dropdown-item text-danger px-4 py-2"
-                      // to="/sign-out"
+                      to="/sign-out"
                     >
                       Log out
                     </Link>

@@ -8,6 +8,7 @@ import CreateRequest from "../pages/CreateRequest/CreateRequest.jsx";
 import SignIn from "../pages/SignIn/SignIn.jsx";
 import SignUp from "../pages/SignUp/SignUp.jsx";
 import EditUser from "../pages/EditUser/EditUser.jsx";
+import SignOut from "../pages/SignOut/SignOut.jsx";
 
 function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ function AppRoutes() {
       <Route path="/" element={<HomePage />}></Route>
       <Route path="/sign-up" element={<SignUp />}></Route>
       <Route path="/sign-in" element={<SignIn />}></Route>
+      <Route path="/sign-out" element={<SignOut />}></Route>
       <Route path="/edit-user/:id" element={<EditUser />}></Route>
       <Route path="/about" element={<AboutPage />}></Route>
       <Route path="/requests" element={<RequestsPage />}></Route>
