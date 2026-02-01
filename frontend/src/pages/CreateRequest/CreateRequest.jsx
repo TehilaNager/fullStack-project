@@ -36,11 +36,9 @@ function CreateRequest() {
     onSubmit: async (values) => {
       try {
         await createRequest(values);
-        console.log(values);
         resetForm();
         navigate("/");
       } catch (error) {
-        console.error(error);
         console.log(error);
       }
     },
@@ -243,7 +241,12 @@ function CreateRequest() {
           </div>
         )}
 
-        <FormButtons textBtn="שלח" disabled={!isValid} onReset={resetForm} />
+        <FormButtons
+          textBtn="שלח"
+          disabled={!isValid}
+          onReset={resetForm}
+          aria-disabled={!isValid}
+        />
       </form>
     </div>
   );

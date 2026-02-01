@@ -1,103 +1,14 @@
-/* .create-request-page {
-  padding: 5rem 5rem 10rem;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.create-request-title {
-  text-align: center;
-  font-size: 3rem;
-  font-weight: 800;
-  color: #222;
-  margin-bottom: 3rem;
-}
-
-.create-request-form {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.form-input,
-.form-textarea,
-.form-select {
-  padding: 12px 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  outline: none;
-  transition: all 0.2s ease;
-}
-
-.form-input:focus,
-.form-textarea:focus,
-.form-select:focus {
-  border-color: #4a90e2;
-  box-shadow: 0 0 6px rgba(74, 144, 226, 0.3);
-}
-
-.form-textarea {
-  resize: none;
-  min-height: 100px;
-}
-
-.form-select {
-  padding: 12px 35px;
-}
-
-.form-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.form-row .form-group {
-  flex: 1 1 200px;
-}
-
-@media (max-width: 768px) {
-  .create-request-page {
-    padding: 4rem 2rem 7rem;
-  }
-  .create-request-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .form-group {
-    flex-direction: column;
-    margin-bottom: 0;
-    flex: 0;
-  }
-
-  .form-input {
-    font-size: 0.8rem;
-  }
-} */
-
 .create-request-page {
   padding: 5rem 5rem 10rem;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 .create-request-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: 800;
   color: #222;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .create-request-form {

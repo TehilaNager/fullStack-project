@@ -9,6 +9,9 @@ import SignIn from "../pages/SignIn/SignIn.jsx";
 import SignUp from "../pages/SignUp/SignUp.jsx";
 import EditUser from "../pages/EditUser/EditUser.jsx";
 import SignOut from "../pages/SignOut/SignOut.jsx";
+import EditRequest from "../pages/EditRequest/EditRequest.jsx";
+import EditOffer from "../pages/EditOffer/EditOffer.jsx";
+import CreateOffer from "../pages/CreateOffer/CreateOffer.jsx";
 
 function AppRoutes() {
   return (
@@ -23,6 +26,9 @@ function AppRoutes() {
       <Route path="/offers" element={<OffersPage />}></Route>
       <Route path="/card-details/:id" element={<DetailsCard />}></Route>
       <Route path="/create-request" element={<CreateRequest />}></Route>
+      <Route path="/edit-request" element={<EditRequest />}></Route>
+      <Route path="/create-offer" element={<CreateOffer />}></Route>
+      <Route path="/edit-offer" element={<EditOffer />}></Route>
     </Routes>
   );
 }

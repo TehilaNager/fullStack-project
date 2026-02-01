@@ -63,6 +63,7 @@ function FormField({
           type={type}
           placeholder={placeholder}
           className={inputClass}
+          autoComplete="off"
         />
       )}
 
