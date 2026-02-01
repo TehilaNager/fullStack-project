@@ -3,13 +3,13 @@ import { useNavigate } from "react-router";
 import "./requests-page.css";
 import { useRequest } from "../../context/RequestContext";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
-import { filterGroups } from "../../helpers/filtersData";
+import { filterGroups } from "../../helpers/requestsFiltersData";
 import {
   toggleFilter as handleToggleFilter,
   clearFilters as handleClearFilters,
   filterRequests,
   countActiveFilters,
-} from "../../helpers/filtersLogic";
+} from "../../helpers/requestsFiltersLogic";
 import RequestsCards from "../../components/RequestCard/RequestCard";
 import RequestsTable from "../../components/RequestsTable/RequestsTable";
 

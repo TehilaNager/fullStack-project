@@ -5,7 +5,7 @@ const OfferContext = createContext();
 OfferContext.displayName = "Offer";
 
 export function OfferProvider({ children }) {
-  const [offers, setOffers] = useState();
+  const [offers, setOffers] = useState([]);
 
   useEffect(() => {
     const fetchOffers = async () => {
