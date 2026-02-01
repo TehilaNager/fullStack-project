@@ -1,0 +1,42 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.3);
+}
+
+.form-control.form-textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+.form-control.form-select {
+  padding: 12px 35px;
+}
+
+.form-control {
+  padding: 12px 15px;
+}

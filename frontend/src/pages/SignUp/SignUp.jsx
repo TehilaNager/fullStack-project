@@ -6,6 +6,7 @@ import Input from "../../components/common/Inputs/Input";
 import InputPassword from "../../components/common/Inputs/InputPassword";
 import { validateSignUp } from "../../helpers/userValidation";
 import { useAuth } from "../../context/AuthContext";
+import FormButtons from "../../components/common/FormButtons/FormButtons";
 
 function RegisterForm() {
   const navigate = useNavigate();
@@ -20,44 +21,45 @@ function RegisterForm() {
     "Invalide password.": "הסיסמה לא תקינה",
   };
 
-  const { handleSubmit, getFieldProps, errors, touched } = useFormik({
-    initialValues: {
-      fullName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      phone: "",
-      city: "",
-    },
-    validate: (values) => {
-      const schema = validateSignUp;
+  const { handleSubmit, getFieldProps, errors, touched, isValid, resetForm } =
+    useFormik({
+      initialValues: {
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        phone: "",
+        city: "",
+      },
+      validate: (values) => {
+        const schema = validateSignUp;
 
-      const { error } = schema.validate(values, { abortEarly: false });
+        const { error } = schema.validate(values, { abortEarly: false });
 
-      if (!error) {
-        return null;
-      }
+        if (!error) {
+          return null;
+        }
 
-      const errors = {};
-      for (const detail of error.details) {
-        errors[detail.path[0]] = detail.message;
-      }
+        const errors = {};
+        for (const detail of error.details) {
+          errors[detail.path[0]] = detail.message;
+        }
 
-      return errors;
-    },
-    onSubmit: async (values) => {
-      const { confirmPassword, ...userData } = values;
-      setApiError("");
-      navigate("/");
-      try {
-        await createUser(userData);
-      } catch (err) {
-        const backendMessage = err.response?.data || "אירעה שגיאה בהרשמה";
-        const message = errorMessages[backendMessage] || "אירעה שגיאה בהרשמה";
-        setApiError(message);
-      }
-    },
-  });
+        return errors;
+      },
+      onSubmit: async (values) => {
+        const { confirmPassword, ...userData } = values;
+        setApiError("");
+        navigate("/");
+        try {
+          await createUser(userData);
+        } catch (err) {
+          const backendMessage = err.response?.data || "אירעה שגיאה בהרשמה";
+          const message = errorMessages[backendMessage] || "אירעה שגיאה בהרשמה";
+          setApiError(message);
+        }
+      },
+    });
 
   return (
     <form
@@ -109,9 +111,7 @@ function RegisterForm() {
 
       {apiError && <div className="server-error">{apiError}</div>}
 
-      <button type="submit" className="submit-btn register">
-        הרשמה
-      </button>
+      <FormButtons textBtn="הרשמה" disabled={!isValid} onReset={resetForm} />
 
       <div className="no-account">
         כבר יש לך חשבון?{" "}

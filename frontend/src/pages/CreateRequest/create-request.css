@@ -1,4 +1,4 @@
-.create-request-page {
+/* .create-request-page {
   padding: 5rem 5rem 10rem;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -67,24 +67,6 @@
   flex: 1 1 200px;
 }
 
-.submit-btn {
-  background-color: #4a90e2;
-  color: white;
-  padding: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 1rem;
-}
-
-.submit-btn:hover {
-  background-color: #3571b5;
-  transform: translateY(-2px);
-}
-
 @media (max-width: 768px) {
   .create-request-page {
     padding: 4rem 2rem 7rem;
@@ -98,6 +80,55 @@
     flex-direction: column;
     margin-bottom: 0;
     flex: 0;
+  }
+
+  .form-input {
+    font-size: 0.8rem;
+  }
+} */
+
+.create-request-page {
+  padding: 5rem 5rem 10rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.create-request-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 3rem;
+}
+
+.create-request-form {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1 1 200px;
+}
+
+@media (max-width: 768px) {
+  .create-request-page {
+    padding: 4rem 2rem 7rem;
+  }
+  .create-request-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-row .form-group {
+    flex: 0 1 100%;
   }
 
   .form-input {

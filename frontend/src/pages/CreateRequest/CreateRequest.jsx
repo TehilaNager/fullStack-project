@@ -1,12 +1,24 @@
-import { useState } from "react";
 import "./create-request.css";
 import { useFormik } from "formik";
+import FormButtons from "../../components/common/FormButtons/FormButtons";
+import requestSchema from "../../helpers/requestValidation";
+import { useRequest } from "../../context/requestContext";
+import { useNavigate } from "react-router";
+import FormField from "../../components/common/FormField/FormField";
 
 function CreateRequest() {
-  const [priority, setPriority] = useState("");
-  const [deadline, setDeadline] = useState("");
-  const [contactMethod, setContactMethod] = useState("");
-  const { handleSubmit } = useFormik({
+  const navigate = useNavigate();
+  const { createRequest } = useRequest();
+  const {
+    handleSubmit,
+    getFieldProps,
+    errors,
+    touched,
+    values,
+    isValid,
+    resetForm,
+  } = useFormik({
+    validateOnMount: true,
     initialValues: {
       title: "",
       description: "",
@@ -16,11 +28,22 @@ function CreateRequest() {
       city: "",
       priority: "",
       deadline: "",
+      contactMethod: "",
       contactPhone: "",
       contactEmail: "",
     },
-    validate: () => {},
-    onSubmit: () => {},
+    validationSchema: requestSchema,
+    onSubmit: async (values) => {
+      try {
+        await createRequest(values);
+        console.log(values);
+        resetForm();
+        navigate("/");
+      } catch (error) {
+        console.error(error);
+        console.log(error);
+      }
+    },
   });
 
   return (
@@ -28,185 +51,199 @@ function CreateRequest() {
       <h1 className="create-request-title">צור בקשה חדשה</h1>
 
       <form className="create-request-form" onSubmit={handleSubmit}>
-        {/* title */}
-        <div className="form-group">
-          <label htmlFor="title" className="form-label">
-            <span style={{ color: "red" }}>*</span> כותרת:
-          </label>
-          <input
-            className="form-input"
-            type="text"
-            placeholder="למשל: נעלי הליכה מידה 43"
-            required
-            id="title"
+        <FormField
+          label="כותרת"
+          name="title"
+          placeholder="למשל: נעלי הליכה מידה 43"
+          touched={touched}
+          errors={errors}
+          values={values}
+          getFieldProps={getFieldProps}
+          required={true}
+        />
+
+        <FormField
+          label="תיאור"
+          name="description"
+          as="textarea"
+          placeholder="למשל: אני זקוק לנעלי הליכה מידה 43, נוחות ועמידות לשימוש יומיומי, צבע כהה מועדף. תודה!"
+          touched={touched}
+          errors={errors}
+          values={values}
+          getFieldProps={getFieldProps}
+          required={true}
+        />
+
+        <div className="form-row">
+          <FormField
+            label="קטגוריה"
+            name="category"
+            as="select"
+            placeholder="בחר קטגוריה"
+            options={[
+              "ציוד צבאי",
+              "ביגוד",
+              "מזון",
+              "תחבורה",
+              "ציוד אלקטרוני",
+              "ספרים וחומרי לימוד",
+              "ציוד רפואי",
+              "תמיכה נפשית וחברתית",
+              "אחר",
+            ]}
+            touched={touched}
+            errors={errors}
+            values={values}
+            getFieldProps={getFieldProps}
+            required={true}
+          />
+
+          <FormField
+            label="מספר האנשים הזקוקים לעזרה (לא חובה)"
+            name="requiredQuantity"
+            type="number"
+            placeholder="הכנס מספר"
+            touched={touched}
+            errors={errors}
+            values={values}
+            getFieldProps={getFieldProps}
+            required={false}
           />
         </div>
-        {/* description */}
-        <div className="form-group">
-          <label htmlFor="description" className="form-label">
-            <span style={{ color: "red" }}>*</span> תיאור:
-          </label>
-          <textarea
-            className="form-textarea"
-            placeholder="למשל: אני זקוק לנעלי הליכה מידה 43, נוחות ועמידות לשימוש יומיומי, צבע כהה מועדף. תודה!"
-            required
-            id="description"
-          ></textarea>
-        </div>
+
         <div className="form-row">
-          {/* category */}
-          <div className="form-group">
-            <label className="form-label">
-              <span style={{ color: "red" }}>*</span> קטגוריה:
-            </label>
-            <select className="form-select" defaultValue="" required>
-              <option value="" disabled>
-                בחר קטגוריה
-              </option>
-              <option>ציוד צבאי</option>
-              <option>ביגוד</option>
-              <option>מזון</option>
-              <option>תחבורה</option>
-              <option>ציוד אלקטרוני</option>
-              <option>ספרים וחומרי לימוד</option>
-              <option>ציוד רפואי</option>
-              <option>תמיכה נפשית וחברתית</option>
-              <option>אחר</option>
-            </select>
-          </div>
+          <FormField
+            label="אזור"
+            name="region"
+            as="select"
+            placeholder="בחר אזור"
+            options={["צפון", "מרכז", "דרום"]}
+            touched={touched}
+            errors={errors}
+            values={values}
+            getFieldProps={getFieldProps}
+            required={true}
+          />
 
-          {/* requiredQuantity */}
-          <div className="form-group">
-            <label htmlFor="requiredQuantity" className="form-label">
-              מספר האנשים הזקוקים לעזרה (לא חובה):
-            </label>
-
-            <input
-              className="form-input"
-              type="number"
-              min="1"
-              placeholder="הכנס מספר"
-              id="requiredQuantity"
-            />
-          </div>
+          <FormField
+            label="עיר"
+            name="city"
+            placeholder="למשל: עפולה"
+            touched={touched}
+            errors={errors}
+            values={values}
+            getFieldProps={getFieldProps}
+            required={true}
+          />
         </div>
+
         <div className="form-row">
-          {/* region */}
-          <div className="form-group">
-            <label className="form-label">
-              <span style={{ color: "red" }}>*</span> אזור:
-            </label>
-            <select className="form-select" defaultValue="" required>
-              <option value="" disabled>
-                בחר אזור
-              </option>
-              <option>צפון</option>
-              <option>מרכז</option>
-              <option>דרום</option>
-            </select>
-          </div>
+          <FormField
+            label="דחיפות"
+            name="priority"
+            placeholder="בחר דחיפות"
+            as="select"
+            options={["נמוכה", "בינונית", "גבוהה", "דחופה"]}
+            touched={touched}
+            errors={errors}
+            values={values}
+            getFieldProps={getFieldProps}
+            required={true}
+          />
 
-          {/* city */}
-          <div className="form-group">
-            <label className="form-label">
-              <span style={{ color: "red" }}>*</span> עיר:
-            </label>
-            <input
-              className="form-input"
-              type="text"
-              placeholder="למשל: עפולה"
-              required
-            />
-          </div>
-        </div>
-        <div className="form-row">
-          {/* priority */}
-          <div className="form-group">
-            <label className="form-label">
-              <span style={{ color: "red" }}>*</span> דחיפות:
-            </label>
-            <select
-              className="form-select"
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-              required
-            >
-              <option value="" disabled>
-                בחר דחיפות
-              </option>
-              <option>נמוכה</option>
-              <option>בינונית</option>
-              <option>גבוהה</option>
-              <option>דחופה</option>
-            </select>
-          </div>
-
-          {/* deadline */}
-          <div className="form-group">
-            <label className="form-label">
-              {priority === "דחופה" && <span style={{ color: "red" }}>* </span>}
-              תאריך אחרון (שדה חובה לבקשות דחופות):
-            </label>
-            <input
-              className="form-input"
-              type="date"
-              value={deadline}
-              onChange={(e) => setDeadline(e.target.value)}
-              required={priority === "דחופה"}
-            />
-
+          <FormField
+            label="תאריך אחרון (שדה חובה לבקשות דחופות)"
+            name="deadline"
+            type="date"
+            placeholder=""
+            as="input"
+            touched={touched}
+            errors={errors}
+            values={values}
+            getFieldProps={getFieldProps}
+            required={values.priority === "דחופה"}
+          >
             <small style={{ color: "#666" }}>
               הבקשה לא תוצג לאחר תאריך זה.
             </small>
-          </div>
+          </FormField>
         </div>
 
-        {/* דרך יצירת קשר מועדפת */}
-        <div className="form-group">
-          <label className="form-label">
-            <span style={{ color: "red" }}>*</span> דרך יצירת קשר מועדפת:
-          </label>
-          <select
-            className="form-select"
-            value={contactMethod}
-            onChange={(e) => setContactMethod(e.target.value)}
-            required
-          >
-            <option value="" disabled>
-              בחר
-            </option>
-            <option value="site">דרך מערכת ההודעות בלבד</option>
-            <option value="details">
-              השאר טלפון, אימייל, או את שניהם (בנוסף למערכת ההודעות)
-            </option>
-          </select>
-        </div>
-        {contactMethod === "details" && (
+        <FormField
+          label="דרך יצירת קשר מועדפת:"
+          name="contactMethod"
+          as="select"
+          placeholder="בחר"
+          options={[
+            { value: "site", label: "דרך מערכת ההודעות בלבד" },
+            {
+              value: "details",
+              label: "השאר טלפון, אימייל, או את שניהם (בנוסף למערכת ההודעות)",
+            },
+          ]}
+          touched={touched}
+          errors={errors}
+          values={values}
+          getFieldProps={getFieldProps}
+          required={true}
+        />
+
+        {values.contactMethod === "details" && (
           <div className="form-row">
             {/* contactPhone */}
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="form-label">טלפון (לא חובה):</label>
               <input
+                {...getFieldProps("contactPhone")}
                 className="form-input"
                 type="tel"
                 placeholder="למשל: 0501234567"
               />
-            </div>
+
+              {touched.contactPhone && errors.contactPhone && (
+                <div className="error-text">{errors.contactPhone}</div>
+              )}
+            </div> */}
+            <FormField
+              label="טלפון (לא חובה):"
+              name="contactPhone"
+              type="tel"
+              placeholder="למשל: 0501234567"
+              touched={touched}
+              errors={errors}
+              values={values}
+              getFieldProps={getFieldProps}
+            />
 
             {/* contactEmail */}
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="form-label">אימייל (לא חובה):</label>
               <input
+                {...getFieldProps("contactEmail")}
                 className="form-input"
                 type="email"
                 placeholder="למשל: example@mail.com"
               />
-            </div>
+
+              {touched.contactEmail && errors.contactEmail && (
+                <div className="error-text">{errors.contactEmail}</div>
+              )}
+            </div> */}
+
+            <FormField
+              label="אימייל (לא חובה):"
+              name="contactEmail"
+              type="email"
+              placeholder="למשל: example@mail.com"
+              touched={touched}
+              errors={errors}
+              values={values}
+              getFieldProps={getFieldProps}
+            />
           </div>
         )}
-        <button type="submit" className="submit-btn">
-          שלח בקשה
-        </button>
+
+        <FormButtons textBtn="שלח" disabled={!isValid} onReset={resetForm} />
       </form>
     </div>
   );

@@ -21,6 +21,7 @@ const supportRequestSchema = new mongoose.Schema({
             return this.priority === 'דחופה';
         }
     },
+    contactMethod: { type: String, enum: ["site", "details"], required: true },
     contactPhone: { type: String, trim: true },
     contactEmail: { type: String, trim: true },
 }, { timestamps: true });
@@ -39,8 +40,9 @@ const validateRequest = Joi.object({
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required(),
     requiredQuantity: Joi.number().min(1).optional().allow(null),
     deadline: Joi.when('priority', { is: 'דחופה', then: Joi.date().min('now').required(), otherwise: Joi.forbidden() }),
-    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
-    contactEmail: Joi.string().email().optional(),
+    contactMethod: Joi.string().valid("site", "details").required(),
+    contactPhone: Joi.string().pattern(/^05\d{8}$/).allow("").optional(),
+    contactEmail: Joi.string().email().allow("").optional(),
 });
 
 const validateRequestUpdate = Joi.object({
@@ -59,8 +61,9 @@ const validateRequestUpdate = Joi.object({
         then: Joi.date().min('now').required(),
         otherwise: Joi.forbidden()
     }),
-    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
-    contactEmail: Joi.string().email().optional(),
+    contactMethod: Joi.string().valid("site", "details").optional(),
+    contactPhone: Joi.string().pattern(/^05\d{8}$/).allow("").optional(),
+    contactEmail: Joi.string().email().allow("").optional(),
 }).min(1);
 
 

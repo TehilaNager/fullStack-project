@@ -20,8 +20,18 @@ export function RequestProvider({ children }) {
     fetchRequests();
   }, []);
 
+  const createRequest = async (values) => {
+    try {
+      const newRequest = await requestService.createRequest(values);
+      setRequests((prev) => [...prev, newRequest]);
+      return newRequest;
+    } catch (error) {
+      console.error("Error creating request:", error);
+    }
+  };
+
   return (
-    <RequestContext.Provider value={{ requests, setRequests }}>
+    <RequestContext.Provider value={{ requests, setRequests, createRequest }}>
       {children}
     </RequestContext.Provider>
   );

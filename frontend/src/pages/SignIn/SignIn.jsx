@@ -6,6 +6,7 @@ import Input from "../../components/common/Inputs/Input";
 import InputPassword from "../../components/common/Inputs/InputPassword";
 import { validateSignIn } from "../../helpers/userValidation";
 import { useAuth } from "../../context/AuthContext";
+import FormButtons from "../../components/common/FormButtons/FormButtons";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -18,39 +19,41 @@ function SignIn() {
     "Invalide password.": "כתובת האימייל או הסיסמה שגויים",
   };
 
-  const { handleSubmit, getFieldProps, errors, touched } = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validate: (values) => {
-      const schema = validateSignIn;
-      const { error } = schema.validate(values, { abortEarly: false });
+  const { handleSubmit, getFieldProps, errors, touched, isValid, resetForm } =
+    useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      validate: (values) => {
+        const schema = validateSignIn;
+        const { error } = schema.validate(values, { abortEarly: false });
 
-      if (!error) {
-        return null;
-      }
+        if (!error) {
+          return null;
+        }
 
-      const errors = {};
-      for (const detail of error.details) {
-        errors[detail.path[0]] = detail.message;
-      }
+        const errors = {};
+        for (const detail of error.details) {
+          errors[detail.path[0]] = detail.message;
+        }
 
-      return errors;
-    },
-    onSubmit: async (values) => {
-      setApiError("");
+        return errors;
+      },
+      onSubmit: async (values) => {
+        setApiError("");
 
-      try {
-        await login(values);
-        navigate("/");
-      } catch (err) {
-        const backendMessage = err.response?.data || "אירעה שגיאה בהתחברות";
-        const message = errorMessages[backendMessage] || "אירעה שגיאה בהתחברות";
-        setApiError(message);
-      }
-    },
-  });
+        try {
+          await login(values);
+          navigate("/");
+        } catch (err) {
+          const backendMessage = err.response?.data || "אירעה שגיאה בהתחברות";
+          const message =
+            errorMessages[backendMessage] || "אירעה שגיאה בהתחברות";
+          setApiError(message);
+        }
+      },
+    });
 
   return (
     <form
@@ -74,13 +77,9 @@ function SignIn() {
         error={touched.password && errors.password}
       />
 
-      <div className="forgot">שכחתי סיסמה</div>
-
       {apiError && <div className="server-error">{apiError}</div>}
 
-      <button type="submit" className="submit-btn">
-        התחבר
-      </button>
+      <FormButtons textBtn="התחבר" disabled={!isValid} onReset={resetForm} />
 
       <div className="no-account">
         אין לך חשבון עדיין?{" "}

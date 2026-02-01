@@ -19,33 +19,6 @@
   margin-bottom: 20px;
 }
 
-.forgot {
-  font-size: 0.85rem;
-  color: #0056b3;
-  text-align: right;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-.forgot:hover {
-  text-decoration: underline;
-}
-
-.submit-btn {
-  background: linear-gradient(to right, #003366, #004aad);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.submit-btn:hover {
-  background: linear-gradient(to right, #00264d, #003f91);
-}
-
 .no-account {
   font-size: 0.9rem;
   color: #666;
@@ -91,25 +64,10 @@
   .form-title {
     font-size: 1.2rem;
   }
-
-  .submit-btn {
-    font-size: 0.95rem;
-    padding: 9px;
-  }
 }
 
 @media (max-width: 480px) {
   .form-title {
     font-size: 1.1rem;
-  }
-
-  .submit-btn {
-    font-size: 0.9rem;
-    padding: 8px;
-  }
-
-  .forgot,
-  .no-account {
-    font-size: 0.85rem;
   }
 }

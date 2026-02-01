@@ -86,7 +86,7 @@ function Navbar() {
                       className="dropdown-item text-danger px-4 py-2"
                       to={`/edit-user/${user?._id}`}
                     >
-                      Edit
+                      עריכה
                     </Link>
                   </li>
                   <li>
@@ -94,7 +94,7 @@ function Navbar() {
                       className="dropdown-item text-danger px-4 py-2"
                       to="/sign-out"
                     >
-                      Log out
+                      התנתק
                     </Link>
                   </li>
                 </ul>
@@ -108,7 +108,7 @@ function Navbar() {
                     }
                     to="/sign-up"
                   >
-                    Sign Up
+                    הרשם
                   </NavLink>
                 </li>
 
@@ -119,7 +119,7 @@ function Navbar() {
                     }
                     to="/sign-in"
                   >
-                    Sign In
+                    התחבר
                   </NavLink>
                 </li>
               </>
