@@ -10,6 +10,8 @@ import {
 } from "../../helpers/offersFiltersLogic";
 import { useNavigate } from "react-router";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
+import OfferCard from "../../components/OfferCard/OfferCard";
+import OffersTable from "../../components/OffersTable/OffersTable";
 
 function OffersPage() {
   const navigate = useNavigate();
@@ -157,9 +159,13 @@ function OffersPage() {
           )}
         </div>
       ) : viewMode === "cards" ? (
-        <div>cards</div>
+        <div className="cards-container">
+          {filteredOffers.map((offer) => (
+            <OfferCard key={offer._id} offer={offer} />
+          ))}
+        </div>
       ) : (
-        <div>table</div>
+        <OffersTable />
       )}
 
       <button

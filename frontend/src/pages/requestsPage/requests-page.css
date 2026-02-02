@@ -327,6 +327,10 @@
     padding: 0 1.2rem 3rem;
   }
 
+  .requests-title {
+    font-size: 3rem;
+  }
+
   .requests-toolbar {
     flex-direction: column;
     align-items: stretch;

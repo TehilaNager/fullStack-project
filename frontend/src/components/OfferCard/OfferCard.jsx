@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import "./request-card.css";
+import "./offer-card.css";
 
-function RequestsCard({ request }) {
+function OfferCard({ offer }) {
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
   const descriptionRef = useRef(null);
@@ -22,34 +22,27 @@ function RequestsCard({ request }) {
     if (el) {
       setShowReadMore(el.scrollHeight > el.clientHeight);
     }
-  }, [request.description]);
+  }, [offer.description]);
 
   return (
-    <div className="request-card request">
+    <div className="offer-card offer">
       <div className="card-header">
-        <h3 className="card-title">{request.title}</h3>
+        <h3 className="card-title">{offer.title}</h3>
 
         <div className="tags">
           <span
-            className={`tag status status-${request.status.replace(
-              /\s/g,
-              "-"
-            )}`}
+            className={`tag status status-${offer.status.replace(/\s/g, "-")}`}
           >
-            {request.status}
+            {offer.status}
           </span>
 
           <span
-            className={`tag category category-${request.category.replace(
+            className={`tag category category-${offer.category.replace(
               /\s/g,
               "-"
             )}`}
           >
-            {request.category}
-          </span>
-
-          <span className={`tag priority ${request.priority}`}>
-            {request.priority}
+            {offer.category}
           </span>
         </div>
       </div>
@@ -61,7 +54,7 @@ function RequestsCard({ request }) {
             showReadMore ? "fade-out" : ""
           }`}
         >
-          {request.description}
+          {offer.description}
         </p>
 
         {showReadMore && (
@@ -78,26 +71,27 @@ function RequestsCard({ request }) {
         <div className="card-info">
           <div className="info-item">
             <i className="bi bi-people-fill"></i>{" "}
-            {`עבור: ${getQuantityLabel(request.requiredQuantity)}`}
+            {`עבור: ${getQuantityLabel(offer.availableQuantity)}`}
           </div>
 
           <div className="info-item">
             <i className="bi bi-calendar-event-fill"></i> זמין עד:{" "}
-            {request.deadline ? `${formatDate(request.deadline)}` : "לא צויין"}
+            {offer.availableUntil
+              ? `${formatDate(offer.availableUntil)}`
+              : "לא צויין"}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-geo-alt-fill"></i> {request.city},{" "}
-            {request.region}
+            <i className="bi bi-geo-alt-fill"></i> {offer.city}, {offer.region}
           </div>
         </div>
 
-        <a href={`/card-details/${request.id}`} className="details-btn">
-          פרטי הבקשה
+        <a href={`/offers/${offer._id}`} className="details-btn">
+          פרטי התרומה
         </a>
       </div>
     </div>
   );
 }
 
-export default RequestsCard;
+export default OfferCard;
