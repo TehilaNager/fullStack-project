@@ -93,7 +93,7 @@ function RequestsCard({ request }) {
           </div>
         </div>
 
-        <Link to={`/card-details/${request.id}`} className="details-btn">
+        <Link to={`/details-request/${request.id}`} className="details-btn">
           פרטי הבקשה
         </Link>
       </div>

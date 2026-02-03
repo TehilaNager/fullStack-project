@@ -3,7 +3,6 @@ import HomePage from "../pages/HomePage/HomePage.jsx";
 import AboutPage from "../pages/AboutPage/AboutPage.jsx";
 import RequestsPage from "../pages/RequestsPage/RequestsPage.jsx";
 import OffersPage from "../pages/OffersPage/OffersPage.jsx";
-import DetailsCard from "../pages/DetailsCard/DetailsCard.jsx";
 import CreateRequest from "../pages/CreateRequest/CreateRequest.jsx";
 import SignIn from "../pages/SignIn/SignIn.jsx";
 import SignUp from "../pages/SignUp/SignUp.jsx";
@@ -12,6 +11,8 @@ import SignOut from "../pages/SignOut/SignOut.jsx";
 import EditRequest from "../pages/EditRequest/EditRequest.jsx";
 import EditOffer from "../pages/EditOffer/EditOffer.jsx";
 import CreateOffer from "../pages/CreateOffer/CreateOffer.jsx";
+import DetailsOffer from "../pages/DetailsOffer/DetailsOffer.jsx";
+import DetailsRequest from "../pages/DetailsRequest/DetailsRequest.jsx";
 
 function AppRoutes() {
   return (
@@ -23,10 +24,11 @@ function AppRoutes() {
       <Route path="/edit-user/:id" element={<EditUser />}></Route>
       <Route path="/about" element={<AboutPage />}></Route>
       <Route path="/requests" element={<RequestsPage />}></Route>
-      <Route path="/offers" element={<OffersPage />}></Route>
-      <Route path="/card-details/:id" element={<DetailsCard />}></Route>
+      <Route path="/details-request/:id" element={<DetailsRequest />}></Route>
       <Route path="/create-request" element={<CreateRequest />}></Route>
       <Route path="/edit-request" element={<EditRequest />}></Route>
+      <Route path="/offers" element={<OffersPage />}></Route>
+      <Route path="/details-offer/:id" element={<DetailsOffer />}></Route>
       <Route path="/create-offer" element={<CreateOffer />}></Route>
       <Route path="/edit-offer" element={<EditOffer />}></Route>
     </Routes>

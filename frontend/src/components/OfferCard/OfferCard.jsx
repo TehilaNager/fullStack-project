@@ -88,7 +88,7 @@ function OfferCard({ offer }) {
           </div>
         </div>
 
-        <Link to={`/offers/${offer._id}`} className="details-btn">
+        <Link to={`/details-offer/${offer._id}`} className="details-btn">
           פרטי התרומה
         </Link>
       </div>
