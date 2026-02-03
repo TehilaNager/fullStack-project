@@ -184,7 +184,7 @@
   color: #334155;
 }
 
-.offer-card .info-item i {
+.offer-card .info-icon {
   font-size: 1rem;
   color: #64748b;
 }
@@ -233,7 +233,7 @@
     0 10px 30px rgba(37, 99, 235, 0.35), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-.offer-card.offer .info-item i {
+.offer-card.offer .info-icon {
   color: #082167;
   opacity: 0.85;
 }

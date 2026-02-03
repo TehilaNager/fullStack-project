@@ -225,7 +225,7 @@
   color: #334155;
 }
 
-.request-card .info-item i {
+.request-card .info-icon {
   font-size: 1rem;
   color: #64748b;
 }
@@ -274,7 +274,7 @@
     0 10px 30px rgba(75, 46, 46, 0.35), 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-.request-card.request .info-item i {
+.request-card.request .info-icon {
   color: #4b2e2e;
   opacity: 0.85;
 }

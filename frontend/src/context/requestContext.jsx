@@ -10,8 +10,8 @@ export function RequestProvider({ children }) {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const AllRequests = await requestService.getAllRequests();
-        setRequests(AllRequests);
+        const allRequests = await requestService.getAllRequests();
+        setRequests(allRequests);
       } catch (error) {
         console.error("Error fetching requests:", error);
       }

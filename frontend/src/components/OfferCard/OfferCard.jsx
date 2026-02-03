@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 import "./offer-card.css";
 
 function OfferCard({ offer }) {
@@ -70,25 +71,26 @@ function OfferCard({ offer }) {
       <div className="bottom-wrapper">
         <div className="card-info">
           <div className="info-item">
-            <i className="bi bi-people-fill"></i>{" "}
+            <i className="bi bi-people-fill info-icon"></i>{" "}
             {`עבור: ${getQuantityLabel(offer.availableQuantity)}`}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-calendar-event-fill"></i> זמין עד:{" "}
+            <i className="bi bi-calendar-event-fill info-icon"></i> זמין עד:{" "}
             {offer.availableUntil
               ? `${formatDate(offer.availableUntil)}`
               : "לא צויין"}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-geo-alt-fill"></i> {offer.city}, {offer.region}
+            <i className="bi bi-geo-alt-fill info-icon"></i> {offer.city},{" "}
+            {offer.region}
           </div>
         </div>
 
-        <a href={`/offers/${offer._id}`} className="details-btn">
+        <Link to={`/offers/${offer._id}`} className="details-btn">
           פרטי התרומה
-        </a>
+        </Link>
       </div>
     </div>
   );

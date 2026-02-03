@@ -5,8 +5,15 @@ async function getAllOffers() {
     return offers.data;
 }
 
+async function createOffer(values) {
+    const newOffer = await httpService.post("/offers", values);
+    return newOffer.data;
+}
+
+
 const offerService = {
-    getAllOffers
+    getAllOffers,
+    createOffer
 };
 
 export default offerService;

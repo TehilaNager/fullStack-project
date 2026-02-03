@@ -35,7 +35,13 @@ function CreateRequest() {
     validationSchema: requestSchema,
     onSubmit: async (values) => {
       try {
-        await createRequest(values);
+        const payload = { ...values };
+
+        if (payload.priority !== "דחופה") {
+          delete payload.deadline;
+        }
+
+        await createRequest(payload);
         resetForm();
         navigate("/");
       } catch (error) {
@@ -173,7 +179,7 @@ function CreateRequest() {
           as="select"
           placeholder="בחר"
           options={[
-            { value: "site", label: "דרך מערכת ההודעות בלבד" },
+            { value: "site", label: "דרך מערכת ההודעות של האתר בלבד" },
             {
               value: "details",
               label: "השאר טלפון, אימייל, או את שניהם (בנוסף למערכת ההודעות)",
@@ -188,20 +194,6 @@ function CreateRequest() {
 
         {values.contactMethod === "details" && (
           <div className="form-row">
-            {/* contactPhone */}
-            {/* <div className="form-group">
-              <label className="form-label">טלפון (לא חובה):</label>
-              <input
-                {...getFieldProps("contactPhone")}
-                className="form-input"
-                type="tel"
-                placeholder="למשל: 0501234567"
-              />
-
-              {touched.contactPhone && errors.contactPhone && (
-                <div className="error-text">{errors.contactPhone}</div>
-              )}
-            </div> */}
             <FormField
               label="טלפון (לא חובה):"
               name="contactPhone"
@@ -212,21 +204,6 @@ function CreateRequest() {
               values={values}
               getFieldProps={getFieldProps}
             />
-
-            {/* contactEmail */}
-            {/* <div className="form-group">
-              <label className="form-label">אימייל (לא חובה):</label>
-              <input
-                {...getFieldProps("contactEmail")}
-                className="form-input"
-                type="email"
-                placeholder="למשל: example@mail.com"
-              />
-
-              {touched.contactEmail && errors.contactEmail && (
-                <div className="error-text">{errors.contactEmail}</div>
-              )}
-            </div> */}
 
             <FormField
               label="אימייל (לא חובה):"

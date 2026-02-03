@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 import "./request-card.css";
 
 function RequestsCard({ request }) {
@@ -77,24 +78,24 @@ function RequestsCard({ request }) {
       <div className="bottom-wrapper">
         <div className="card-info">
           <div className="info-item">
-            <i className="bi bi-people-fill"></i>{" "}
+            <i className="bi bi-people-fill info-icon"></i>{" "}
             {`עבור: ${getQuantityLabel(request.requiredQuantity)}`}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-calendar-event-fill"></i> זמין עד:{" "}
+            <i className="bi bi-calendar-event-fill info-icon"></i> זמין עד:{" "}
             {request.deadline ? `${formatDate(request.deadline)}` : "לא צויין"}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-geo-alt-fill"></i> {request.city},{" "}
+            <i className="bi bi-geo-alt-fill info-icon"></i> {request.city},{" "}
             {request.region}
           </div>
         </div>
 
-        <a href={`/card-details/${request.id}`} className="details-btn">
+        <Link to={`/card-details/${request.id}`} className="details-btn">
           פרטי הבקשה
-        </a>
+        </Link>
       </div>
     </div>
   );

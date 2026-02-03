@@ -20,8 +20,18 @@ export function OfferProvider({ children }) {
     fetchOffers();
   }, []);
 
+  const createOffer = async (values) => {
+    try {
+      const newOffer = await offerService.createOffer(values);
+      setOffers((prev) => [...prev, newOffer]);
+      return newOffer;
+    } catch (error) {
+      console.error("Error creating offer:", error);
+    }
+  };
+
   return (
-    <OfferContext.Provider value={{ offers, setOffers }}>
+    <OfferContext.Provider value={{ offers, setOffers, createOffer }}>
       {children}
     </OfferContext.Provider>
   );

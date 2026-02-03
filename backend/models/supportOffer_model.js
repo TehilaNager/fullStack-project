@@ -23,7 +23,7 @@ const supportOfferSchema = new mongoose.Schema({
 const Offer = mongoose.model('SupportOffer', supportOfferSchema, "offers");
 
 const validateOffer = Joi.object({
-    title: Joi.string().min(2).max(256).required(),
+    title: Joi.string().min(2).max(100).required(),
     description: Joi.string().min(5).max(1024).required(),
     category: Joi.string()
         .valid('ציוד צבאי', 'ביגוד', 'מזון', 'תחבורה', 'ציוד אלקטרוני', 'ספרים וחומרי לימוד', 'ציוד רפואי', 'תמיכה נפשית וחברתית', 'אחר')
@@ -39,7 +39,7 @@ const validateOffer = Joi.object({
 });
 
 const validateOfferUpdate = Joi.object({
-    title: Joi.string().min(2).max(256).optional(),
+    title: Joi.string().min(2).max(100).optional(),
     description: Joi.string().min(5).max(1024).optional(),
     category: Joi.string()
         .valid('ציוד צבאי', 'ביגוד', 'מזון', 'תחבורה', 'ציוד אלקטרוני', 'ספרים וחומרי לימוד', 'ציוד רפואי', 'תמיכה נפשית וחברתית', 'אחר')

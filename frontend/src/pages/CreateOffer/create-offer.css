@@ -1,0 +1,48 @@
+.create-offer-page {
+  padding: 5rem 5rem 10rem;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.create-offer-title {
+  text-align: center;
+  font-size: 5rem;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 4rem;
+}
+
+.create-offer-form {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1 1 200px;
+}
+
+@media (max-width: 768px) {
+  .create-offer-page {
+    padding: 4rem 2rem 7rem;
+  }
+  .create-offer-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-row .form-group {
+    flex: 0 1 100%;
+  }
+
+  .form-input {
+    font-size: 0.8rem;
+  }
+}

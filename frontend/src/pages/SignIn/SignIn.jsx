@@ -30,7 +30,7 @@ function SignIn() {
         const { error } = schema.validate(values, { abortEarly: false });
 
         if (!error) {
-          return null;
+          return {};
         }
 
         const errors = {};
