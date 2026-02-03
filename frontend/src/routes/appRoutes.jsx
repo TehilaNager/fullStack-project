@@ -13,6 +13,7 @@ import EditOffer from "../pages/EditOffer/EditOffer.jsx";
 import CreateOffer from "../pages/CreateOffer/CreateOffer.jsx";
 import DetailsOffer from "../pages/DetailsOffer/DetailsOffer.jsx";
 import DetailsRequest from "../pages/DetailsRequest/DetailsRequest.jsx";
+import FavoritesPage from "../pages/FavoritesPage/FavoritesPage.jsx";
 
 function AppRoutes() {
   return (
@@ -31,6 +32,7 @@ function AppRoutes() {
       <Route path="/details-offer/:id" element={<DetailsOffer />}></Route>
       <Route path="/create-offer" element={<CreateOffer />}></Route>
       <Route path="/edit-offer" element={<EditOffer />}></Route>
+      <Route path="/favorites" element={<FavoritesPage />}></Route>
     </Routes>
   );
 }

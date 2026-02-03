@@ -1,11 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import "./request-card.css";
+import favoritesService from "../../services/favoritesService";
+import { useAuth } from "../../context/AuthContext";
 
 function RequestsCard({ request }) {
+  const { user } = useAuth();
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(request.isFavorite || false);
   const descriptionRef = useRef(null);
+
+  const toggleFavorite = async () => {
+    try {
+      const updatedUser = await favoritesService.toggleRequestFavorite(
+        request._id
+      );
+
+      const favorited = updatedUser.favoriteRequests.some(
+        (f) => f.request === request._id
+      );
+
+      setIsFavorite(favorited);
+    } catch (err) {
+      console.error("Error toggling request favorite:", err);
+    }
+  };
 
   const getQuantityLabel = (quantity) => {
     if (quantity === null || quantity === undefined) return "לא צוין";
@@ -27,6 +47,20 @@ function RequestsCard({ request }) {
 
   return (
     <div className="request-card request">
+      {user && (
+        <button
+          className="favorite-btn"
+          onClick={toggleFavorite}
+          title={isFavorite ? "הסר מהמועדפים" : "הוסף למועדפים"}
+        >
+          <i
+            className={
+              isFavorite ? "bi bi-heart-fill favorited" : "bi bi-heart"
+            }
+          ></i>
+        </button>
+      )}
+
       <div className="card-header">
         <h3 className="card-title">{request.title}</h3>
 
@@ -93,7 +127,7 @@ function RequestsCard({ request }) {
           </div>
         </div>
 
-        <Link to={`/details-request/${request.id}`} className="details-btn">
+        <Link to={`/details-request/${request._id}`} className="details-btn">
           פרטי הבקשה
         </Link>
       </div>

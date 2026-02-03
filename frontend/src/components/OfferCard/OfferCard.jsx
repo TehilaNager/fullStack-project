@@ -1,11 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import "./offer-card.css";
+import favoritesService from "../../services/favoritesService";
+import { useAuth } from "../../context/AuthContext";
 
 function OfferCard({ offer }) {
+  const { user } = useAuth();
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(offer.isFavorite || false);
   const descriptionRef = useRef(null);
+
+  const toggleFavorite = async () => {
+    try {
+      const updatedUser = await favoritesService.toggleOfferFavorite(offer._id);
+      const favorited = updatedUser.favoriteOffers.some(
+        (f) => f.offer === offer._id
+      );
+      setIsFavorite(favorited);
+    } catch (err) {
+      console.error("Error toggling favorite:", err);
+    }
+  };
 
   const getQuantityLabel = (quantity) => {
     if (quantity === null || quantity === undefined) return "לא צוין";
@@ -27,6 +43,19 @@ function OfferCard({ offer }) {
 
   return (
     <div className="offer-card offer">
+      {user && (
+        <button
+          className="favorite-btn"
+          onClick={toggleFavorite}
+          title={isFavorite ? "הסר מהמועדפים" : "הוסף למועדפים"}
+        >
+          <i
+            className={
+              isFavorite ? "bi bi-heart-fill favorited" : "bi bi-heart"
+            }
+          ></i>
+        </button>
+      )}
       <div className="card-header">
         <h3 className="card-title">{offer.title}</h3>
 

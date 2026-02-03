@@ -38,12 +38,12 @@ const userSchema = new mongoose.Schema({
         maxlength: 256
     },
     favoriteRequests: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SupportRequest'
+        request: { type: mongoose.Schema.Types.ObjectId, ref: 'SupportRequest' },
+        addedAt: { type: Date, default: Date.now }
     }],
     favoriteOffers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'SupportOffer'
+        offer: { type: mongoose.Schema.Types.ObjectId, ref: 'SupportOffer' },
+        addedAt: { type: Date, default: Date.now }
     }]
 }, { timestamps: true });
 

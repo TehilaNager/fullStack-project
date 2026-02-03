@@ -18,6 +18,31 @@
   background: #fcfdff;
 }
 
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #aaa;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favorite-btn .favorited {
+  color: #e0245e;
+}
+
 .request-card .card-header {
   display: flex;
   flex-direction: column;
@@ -30,6 +55,7 @@
   font-weight: 700;
   color: #0f172a;
   line-height: 1.4;
+  padding-left: 1rem;
 }
 
 .request-card .tags {
