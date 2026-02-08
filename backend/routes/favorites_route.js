@@ -91,14 +91,24 @@ router.patch("/offer/:id", authMW, async (req, res) => {
 
 router.get("/", authMW, async (req, res) => {
     try {
-        const user = await User.findById(req.user._id);
+        const user = await User.findById(req.user._id)
+            .populate("favoriteOffers.offer")
+            .populate("favoriteRequests.request");
+
 
         if (!user) {
             res.status(404).send("User not found.");
             return;
         }
 
-        const filteredUser = _.pick(user, ["_id", "fullName", "favoriteRequests", "favoriteOffers"]);
+        const favoriteOffers = user.favoriteOffers.filter(fav => fav.offer !== null);
+        const favoriteRequests = user.favoriteRequests.filter(fav => fav.request !== null);
+
+
+        const filteredUser = _.pick(user, ["_id", "fullName"]);
+        filteredUser.favoriteOffers = favoriteOffers;
+        filteredUser.favoriteRequests = favoriteRequests;
+
         res.json(filteredUser);
 
     } catch (err) {

@@ -9,16 +9,19 @@ import App from "./App.jsx";
 import { RequestProvider } from "./context/RequestContext.jsx";
 import { OfferProvider } from "./context/OfferContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { FavoritesProvider } from "./context/FavoritesContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <RequestProvider>
-          <OfferProvider>
-            <App />
-          </OfferProvider>
-        </RequestProvider>
+        <FavoritesProvider>
+          <RequestProvider>
+            <OfferProvider>
+              <App />
+            </OfferProvider>
+          </RequestProvider>
+        </FavoritesProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

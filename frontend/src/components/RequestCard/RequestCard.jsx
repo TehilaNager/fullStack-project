@@ -1,31 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import "./request-card.css";
-import favoritesService from "../../services/favoritesService";
 import { useAuth } from "../../context/AuthContext";
+import { useFavorites } from "../../context/FavoritesContext";
 
-function RequestsCard({ request }) {
+function RequestsCard({ request, isFavoritePage = false, onRemoveFavorite }) {
   const { user } = useAuth();
+  const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(request.isFavorite || false);
   const descriptionRef = useRef(null);
-
-  const toggleFavorite = async () => {
-    try {
-      const updatedUser = await favoritesService.toggleRequestFavorite(
-        request._id
-      );
-
-      const favorited = updatedUser.favoriteRequests.some(
-        (f) => f.request === request._id
-      );
-
-      setIsFavorite(favorited);
-    } catch (err) {
-      console.error("Error toggling request favorite:", err);
-    }
-  };
 
   const getQuantityLabel = (quantity) => {
     if (quantity === null || quantity === undefined) return "לא צוין";
@@ -45,17 +29,32 @@ function RequestsCard({ request }) {
     }
   }, [request.description]);
 
+  const statusValue = request.status || "לא-צוין";
+  const categoryValue = request.category || "לא-צוין";
+  const priorityValue = request.priority || "לא-צוין";
+
+  const statusClass = statusValue.replace(/\s/g, "-");
+  const categoryClass = categoryValue.replace(/\s/g, "-");
+
   return (
-    <div className="request-card request">
-      {user && (
+    <div
+      className={`request-card request ${
+        isFavoritePage ? "favorite-page" : ""
+      }`}
+    >
+      {user && !isFavoritePage && (
         <button
           className="favorite-btn"
-          onClick={toggleFavorite}
-          title={isFavorite ? "הסר מהמועדפים" : "הוסף למועדפים"}
+          onClick={() => toggleRequestFavorite(request)}
+          title={
+            isRequestFavorite(request._id) ? "הסר מהמועדפים" : "הוסף למועדפים"
+          }
         >
           <i
             className={
-              isFavorite ? "bi bi-heart-fill favorited" : "bi bi-heart"
+              isRequestFavorite(request._id)
+                ? "bi bi-heart-fill favorited"
+                : "bi bi-heart"
             }
           ></i>
         </button>
@@ -64,27 +63,30 @@ function RequestsCard({ request }) {
       <div className="card-header">
         <h3 className="card-title">{request.title}</h3>
 
+        {user && isFavoritePage && (
+          <small className="card-updated">
+            עודכן:{" "}
+            {(() => {
+              const d = new Date(request.updatedAt);
+              const day = String(d.getDate()).padStart(2, "0");
+              const month = String(d.getMonth() + 1).padStart(2, "0");
+              const year = d.getFullYear();
+              return `${day}/${month}/${year}`;
+            })()}
+          </small>
+        )}
+
         <div className="tags">
-          <span
-            className={`tag status status-${request.status.replace(
-              /\s/g,
-              "-"
-            )}`}
-          >
-            {request.status}
+          <span className={`tag status status-${statusClass}`}>
+            {statusValue}
           </span>
 
-          <span
-            className={`tag category category-${request.category.replace(
-              /\s/g,
-              "-"
-            )}`}
-          >
-            {request.category}
+          <span className={`tag category category-${categoryClass}`}>
+            {categoryValue}
           </span>
 
-          <span className={`tag priority ${request.priority}`}>
-            {request.priority}
+          <span className={`tag priority ${priorityValue}`}>
+            {priorityValue}
           </span>
         </div>
       </div>
@@ -130,6 +132,15 @@ function RequestsCard({ request }) {
         <Link to={`/details-request/${request._id}`} className="details-btn">
           פרטי הבקשה
         </Link>
+
+        {user && isFavoritePage && (
+          <button
+            className="remove-favorite-btn"
+            onClick={() => toggleRequestFavorite(request)}
+          >
+            הסר מהמועדפים
+          </button>
+        )}
       </div>
     </div>
   );

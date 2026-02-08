@@ -1,27 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import "./offer-card.css";
-import favoritesService from "../../services/favoritesService";
 import { useAuth } from "../../context/AuthContext";
+import { useFavorites } from "../../context/FavoritesContext";
 
-function OfferCard({ offer }) {
+function OfferCard({ offer, isFavoritePage = false, onRemoveFavorite }) {
   const { user } = useAuth();
+  const { toggleOfferFavorite, isOfferFavorite } = useFavorites();
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(offer.isFavorite || false);
   const descriptionRef = useRef(null);
 
-  const toggleFavorite = async () => {
-    try {
-      const updatedUser = await favoritesService.toggleOfferFavorite(offer._id);
-      const favorited = updatedUser.favoriteOffers.some(
-        (f) => f.offer === offer._id
-      );
-      setIsFavorite(favorited);
-    } catch (err) {
-      console.error("Error toggling favorite:", err);
-    }
-  };
+  const isFavorite = isOfferFavorite(offer._id);
 
   const getQuantityLabel = (quantity) => {
     if (quantity === null || quantity === undefined) return "לא צוין";
@@ -41,12 +31,20 @@ function OfferCard({ offer }) {
     }
   }, [offer.description]);
 
+  const statusValue = offer.status || "לא-צוין";
+  const categoryValue = offer.category || "לא-צוין";
+
+  const statusClass = statusValue.replace(/\s/g, "-");
+  const categoryClass = categoryValue.replace(/\s/g, "-");
+
   return (
-    <div className="offer-card offer">
-      {user && (
+    <div
+      className={`offer-card offer ${isFavoritePage ? "favorite-page" : ""}`}
+    >
+      {user && !isFavoritePage && (
         <button
           className="favorite-btn"
-          onClick={toggleFavorite}
+          onClick={() => toggleOfferFavorite(offer)}
           title={isFavorite ? "הסר מהמועדפים" : "הוסף למועדפים"}
         >
           <i
@@ -56,23 +54,30 @@ function OfferCard({ offer }) {
           ></i>
         </button>
       )}
+
       <div className="card-header">
         <h3 className="card-title">{offer.title}</h3>
 
+        {user && isFavoritePage && (
+          <small className="card-updated">
+            עודכן:{" "}
+            {(() => {
+              const d = new Date(offer.updatedAt);
+              const day = String(d.getDate()).padStart(2, "0");
+              const month = String(d.getMonth() + 1).padStart(2, "0");
+              const year = d.getFullYear();
+              return `${day}/${month}/${year}`;
+            })()}
+          </small>
+        )}
+
         <div className="tags">
-          <span
-            className={`tag status status-${offer.status.replace(/\s/g, "-")}`}
-          >
-            {offer.status}
+          <span className={`tag status status-${statusClass}`}>
+            {statusValue}
           </span>
 
-          <span
-            className={`tag category category-${offer.category.replace(
-              /\s/g,
-              "-"
-            )}`}
-          >
-            {offer.category}
+          <span className={`tag category category-${categoryClass}`}>
+            {categoryValue}
           </span>
         </div>
       </div>
@@ -120,6 +125,15 @@ function OfferCard({ offer }) {
         <Link to={`/details-offer/${offer._id}`} className="details-btn">
           פרטי התרומה
         </Link>
+
+        {user && isFavoritePage && (
+          <button
+            className="remove-favorite-btn"
+            onClick={() => toggleOfferFavorite(offer)}
+          >
+            הסר מהמועדפים
+          </button>
+        )}
       </div>
     </div>
   );
