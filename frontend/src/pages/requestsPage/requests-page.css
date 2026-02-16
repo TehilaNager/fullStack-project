@@ -168,27 +168,24 @@
   padding: 0.7rem 1.6rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #fff;
-  background-color: #684040;
+  color: #000;
+  background-color: #f9d923;
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .no-results-btn:hover {
-  background-color: #3e2626;
+  background-color: #ffea4d;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* cards */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
   padding: 1rem 0;
 }
-
-/* סוף cards */
 
 .create-request-btn {
   position: fixed;

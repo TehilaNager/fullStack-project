@@ -2,7 +2,7 @@
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 15px;
   flex-wrap: wrap;
 }
 
@@ -13,15 +13,13 @@
   color: #fff;
   font-weight: 500;
   text-decoration: none;
-
   display: inline-flex;
   align-items: center;
   gap: 5px;
-
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.favorites-action-btn i {
+.favorites-action-icon {
   font-size: 1.1rem;
   transition: transform 0.2s ease;
 }
@@ -31,15 +29,16 @@
   transform: translateY(-1px);
 }
 
-.favorites-action-btn:hover i {
+.favorites-action-icon:hover {
   transform: translateX(-3px);
 }
 
 .favorites-action-btn.secondary {
-  background: #dddfe3;
+  background: #f9d923;
   color: #1f2933;
 }
 
 .favorites-action-btn.secondary:hover {
-  background: #d1d5db;
+  background-color: #ffea4d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }

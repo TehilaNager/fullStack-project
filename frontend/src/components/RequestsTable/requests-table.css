@@ -17,10 +17,9 @@
 
 .requests-table th,
 .requests-table td {
-  padding: 0.75rem 0.6rem;
+  padding: 0.9rem 1.2rem;
   text-align: right;
   border-bottom: 1px solid #e5e7eb;
-  white-space: nowrap;
 }
 
 .requests-table th {
@@ -37,7 +36,72 @@
   color: #111827;
 }
 
-/* ---------- Priority Badge ---------- */
+.description-cell {
+  max-width: 320px;
+  white-space: normal !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: calc(1.4em * 2);
+  line-height: 1.4;
+  color: #4b5563;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.category-ציוד-צבאי {
+  background: #dfebfd !important;
+  color: #1f4fd8 !important;
+}
+
+.category-ביגוד {
+  background: #e1f9e5 !important;
+  color: #2f6f4e !important;
+}
+
+.category-מזון {
+  background: #fcf8dd !important;
+  color: #856404 !important;
+}
+
+.category-תחבורה {
+  background: #fae6ea !important;
+  color: #9b2c2c !important;
+}
+
+.category-ציוד-אלקטרוני {
+  background: #e9f3fe !important;
+  color: #0c4a6e !important;
+}
+
+.category-ספרים-וחומרי-לימוד {
+  background: #fbf0e4 !important;
+  color: #78350f !important;
+}
+
+.category-ציוד-רפואי {
+  background: #efe6f9 !important;
+  color: #6b21a8 !important;
+}
+
+.category-תמיכה-נפשית-וחברתית {
+  background: #f3e1ea !important;
+  color: #7a1f4b !important;
+}
+
+.category-אחר {
+  background: #e2d3d3 !important;
+  color: #555 !important;
+}
+
 .priority-badge {
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
@@ -46,24 +110,66 @@
   color: #ffffff;
 }
 
-.priority-badge.גבוהה {
-  background-color: #dc2626;
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0.7);
+  }
 }
 
 .priority-badge.דחופה {
-  background-color: #f97316;
+  background-color: #dc2626 !important;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.7);
+}
+
+.priority-badge.גבוהה {
+  background-color: #f59e0b !important;
 }
 
 .priority-badge.בינונית {
-  background-color: #facc15;
-  color: #111827;
+  background-color: #2563eb !important;
 }
 
 .priority-badge.נמוכה {
-  background-color: #16a34a;
+  background-color: #10b981 !important;
 }
 
-/* ---------- Action Button ---------- */
+/* עיצוב לסטטוס */
+
+.tag.status {
+  font-size: 0.7rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid transparent !important;
+  background: #f8f9fa !important;
+  color: #000 !important;
+}
+
+.tag.status.status-פתוחה {
+  border-color: #28a745 !important;
+  color: #166534 !important;
+}
+
+.tag.status.status-בטיפול {
+  border-color: #fd7e14 !important;
+  color: #854d0e !important;
+}
+
+.tag.status.status-הושלמה {
+  border-color: #6c757d !important;
+  color: #374151 !important;
+}
+
+/* סוף */
 .table-action-btn {
   background-color: #4f46e5;
   color: white;
@@ -77,4 +183,32 @@
 
 .table-action-btn:hover {
   background-color: #4338ca;
+}
+
+.highlight {
+  background-color: #f9d923;
+  color: #000;
+  border-radius: 2px;
+}
+
+mark {
+  padding: 0;
+}
+
+/* ריווח יפה בין עמודות */
+
+.requests-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.requests-table td {
+  vertical-align: middle;
+}
+.requests-table thead {
+  background-color: #f8fafc;
+}
+
+.requests-table th {
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
 }

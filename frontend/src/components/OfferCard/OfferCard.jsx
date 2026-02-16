@@ -4,7 +4,7 @@ import "./offer-card.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 
-function OfferCard({ offer, isFavoritePage = false, onRemoveFavorite }) {
+function OfferCard({ offer, isFavoritePage = false, search }) {
   const { user } = useAuth();
   const { toggleOfferFavorite, isOfferFavorite } = useFavorites();
   const [expanded, setExpanded] = useState(false);
@@ -31,11 +31,29 @@ function OfferCard({ offer, isFavoritePage = false, onRemoveFavorite }) {
     }
   }, [offer.description]);
 
-  const statusValue = offer.status || "לא-צוין";
-  const categoryValue = offer.category || "לא-צוין";
+  const statusValue = offer.status || "לא צוין";
+  const categoryValue = offer.category || "לא צוין";
 
   const statusClass = statusValue.replace(/\s/g, "-");
   const categoryClass = categoryValue.replace(/\s/g, "-");
+
+  const highlightText = (text, search) => {
+    if (!search || !text) return text;
+    const regex = new RegExp(
+      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+      "gi"
+    );
+
+    return text.split(regex).map((part, i) =>
+      regex.test(part) ? (
+        <mark key={i} className="highlight">
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  };
 
   return (
     <div
@@ -56,7 +74,7 @@ function OfferCard({ offer, isFavoritePage = false, onRemoveFavorite }) {
       )}
 
       <div className="card-header">
-        <h3 className="card-title">{offer.title}</h3>
+        <h3 className="card-title">{highlightText(offer.title, search)}</h3>
 
         {user && isFavoritePage && (
           <small className="card-updated">
@@ -89,7 +107,7 @@ function OfferCard({ offer, isFavoritePage = false, onRemoveFavorite }) {
             showReadMore ? "fade-out" : ""
           }`}
         >
-          {offer.description}
+          {highlightText(offer.description, search)}
         </p>
 
         {showReadMore && (
@@ -113,12 +131,14 @@ function OfferCard({ offer, isFavoritePage = false, onRemoveFavorite }) {
             <i className="bi bi-calendar-event-fill info-icon"></i> זמין עד:{" "}
             {offer.availableUntil
               ? `${formatDate(offer.availableUntil)}`
-              : "לא צויין"}
+              : "לא צוין"}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-geo-alt-fill info-icon"></i> {offer.city},{" "}
-            {offer.region}
+            <div>
+              <i className="bi bi-geo-alt-fill info-icon"></i>{" "}
+              {highlightText(`${offer.city}, ${offer.region}`, search)}
+            </div>
           </div>
         </div>
 

@@ -22,18 +22,17 @@
 .favorites-subtitle {
   font-size: 1.3rem;
   color: #475569;
-  margin: 0 0 2rem;
 }
 
 .favorites-section {
   margin-bottom: 3rem;
 }
 
-.section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: #1e293b;
+.favorites-section-title {
+  font-size: 1.6rem;
+  margin-bottom: 1.7rem;
+  font-weight: 600;
+  color: #334155;
 }
 
 .favorites-grid {
@@ -47,10 +46,10 @@
   color: #64748b;
   background: #f8fafc;
   border: 1px dashed #cbd5e1;
-  padding: 1.2rem;
+  padding: 3rem;
   border-radius: 12px;
   text-align: center;
-  line-height: 1.8;
+  line-height: 2.2;
 }
 
 .favorites-loading {
@@ -64,16 +63,19 @@
   display: flex;
   gap: 8px;
   margin-bottom: 3rem;
+  flex-wrap: wrap;
 }
 
 .tab-btn {
   padding: 10px 20px;
+  min-width: 140px;
   border-radius: 999px;
   border: 1px solid #ddd;
   background: #f9f9f9;
   cursor: pointer;
   font-weight: 500;
   color: #555;
+  white-space: nowrap;
 }
 
 .tab-btn.active {
@@ -86,7 +88,7 @@
   display: flex;
   width: 100%;
   border-bottom: 1px solid #e5e7eb;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   gap: 0;
   justify-content: stretch;
 }
@@ -136,5 +138,13 @@
 
   .favorites-subtitle {
     margin: 1rem 0;
+  }
+  .favorites-tabs {
+    justify-content: center;
+  }
+
+  .favorites-section-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
   }
 }

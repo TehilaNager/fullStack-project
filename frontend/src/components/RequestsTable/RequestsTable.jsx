@@ -1,18 +1,39 @@
 import "./requests-table.css";
 
-function RequestsTable({ requests, onRowClick }) {
+function RequestsTable({ requests, onRowClick, search }) {
+  const highlightText = (text, search) => {
+    if (!search || !text) return text;
+
+    const regex = new RegExp(
+      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+      "gi"
+    );
+
+    return text.split(regex).map((part, i) =>
+      regex.test(part) ? (
+        <mark key={i} className="highlight">
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
     <div className="table-container">
       <table className="requests-table">
         <thead>
           <tr>
             <th>כותרת</th>
+            <th>תיאור</th>
             <th>קטגוריה</th>
+            <th>עיר</th>
             <th>אזור</th>
-            <th>קהל יעד</th>
+            <th>עבור</th>
             <th>דחיפות</th>
             <th>סטטוס</th>
-            <th>תוקף</th>
+            <th>זמין עד</th>
             <th></th>
           </tr>
         </thead>
@@ -20,11 +41,33 @@ function RequestsTable({ requests, onRowClick }) {
         <tbody>
           {requests.map((req) => (
             <tr key={req._id}>
-              <td className="title-cell">{req.title}</td>
-              <td>{req.category}</td>
-              <td>{req.region}</td>
+              <td className="title-cell">{highlightText(req.title, search)}</td>
+
               <td>
-                {req.requiredQuantity === 1
+                <div className="description-cell" title={req.description || ""}>
+                  {highlightText(req.description || "—", search)}
+                </div>
+              </td>
+
+              <td>
+                <span
+                  className={`tag category category-${req.category?.replace(
+                    /\s/g,
+                    "-"
+                  )}`}
+                >
+                  {req.category || "—"}
+                </span>
+              </td>
+
+              <td>{highlightText(req.city || "—", search)}</td>
+
+              <td>{req.region}</td>
+
+              <td>
+                {!req.requiredQuantity
+                  ? "לא צוין"
+                  : req.requiredQuantity === 1
                   ? "אדם אחד"
                   : `${req.requiredQuantity} אנשים`}
               </td>
@@ -34,12 +77,24 @@ function RequestsTable({ requests, onRowClick }) {
                   {req.priority}
                 </span>
               </td>
-              <td>{req.status || "—"}</td>
+
+              <td>
+                <span
+                  className={`tag status status-${req.status?.replace(
+                    /\s/g,
+                    "-"
+                  )}`}
+                >
+                  {req.status || "—"}
+                </span>
+              </td>
+
               <td>
                 {req.deadline
                   ? new Date(req.deadline).toLocaleDateString("he-IL")
-                  : "ללא תוקף"}
+                  : "לא צוין"}
               </td>
+
               <td>
                 <button
                   className="table-action-btn"

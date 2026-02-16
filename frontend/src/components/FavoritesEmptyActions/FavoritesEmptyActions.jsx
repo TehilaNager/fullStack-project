@@ -7,14 +7,14 @@ function FavoritesEmptyActions({ showOffers, showRequests }) {
       {showOffers && (
         <Link to="/offers" className="favorites-action-btn">
           <span>לעמוד התרומות</span>
-          <i class="bi bi-arrow-left-short"></i>
+          <i className="bi bi-arrow-left-short"></i>
         </Link>
       )}
 
       {showRequests && (
         <Link to="/requests" className="favorites-action-btn secondary">
           <span>לעמוד הבקשות</span>
-          <i class="bi bi-arrow-left-short"></i>
+          <i className="bi bi-arrow-left-short favorites-action-icon"></i>
         </Link>
       )}
     </div>

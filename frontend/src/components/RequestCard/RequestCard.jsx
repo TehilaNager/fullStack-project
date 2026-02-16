@@ -4,7 +4,7 @@ import "./request-card.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 
-function RequestsCard({ request, isFavoritePage = false, onRemoveFavorite }) {
+function RequestsCard({ request, isFavoritePage = false, search }) {
   const { user } = useAuth();
   const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
   const [expanded, setExpanded] = useState(false);
@@ -36,6 +36,24 @@ function RequestsCard({ request, isFavoritePage = false, onRemoveFavorite }) {
   const statusClass = statusValue.replace(/\s/g, "-");
   const categoryClass = categoryValue.replace(/\s/g, "-");
 
+  const highlightText = (text, search) => {
+    if (!search || !text) return text;
+    const regex = new RegExp(
+      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+      "gi"
+    );
+
+    return text.split(regex).map((part, i) =>
+      regex.test(part) ? (
+        <mark key={i} className="highlight">
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
     <div
       className={`request-card request ${
@@ -61,7 +79,7 @@ function RequestsCard({ request, isFavoritePage = false, onRemoveFavorite }) {
       )}
 
       <div className="card-header">
-        <h3 className="card-title">{request.title}</h3>
+        <h3 className="card-title">{highlightText(request.title, search)}</h3>
 
         {user && isFavoritePage && (
           <small className="card-updated">
@@ -98,7 +116,7 @@ function RequestsCard({ request, isFavoritePage = false, onRemoveFavorite }) {
             showReadMore ? "fade-out" : ""
           }`}
         >
-          {request.description}
+          {highlightText(request.description, search)}
         </p>
 
         {showReadMore && (
@@ -120,12 +138,14 @@ function RequestsCard({ request, isFavoritePage = false, onRemoveFavorite }) {
 
           <div className="info-item">
             <i className="bi bi-calendar-event-fill info-icon"></i> זמין עד:{" "}
-            {request.deadline ? `${formatDate(request.deadline)}` : "לא צויין"}
+            {request.deadline ? `${formatDate(request.deadline)}` : "לא צוין"}
           </div>
 
           <div className="info-item">
-            <i className="bi bi-geo-alt-fill info-icon"></i> {request.city},{" "}
-            {request.region}
+            <div>
+              <i className="bi bi-geo-alt-fill info-icon"></i>{" "}
+              {highlightText(`${request.city}, ${request.region}`, search)}
+            </div>
           </div>
         </div>
 

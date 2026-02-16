@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
 import OfferCard from "../../components/OfferCard/OfferCard";
 import OffersTable from "../../components/OffersTable/OffersTable";
+import Toolbar from "../../components/Toolbar/Toolbar";
 
 function OffersPage() {
   const navigate = useNavigate();
@@ -69,6 +70,13 @@ function OffersPage() {
 
   const resultsCount = filteredOffers.length;
 
+  const hasActiveFilters =
+    activeFiltersCount > 0 ||
+    search.trim() !== "" ||
+    quantityOption !== "" ||
+    minQuantity !== "" ||
+    maxQuantity !== "";
+
   return (
     <div className="offers-page">
       <header className="offers-header">
@@ -78,47 +86,14 @@ function OffersPage() {
         </p>
       </header>
 
-      <div className="offers-toolbar">
-        <button
-          className="open-filters-btn"
-          onClick={() => setIsFilterOpen(true)}
-        >
-          <i className="bi bi-funnel"></i>
-          סינון
-          {activeFiltersCount > 0 && (
-            <span className="filters-count">({activeFiltersCount})</span>
-          )}
-        </button>
-
-        <div className="view-controls">
-          <button
-            className={`view-btn ${viewMode === "cards" ? "active" : ""}`}
-            onClick={() => setViewMode("cards")}
-            title="תצוגת כרטיסים"
-          >
-            <i className="bi bi-grid-3x3-gap-fill"></i>
-          </button>
-
-          <button
-            className={`view-btn ${viewMode === "table" ? "active" : ""}`}
-            onClick={() => setViewMode("table")}
-            title="תצוגת טבלה"
-          >
-            <i className="bi bi-list"></i>
-          </button>
-        </div>
-
-        <div className="search-field">
-          <input
-            type="text"
-            className="search-input with-icon"
-            placeholder="חיפוש לפי כותרת, תיאור או עיר..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <i className="bi bi-search search-icon"></i>
-        </div>
-      </div>
+      <Toolbar
+        search={search}
+        onSearchChange={setSearch}
+        activeFiltersCount={activeFiltersCount}
+        onOpenFilters={() => setIsFilterOpen(true)}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+      />
 
       <div className="offers-results-count">
         נמצאו <span className="countOffers">{resultsCount}</span> תרומות
@@ -127,19 +102,20 @@ function OffersPage() {
       {resultsCount === 0 ? (
         <div className="no-results">
           <i className="no-results-icon bi bi-search"></i>
+
           <p className="no-results-title">
-            {activeFiltersCount > 0
+            {hasActiveFilters
               ? "לא נמצאו תרומות עם הסינון הנוכחי"
               : "אין תרומות"}
           </p>
 
           <p className="no-results-text">
-            {activeFiltersCount > 0
+            {hasActiveFilters
               ? "נסו להסיר סינונים או לשנות את החיפוש"
               : "כאן יוצגו תרומות ברגע שיועלו למערכת"}
           </p>
 
-          {activeFiltersCount > 0 ? (
+          {hasActiveFilters ? (
             <button
               className="no-results-btn"
               onClick={() => {
@@ -161,7 +137,7 @@ function OffersPage() {
       ) : viewMode === "cards" ? (
         <div className="cards-container">
           {filteredOffers.map((offer) => (
-            <OfferCard key={offer._id} offer={offer} />
+            <OfferCard key={offer._id} offer={offer} search={search} />
           ))}
         </div>
       ) : (

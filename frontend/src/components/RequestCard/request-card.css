@@ -10,6 +10,9 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .request-card:hover {
@@ -57,6 +60,16 @@
   line-height: 1.4;
   padding-left: 1rem;
   margin-bottom: 0;
+}
+
+.highlight {
+  background-color: #f9d923;
+  color: #000;
+  border-radius: 2px;
+}
+
+mark {
+  padding: 0;
 }
 
 .card-updated {
@@ -362,5 +375,11 @@
 @media (max-width: 480px) {
   .request-card .tags {
     gap: 0.3rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .request-card {
+    max-width: 90%;
   }
 }

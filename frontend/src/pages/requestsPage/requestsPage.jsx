@@ -12,6 +12,7 @@ import {
 } from "../../helpers/requestsFiltersLogic";
 import RequestsCards from "../../components/RequestCard/RequestCard";
 import RequestsTable from "../../components/RequestsTable/RequestsTable";
+import Toolbar from "../../components/Toolbar/Toolbar";
 
 function RequestsPage() {
   const navigate = useNavigate();
@@ -86,47 +87,15 @@ function RequestsPage() {
         </p>
       </header>
 
-      <div className="requests-toolbar">
-        <button
-          className="open-filters-btn"
-          onClick={() => setIsFilterOpen(true)}
-        >
-          <i className="bi bi-funnel"></i>
-          סינון
-          {activeFiltersCount > 0 && (
-            <span className="filters-count">({activeFiltersCount})</span>
-          )}
-        </button>
-
-        <div className="view-controls">
-          <button
-            className={`view-btn ${viewMode === "cards" ? "active" : ""}`}
-            onClick={() => setViewMode("cards")}
-            title="תצוגת כרטיסים"
-          >
-            <i className="bi bi-grid-3x3-gap-fill"></i>
-          </button>
-
-          <button
-            className={`view-btn ${viewMode === "table" ? "active" : ""}`}
-            onClick={() => setViewMode("table")}
-            title="תצוגת טבלה"
-          >
-            <i className="bi bi-list"></i>
-          </button>
-        </div>
-
-        <div className="search-field">
-          <input
-            type="text"
-            className="search-input with-icon"
-            placeholder="חיפוש לפי כותרת, תיאור או עיר..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <i className="bi bi-search search-icon"></i>
-        </div>
-      </div>
+      <Toolbar
+        search={search}
+        onSearchChange={setSearch}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+        onOpenFilters={() => setIsFilterOpen(true)}
+        activeFiltersCount={activeFiltersCount}
+        placeholder="חיפוש לפי כותרת, תיאור או עיר..."
+      />
 
       <div className="results-count">
         נמצאו <span className="countRequests">{resultsCount}</span> בקשות
@@ -167,13 +136,14 @@ function RequestsPage() {
       ) : viewMode === "cards" ? (
         <div className="cards-container">
           {filteredRequests.map((req) => (
-            <RequestsCards key={req._id} request={req} />
+            <RequestsCards key={req._id} request={req} search={search} />
           ))}
         </div>
       ) : (
         <RequestsTable
           requests={filteredRequests}
           onRowClick={(id) => navigate(`/requests/${id}`)}
+          search={search}
         />
       )}
 
