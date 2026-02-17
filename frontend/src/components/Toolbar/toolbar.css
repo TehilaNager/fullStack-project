@@ -12,9 +12,7 @@
   gap: 0.4rem;
   background: #fff;
   border: 1px solid #d1d5db;
-  /* padding: 0.55rem 1rem; */
   border-radius: 8px;
-  /* font-size: 1rem; */
   cursor: pointer;
   color: #0b0b0b;
   transition: background-color 0.2s ease;
@@ -40,7 +38,6 @@
   background: transparent;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  /* padding: 0.15rem 0.55rem; */
   padding: 0.1rem 0.4rem;
   cursor: pointer;
   color: #475569;
@@ -72,10 +69,7 @@
 
 .search-input.with-icon {
   width: 100%;
-  /* padding: 0.6rem 2.6rem 0.6rem 1rem; */
-  /* border-radius: 10px; */
   border: 1px solid #d1d5db;
-  /* font-size: 0.95rem; */
   padding: 0.45rem 2.2rem 0.45rem 0.8rem;
   font-size: 0.85rem;
   border-radius: 8px;
