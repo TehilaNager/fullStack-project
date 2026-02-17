@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./offers-page.css";
 import { useOffer } from "../../context/OfferContext";
 import { filterGroups } from "../../helpers/offersFiltersData";
@@ -20,6 +20,7 @@ function OffersPage() {
   const [search, setSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState("cards");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const [quantityOption, setQuantityOption] = useState("");
   const [minQuantity, setMinQuantity] = useState("");
   const [maxQuantity, setMaxQuantity] = useState("");
@@ -29,6 +30,21 @@ function OffersPage() {
     status: [],
     category: [],
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 650;
+      setIsMobile(mobile);
+
+      if (mobile) setViewMode("cards");
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const activeFiltersCount = useMemo(
     () => countActiveFilters(filters),
@@ -92,7 +108,9 @@ function OffersPage() {
         activeFiltersCount={activeFiltersCount}
         onOpenFilters={() => setIsFilterOpen(true)}
         viewMode={viewMode}
-        onViewModeChange={setViewMode}
+        onViewModeChange={(mode) => {
+          if (!isMobile) setViewMode(mode);
+        }}
       />
 
       <div className="offers-results-count">

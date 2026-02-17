@@ -31,6 +31,7 @@ function FavoritesPage() {
   const { favoriteOffers, favoriteRequests, loadFavorites, loadingFavorites } =
     useFavorites();
   const [viewMode, setViewMode] = useState("cards");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const [activeTab, setActiveTab] = useState("all");
   const [innerTab, setInnerTab] = useState("offers");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -51,6 +52,19 @@ function FavoritesPage() {
 
   useEffect(() => {
     loadFavorites();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 650;
+      setIsMobile(mobile);
+      if (mobile) setViewMode("cards");
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   if (loadingFavorites) {
@@ -107,7 +121,9 @@ function FavoritesPage() {
         activeFiltersCount={currentFiltersCount}
         onOpenFilters={() => setIsFilterOpen(true)}
         viewMode={viewMode}
-        onViewModeChange={setViewMode}
+        onViewModeChange={(mode) => {
+          if (!isMobile) setViewMode(mode);
+        }}
       />
 
       {isFilterOpen && (

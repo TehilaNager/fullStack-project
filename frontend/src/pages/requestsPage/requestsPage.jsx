@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./requests-page.css";
 import { useRequest } from "../../context/RequestContext";
@@ -20,6 +20,7 @@ function RequestsPage() {
   const [search, setSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [viewMode, setViewMode] = useState("cards");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 650);
   const [quantityOption, setQuantityOption] = useState("");
   const [minQuantity, setMinQuantity] = useState("");
   const [maxQuantity, setMaxQuantity] = useState("");
@@ -30,6 +31,21 @@ function RequestsPage() {
     status: [],
     category: [],
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 650;
+      setIsMobile(mobile);
+
+      if (mobile) setViewMode("cards");
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const activeFiltersCount = useMemo(
     () => countActiveFilters(filters),
@@ -90,11 +106,12 @@ function RequestsPage() {
       <Toolbar
         search={search}
         onSearchChange={setSearch}
-        viewMode={viewMode}
-        onViewModeChange={setViewMode}
-        onOpenFilters={() => setIsFilterOpen(true)}
         activeFiltersCount={activeFiltersCount}
-        placeholder="חיפוש לפי כותרת, תיאור או עיר..."
+        onOpenFilters={() => setIsFilterOpen(true)}
+        viewMode={viewMode}
+        onViewModeChange={(mode) => {
+          if (!isMobile) setViewMode(mode);
+        }}
       />
 
       <div className="requests-results-count">

@@ -9,6 +9,7 @@
 .open-filters-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   background: #fff;
   border: 1px solid #d1d5db;
@@ -38,7 +39,7 @@
   background: transparent;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  padding: 0.1rem 0.4rem;
+  padding: 0 0.4rem;
   cursor: pointer;
   color: #475569;
   display: flex;
@@ -92,8 +93,18 @@
 
 @media (max-width: 768px) {
   .toolbar {
-    flex-direction: column;
     align-items: stretch;
     gap: 0.8rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .toolbar {
+    gap: 0.2rem;
+  }
+
+  .table-view-btn,
+  .cards-view-btn {
+    display: none;
   }
 }

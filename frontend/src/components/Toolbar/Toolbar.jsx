@@ -19,7 +19,7 @@ function Toolbar({
 
       <div className="view-controls">
         <button
-          className={`view-btn ${viewMode === "cards" ? "active" : ""}`}
+          className={`view-btn cards-view-btn ${viewMode === "cards" ? "active" : ""}`}
           onClick={() => onViewModeChange("cards")}
           title="תצוגת כרטיסים"
         >
@@ -27,7 +27,7 @@ function Toolbar({
         </button>
 
         <button
-          className={`view-btn ${viewMode === "table" ? "active" : ""}`}
+          className={`view-btn table-view-btn ${viewMode === "table" ? "active" : ""}`}
           onClick={() => onViewModeChange("table")}
           title="תצוגת טבלה"
         >

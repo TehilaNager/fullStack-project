@@ -256,8 +256,26 @@
     padding: 0 1.2rem 3rem;
   }
 
+  .requests-header {
+    padding: 3rem 1rem 1.2rem;
+  }
+
   .requests-title {
-    font-size: 3rem;
+    font-size: 2rem;
+  }
+
+  .requests-subtitle {
+    font-size: 1rem;
+    color: #475569;
+    margin: 1rem 0;
+  }
+
+  .cards-container {
+    gap: 2rem;
+  }
+
+  .requests-results-count {
+    margin-bottom: 1rem;
   }
 }
 
