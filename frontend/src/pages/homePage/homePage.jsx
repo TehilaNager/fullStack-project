@@ -9,20 +9,21 @@ import "./inspiring-section.css";
 import InspiringMessages from "../../components/InspiringMessages/InspiringMessages";
 import { useRequest } from "../../context/RequestContext";
 import { useOffer } from "../../context/OfferContext";
-import getLatestItems from "../../helpers/getLatestItems";
-import Carousel from "../../components/Carousel/Carousel";
+import getRecentItems from "../../helpers/getRecentItems";
 import helpCards from "../../helpers/helpData";
 import HelpCard from "../../components/HelpCard/HelpCard";
 import workflowCards from "../../helpers/workflowData";
 import WorkflowCard from "../../components/WorkflowCard/WorkflowCard";
 import trustCards from "../../helpers/trustData";
 import TrustCard from "../../components/TrustCard/TrustCard";
+import RecentOffers from "../../components/RecentItems/RecentOffers";
+import RecentRequests from "../../components/RecentItems/RecentRequests";
 
 function HomePage() {
   const { requests } = useRequest();
   const { offers } = useOffer();
-  const latestRequests = getLatestItems(requests);
-  const latestOffers = getLatestItems(offers);
+  const latestRequests = getRecentItems(requests);
+  const latestOffers = getRecentItems(offers);
 
   return (
     <div>
@@ -52,22 +53,22 @@ function HomePage() {
       </section>
 
       <section className="latest-items-section">
-        <Carousel
+        <RecentRequests
           title="בקשות אחרונות"
           subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
           linkText="כל הבקשות"
           linkUrl="/requests"
-          items={latestRequests}
+          requests={latestRequests.slice(0, 6)}
         />
       </section>
 
       <section className="latest-items-section">
-        <Carousel
+        <RecentOffers
           title="תרומות אחרונות"
           subtitle="אזרחים שרוצים לתרום ולעזור"
           linkText="כל התרומות"
           linkUrl="/offers"
-          items={latestOffers}
+          offers={latestOffers.slice(0, 6)}
         />
       </section>
 

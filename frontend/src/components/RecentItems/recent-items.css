@@ -6,19 +6,19 @@
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #0a0f25;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .description {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #0a0f25;
 }
 
 .items-link {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   line-height: 1.25rem;
   padding: 0.7rem 1rem;
@@ -76,15 +76,17 @@
   color: #0a0f25;
   font-size: 2.2rem;
   z-index: 10;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .carousel-arrow.prev {
-  right: 1rem;
+  right: 0.1rem;
 }
 
 .carousel-arrow.next {
-  left: 1rem;
+  left: 0.1rem;
 }
 
 .sr-only {
@@ -136,8 +138,7 @@
 @media (min-width: 576px) {
   .grid-large {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
   }
 

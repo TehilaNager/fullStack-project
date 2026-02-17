@@ -8,7 +8,6 @@
   font-size: 5rem;
   color: #f1c40f;
   margin-bottom: 1.5rem;
-  animation: pulse 2.5s infinite;
 }
 
 @keyframes pulse {
@@ -51,7 +50,10 @@
   font-size: 1.4rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .inspiring-btn:hover {

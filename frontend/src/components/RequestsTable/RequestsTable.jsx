@@ -50,7 +50,6 @@ function RequestsTable({
         <tbody>
           {requests.map((req) => (
             <tr key={req._id}>
-              {/* עמודת הפעולה */}
               <td className="table-action-column">
                 {isFavoritePage ? (
                   <button

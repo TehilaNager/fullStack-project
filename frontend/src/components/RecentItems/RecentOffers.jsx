@@ -1,9 +1,9 @@
 import { Link } from "react-router";
-import "./carousel.css";
-import LatestItemCard from "../LatestItemCard/LatestItemCard";
 import { useState, useEffect } from "react";
+import "./recent-items.css";
+import OfferCard from "../OfferCard/OfferCard";
 
-function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
+function RecentOffers({ title, subtitle, linkText, linkUrl, offers = [] }) {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 576);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -13,7 +13,7 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const slides = isSmallScreen ? items.map((item) => [item]) : [];
+  const slides = isSmallScreen ? offers.map((o) => [o]) : [];
 
   const prevSlide = () => activeIndex > 0 && setActiveIndex(activeIndex - 1);
   const nextSlide = () =>
@@ -29,7 +29,7 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
 
         {linkText && linkUrl && (
           <Link to={linkUrl} className="items-link">
-            {linkText} <i className="bi bi-arrow-left-short fs-5"></i>
+            {linkText} <i className="bi bi-arrow-left-short fs-6"></i>
           </Link>
         )}
       </div>
@@ -45,9 +45,9 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
                 }`}
               >
                 <div className="carousel-slide">
-                  {slideItems.map((item) => (
-                    <div className="carousel-card" key={item._id}>
-                      <LatestItemCard {...item} idCard={item._id} />
+                  {slideItems.map((offer) => (
+                    <div className="carousel-card" key={offer._id}>
+                      <OfferCard offer={offer} isFavoritePage={false} />
                     </div>
                   ))}
                 </div>
@@ -70,9 +70,9 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
           </div>
         ) : (
           <div className="grid-large">
-            {items.map((item) => (
-              <div className="carousel-card" key={item._id}>
-                <LatestItemCard {...item} idCard={item._id} />
+            {offers.map((offer) => (
+              <div className="carousel-card" key={offer._id}>
+                <OfferCard offer={offer} isFavoritePage={false} />
               </div>
             ))}
           </div>
@@ -82,4 +82,4 @@ function Carousel({ title, subtitle, linkText, linkUrl, items = [] }) {
   );
 }
 
-export default Carousel;
+export default RecentOffers;

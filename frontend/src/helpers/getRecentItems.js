@@ -1,4 +1,4 @@
-function getLatestItems(items, limit = 6) {
+function getRecentItems(items, limit = 4) {
     if (!Array.isArray(items)) return [];
 
     return [...items]
@@ -6,4 +6,4 @@ function getLatestItems(items, limit = 6) {
         .slice(0, limit);
 };
 
-export default getLatestItems;
+export default getRecentItems;
