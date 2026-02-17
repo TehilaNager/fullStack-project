@@ -59,6 +59,10 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
   };
 
   const isOwner = user && user._id === offer.supporter;
+  const isUserAdmin = user?.role === "userAdmin";
+  const isAdmin = user?.role === "admin";
+
+  const canManage = isOwner || isUserAdmin || isAdmin;
 
   return (
     <div
@@ -148,7 +152,7 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
         </div>
 
         <div className="actions-row">
-          {isOwner && (
+          {canManage && (
             <div className="owner-actions">
               <button
                 className="edit-btn"

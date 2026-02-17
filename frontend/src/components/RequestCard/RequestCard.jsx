@@ -58,6 +58,10 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
   };
 
   const isOwner = user && user._id === request.requester;
+  const isUserAdmin = user?.role === "userAdmin";
+  const isAdmin = user?.role === "admin";
+
+  const canManage = isOwner || isUserAdmin || isAdmin;
 
   return (
     <div
@@ -153,7 +157,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
         </div>
 
         <div className="actions-row">
-          {isOwner && (
+          {canManage && (
             <div className="owner-actions">
               <button
                 className="edit-btn"
