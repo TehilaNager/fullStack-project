@@ -30,8 +30,19 @@ export function RequestProvider({ children }) {
     }
   };
 
+  const removeRequest = async (id) => {
+    try {
+      await requestService.deleteRequest(id);
+      setRequests((prev) => prev.filter((request) => request._id !== id));
+    } catch (error) {
+      console.error("Error deleting request:", error);
+    }
+  };
+
   return (
-    <RequestContext.Provider value={{ requests, setRequests, createRequest }}>
+    <RequestContext.Provider
+      value={{ requests, setRequests, createRequest, removeRequest }}
+    >
       {children}
     </RequestContext.Provider>
   );

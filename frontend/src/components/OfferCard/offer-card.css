@@ -351,3 +351,44 @@ mark {
   background: #e53935;
   color: #fff;
 }
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.owner-actions {
+  display: flex;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.owner-actions button {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.owner-actions button:hover {
+  background: #0f172a;
+  color: #fff;
+}
+
+.owner-actions i {
+  font-size: 1rem;
+}
+
+.details-btn.flex-grow {
+  flex-grow: 1;
+}

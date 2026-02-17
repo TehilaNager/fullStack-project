@@ -18,9 +18,15 @@ async function createRequest(values) {
     }
 }
 
+async function deleteRequest(id) {
+    const deletedRequest = await httpService.delete(`/requests/${id}`);
+    return deletedRequest.data;
+}
+
 const requestService = {
     getAllRequests,
-    createRequest
+    createRequest,
+    deleteRequest
 };
 
 export default requestService;

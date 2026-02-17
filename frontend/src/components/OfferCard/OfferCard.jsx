@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./offer-card.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
+import { useOffer } from "../../context/OfferContext";
 
 function OfferCard({ offer, isFavoritePage = false, search }) {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { toggleOfferFavorite, isOfferFavorite } = useFavorites();
+  const { removeOffer } = useOffer();
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
   const descriptionRef = useRef(null);
@@ -144,9 +147,33 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
           </div>
         </div>
 
-        <Link to={`/details-offer/${offer._id}`} className="details-btn">
-          פרטי התרומה
-        </Link>
+        <div className="actions-row">
+          {isOwner && (
+            <div className="owner-actions">
+              <button
+                className="edit-btn"
+                title="ערוך"
+                onClick={() => navigate(`/edit-offer/${offer._id}`)}
+              >
+                <i className="bi bi-pencil-fill"></i>
+              </button>
+              <button
+                className="delete-btn"
+                title="מחק"
+                onClick={() => removeOffer(offer._id)}
+              >
+                <i className="bi bi-trash-fill"></i>
+              </button>
+            </div>
+          )}
+
+          <Link
+            to={`/details-offer/${offer._id}`}
+            className="details-btn flex-grow"
+          >
+            פרטי התרומה
+          </Link>
+        </div>
 
         {user && isFavoritePage && (
           <button

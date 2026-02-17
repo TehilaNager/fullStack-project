@@ -29,11 +29,11 @@ function AppRoutes() {
       <Route path="/requests" element={<RequestsPage />}></Route>
       <Route path="/details-request/:id" element={<DetailsRequest />}></Route>
       <Route path="/create-request" element={<CreateRequest />}></Route>
-      <Route path="/edit-request" element={<EditRequest />}></Route>
+      <Route path="/edit-request/:id" element={<EditRequest />}></Route>
       <Route path="/offers" element={<OffersPage />}></Route>
       <Route path="/details-offer/:id" element={<DetailsOffer />}></Route>
       <Route path="/create-offer" element={<CreateOffer />}></Route>
-      <Route path="/edit-offer" element={<EditOffer />}></Route>
+      <Route path="/edit-offer/:id" element={<EditOffer />}></Route>
       <Route path="/favorites" element={<FavoritesPage />}></Route>
       <Route path="/my-items" element={<MyItemsPage />}></Route>
       <Route path="/users" element={<UsersManagementPage />} />

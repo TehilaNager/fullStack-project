@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./request-card.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
+import { useRequest } from "../../context/RequestContext";
 
 function RequestsCard({ request, isFavoritePage = false, search }) {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
+  const { removeRequest } = useRequest();
   const [expanded, setExpanded] = useState(false);
   const [showReadMore, setShowReadMore] = useState(false);
   const descriptionRef = useRef(null);
@@ -149,9 +152,33 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
           </div>
         </div>
 
-        <Link to={`/details-request/${request._id}`} className="details-btn">
-          פרטי הבקשה
-        </Link>
+        <div className="actions-row">
+          {isOwner && (
+            <div className="owner-actions">
+              <button
+                className="edit-btn"
+                title="ערוך"
+                onClick={() => navigate(`/edit-request/${request._id}`)}
+              >
+                <i className="bi bi-pencil-fill"></i>
+              </button>
+              <button
+                className="delete-btn"
+                title="מחק"
+                onClick={() => removeRequest(request._id)}
+              >
+                <i className="bi bi-trash-fill"></i>
+              </button>
+            </div>
+          )}
+
+          <Link
+            to={`/details-request/${request._id}`}
+            className="details-btn flex-grow"
+          >
+            פרטי הבקשה
+          </Link>
+        </div>
 
         {user && isFavoritePage && (
           <button

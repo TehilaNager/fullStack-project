@@ -30,8 +30,19 @@ export function OfferProvider({ children }) {
     }
   };
 
+  const removeOffer = async (id) => {
+    try {
+      await offerService.deleteOffer(id);
+      setOffers((prev) => prev.filter((offer) => offer._id !== id));
+    } catch (error) {
+      console.error("Error deleting offer:", error);
+    }
+  };
+
   return (
-    <OfferContext.Provider value={{ offers, setOffers, createOffer }}>
+    <OfferContext.Provider
+      value={{ offers, setOffers, createOffer, removeOffer }}
+    >
       {children}
     </OfferContext.Provider>
   );
