@@ -40,7 +40,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
     if (!search || !text) return text;
     const regex = new RegExp(
       `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi"
+      "gi",
     );
 
     return text.split(regex).map((part, i) =>
@@ -50,7 +50,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
         </mark>
       ) : (
         part
-      )
+      ),
     );
   };
 
@@ -58,9 +58,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
 
   return (
     <div
-      className={`request-card request ${
-        isFavoritePage ? "favorite-page" : ""
-      } ${isOwner ? "owner-request" : ""}`}
+      className={`request-card request ${isFavoritePage && "favorite-page"} ${isOwner && "owner-request"}`}
     >
       {user && !isFavoritePage && (
         <button

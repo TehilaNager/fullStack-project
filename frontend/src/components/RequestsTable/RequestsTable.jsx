@@ -135,7 +135,7 @@ function RequestsTable({
 
               <td>
                 <button
-                  className="table-action-btn"
+                  className="table-details-btn"
                   onClick={() => onRowClick(req._id)}
                 >
                   לפרטים

@@ -3,7 +3,9 @@
   border-radius: 22px;
   padding: 2rem;
   box-shadow: 0 18px 40px rgba(10, 15, 37, 0.08);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -22,19 +24,17 @@
 }
 
 .workflow-card.need::before {
-  background: linear-gradient(to left, #f3bcbc, #d35454);
+  background: linear-gradient(to left, #4b2e2e, #7a4f4f);
+  opacity: 0.8;
 }
 
 .workflow-card.give::before {
-  background: linear-gradient(to left, #bcdcf3, #2c3e50);
+  background: linear-gradient(to left, #082167, #2a3a7f);
+  opacity: 0.8;
 }
 
 .workflow-card.need {
-  background: linear-gradient(
-    to bottom,
-    #fff 0%,
-    rgba(255, 107, 107, 0.05) 100%
-  );
+  background: linear-gradient(to bottom, #fff 0%, rgba(75, 46, 46, 0.05) 100%);
 }
 
 .workflow-card.give {

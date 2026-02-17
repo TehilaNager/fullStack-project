@@ -58,7 +58,7 @@ function HomePage() {
           subtitle="חיילים ומילואימניקים שזקוקים לעזרתכם"
           linkText="כל הבקשות"
           linkUrl="/requests"
-          requests={latestRequests.slice(0, 6)}
+          requests={latestRequests}
         />
       </section>
 
@@ -68,7 +68,7 @@ function HomePage() {
           subtitle="אזרחים שרוצים לתרום ולעזור"
           linkText="כל התרומות"
           linkUrl="/offers"
-          offers={latestOffers.slice(0, 6)}
+          offers={latestOffers}
         />
       </section>
 

@@ -312,7 +312,7 @@ mark {
 .offer-card.offer::before {
   content: "תרומה";
   position: absolute;
-  top: -8px;
+  top: -9px;
   left: 50%;
   transform: translateX(-50%);
   background: #f8fafc;

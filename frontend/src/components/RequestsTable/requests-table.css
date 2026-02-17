@@ -51,8 +51,8 @@
   background: transparent;
   border: 1px solid #e53935;
   color: #e53935;
-  padding: 4px 8px;
-  border-radius: 8px;
+  padding: 0.35rem 1rem;
+  border-radius: 5px;
   font-size: 0.75rem;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -164,7 +164,7 @@
 
 .priority-badge {
   padding: 0.2rem 0.6rem;
-  border-radius: 6px;
+  border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 500;
   color: #ffffff;
@@ -205,7 +205,7 @@
 
 .tag.status {
   font-size: 0.7rem;
-  border-radius: 8px;
+  border-radius: 999px;
   font-weight: 600;
   border: 1px solid transparent !important;
   background: #f8f9fa !important;
@@ -227,18 +227,18 @@
   color: #374151 !important;
 }
 
-.table-action-btn {
+.table-details-btn {
   background-color: #4f46e5;
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 0.35rem 0.7rem;
+  border-radius: 5px;
+  padding: 0.35rem 1rem;
   font-size: 0.8rem;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.table-action-btn:hover {
+.table-details-btn:hover {
   background-color: #4338ca;
 }
 

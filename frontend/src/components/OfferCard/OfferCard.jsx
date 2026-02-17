@@ -41,7 +41,7 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
     if (!search || !text) return text;
     const regex = new RegExp(
       `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi"
+      "gi",
     );
 
     return text.split(regex).map((part, i) =>
@@ -51,7 +51,7 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
         </mark>
       ) : (
         part
-      )
+      ),
     );
   };
 
@@ -59,9 +59,7 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
 
   return (
     <div
-      className={`offer-card offer ${isFavoritePage ? "favorite-page" : ""} ${
-        isOwner ? "owner-offer" : ""
-      }`}
+      className={`offer-card offer ${isFavoritePage && "favorite-page"} ${isOwner && "owner-offer"}`}
     >
       {user && !isFavoritePage && (
         <button
