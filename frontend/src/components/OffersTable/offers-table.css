@@ -1,0 +1,212 @@
+.table-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.offers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.offers-table thead {
+  background-color: #f8fafc;
+}
+
+.offers-table th,
+.offers-table td {
+  padding: 0.9rem 1rem;
+  text-align: right;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.offers-table th {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+}
+
+.offers-table td {
+  vertical-align: middle;
+  font-size: 0.8rem;
+}
+
+.offers-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.offers-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.table-action-column {
+  text-align: center;
+  width: 60px;
+}
+
+.remove-favorite-btn {
+  background: transparent;
+  border: 1px solid #e53935;
+  color: #e53935;
+  padding: 0.35rem 1rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 0;
+}
+
+.remove-favorite-btn:hover {
+  background: #e53935;
+  color: #fff;
+}
+
+.favorite-btn-table {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.favorite-btn-table:hover {
+  transform: scale(1.2);
+}
+
+.favorite-btn-table.favorited {
+  color: #e0245e;
+}
+
+.favorite-btn-table i {
+  pointer-events: none;
+}
+
+.title-cell {
+  max-width: 250px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.description-cell {
+  max-width: 200px;
+  white-space: normal !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: calc(1.4em * 2);
+  line-height: 1.4;
+  color: #4b5563;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.category-ציוד-צבאי {
+  background: #dfebfd !important;
+  color: #1f4fd8 !important;
+}
+
+.category-ביגוד {
+  background: #e1f9e5 !important;
+  color: #2f6f4e !important;
+}
+
+.category-מזון {
+  background: #fcf8dd !important;
+  color: #856404 !important;
+}
+
+.category-תחבורה {
+  background: #fae6ea !important;
+  color: #9b2c2c !important;
+}
+
+.category-ציוד-אלקטרוני {
+  background: #e9f3fe !important;
+  color: #0c4a6e !important;
+}
+
+.category-ספרים-וחומרי-לימוד {
+  background: #fbf0e4 !important;
+  color: #78350f !important;
+}
+
+.category-ציוד-רפואי {
+  background: #efe6f9 !important;
+  color: #6b21a8 !important;
+}
+
+.category-תמיכה-נפשית-וחברתית {
+  background: #f3e1ea !important;
+  color: #7a1f4b !important;
+}
+
+.category-אחר {
+  background: #e2d3d3 !important;
+  color: #555 !important;
+}
+
+.tag.status {
+  font-size: 0.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  border: 1px solid transparent !important;
+  background: #f8f9fa !important;
+  color: #000 !important;
+}
+
+.tag.status.status-פתוחה {
+  border-color: #28a745 !important;
+  color: #166534 !important;
+}
+
+.tag.status.status-בטיפול {
+  border-color: #fd7e14 !important;
+  color: #854d0e !important;
+}
+
+.tag.status.status-הושלמה {
+  border-color: #6c757d !important;
+  color: #374151 !important;
+}
+
+.table-details-btn {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.35rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table-details-btn:hover {
+  background-color: #4338ca;
+}
+
+.highlight {
+  background-color: #f9d923;
+  color: #000;
+  border-radius: 2px;
+}
+
+mark {
+  padding: 0;
+}

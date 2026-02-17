@@ -17,7 +17,7 @@
 
 .requests-table th,
 .requests-table td {
-  padding: 0.9rem 1.2rem;
+  padding: 0.9rem 1rem;
   text-align: right;
   border-bottom: 1px solid #e5e7eb;
 }
@@ -91,13 +91,13 @@
 }
 
 .title-cell {
-  max-width: 280px;
+  max-width: 250px;
   font-weight: 500;
   color: #111827;
 }
 
 .description-cell {
-  max-width: 270px;
+  max-width: 200px;
   white-space: normal !important;
   overflow: hidden;
   text-overflow: ellipsis;

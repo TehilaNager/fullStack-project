@@ -271,7 +271,12 @@ function FavoritesPage() {
                         ))}
                       </div>
                     ) : (
-                      <OffersTable />
+                      <OffersTable
+                        offers={filteredOffers}
+                        search={offerSearch}
+                        onRowClick={(id) => navigate(`/offers/${id}`)}
+                        isFavoritePage
+                      />
                     )}
                   </>
                 )}
@@ -355,7 +360,12 @@ function FavoritesPage() {
           ) : (
             <>
               <h2 className="favorites-section-title">תרומות מועדפות:</h2>
-              <OffersTable />
+              <OffersTable
+                offers={filteredOffers}
+                search={offerSearch}
+                onRowClick={(id) => navigate(`/offers/${id}`)}
+                isFavoritePage
+              />
             </>
           )}
         </section>

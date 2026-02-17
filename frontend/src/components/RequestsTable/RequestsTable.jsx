@@ -2,7 +2,7 @@ import { useFavorites } from "../../context/FavoritesContext";
 import "./requests-table.css";
 
 function RequestsTable({
-  requests,
+  requests = [],
   onRowClick,
   search,
   isFavoritePage = false,

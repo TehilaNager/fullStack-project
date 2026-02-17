@@ -141,7 +141,11 @@ function OffersPage() {
           ))}
         </div>
       ) : (
-        <OffersTable />
+        <OffersTable
+          offers={filteredOffers}
+          onRowClick={(id) => navigate(`/offers/${id}`)}
+          search={search}
+        />
       )}
 
       <button
