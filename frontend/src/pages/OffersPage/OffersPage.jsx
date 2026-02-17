@@ -32,7 +32,7 @@ function OffersPage() {
 
   const activeFiltersCount = useMemo(
     () => countActiveFilters(filters),
-    [filters]
+    [filters],
   );
 
   const filteredOffers = useMemo(
@@ -44,7 +44,7 @@ function OffersPage() {
         quantityOption,
         minQuantity,
         maxQuantity,
-        includeUnknownQuantity
+        includeUnknownQuantity,
       ),
     [
       offers,
@@ -54,7 +54,7 @@ function OffersPage() {
       minQuantity,
       maxQuantity,
       includeUnknownQuantity,
-    ]
+    ],
   );
 
   const toggleFilter = (type, value) =>
@@ -96,7 +96,7 @@ function OffersPage() {
       />
 
       <div className="offers-results-count">
-        נמצאו <span className="countOffers">{resultsCount}</span> תרומות
+        נמצאו <span className="count-offers">{resultsCount}</span> תרומות
       </div>
 
       {resultsCount === 0 ? (

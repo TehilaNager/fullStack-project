@@ -33,7 +33,7 @@ function RequestsPage() {
 
   const activeFiltersCount = useMemo(
     () => countActiveFilters(filters),
-    [filters]
+    [filters],
   );
 
   const filteredRequests = useMemo(
@@ -45,7 +45,7 @@ function RequestsPage() {
         quantityOption,
         minQuantity,
         maxQuantity,
-        includeUnknownQuantity
+        includeUnknownQuantity,
       ),
     [
       requests,
@@ -55,7 +55,7 @@ function RequestsPage() {
       minQuantity,
       maxQuantity,
       includeUnknownQuantity,
-    ]
+    ],
   );
 
   const toggleFilter = (type, value) =>
@@ -97,8 +97,8 @@ function RequestsPage() {
         placeholder="חיפוש לפי כותרת, תיאור או עיר..."
       />
 
-      <div className="results-count">
-        נמצאו <span className="countRequests">{resultsCount}</span> בקשות
+      <div className="requests-results-count">
+        נמצאו <span className="count-requests">{resultsCount}</span> בקשות
       </div>
 
       {resultsCount === 0 ? (

@@ -60,13 +60,13 @@ function FavoritesPage() {
   const filteredOffers = filterOffers(
     favoriteOffers,
     activeTab === "all" ? allSearch : offerSearch,
-    offerFilters
+    offerFilters,
   );
 
   const filteredRequests = filterRequests(
     favoriteRequests,
     activeTab === "all" ? allSearch : requestSearch,
-    requestFilters
+    requestFilters,
   );
 
   const offersCount = favoriteOffers.length;
@@ -77,10 +77,10 @@ function FavoritesPage() {
     activeTab === "offers"
       ? countOfferFilters(offerFilters)
       : activeTab === "requests"
-      ? countRequestFilters(requestFilters)
-      : innerTab === "offers"
-      ? countOfferFilters(offerFilters)
-      : countRequestFilters(requestFilters);
+        ? countRequestFilters(requestFilters)
+        : innerTab === "offers"
+          ? countOfferFilters(offerFilters)
+          : countRequestFilters(requestFilters);
 
   return (
     <div className="favorites-page">
@@ -96,8 +96,8 @@ function FavoritesPage() {
           activeTab === "all"
             ? allSearch
             : activeTab === "offers"
-            ? offerSearch
-            : requestSearch
+              ? offerSearch
+              : requestSearch
         }
         onSearchChange={(value) => {
           if (activeTab === "all") setAllSearch(value);
@@ -137,7 +137,7 @@ function FavoritesPage() {
                     selected={offerFilters[key]}
                     onToggle={(v) =>
                       setOfferFilters((prev) =>
-                        handleToggleOfferFilter(prev, key, v)
+                        handleToggleOfferFilter(prev, key, v),
                       )
                     }
                   />
@@ -156,7 +156,7 @@ function FavoritesPage() {
                     selected={requestFilters[key]}
                     onToggle={(v) =>
                       setRequestFilters((prev) =>
-                        handleToggleRequestFilter(prev, key, v)
+                        handleToggleRequestFilter(prev, key, v),
                       )
                     }
                   />
@@ -312,6 +312,7 @@ function FavoritesPage() {
                         requests={filteredRequests}
                         onRowClick={(id) => navigate(`/requests/${id}`)}
                         search={allSearch}
+                        isFavoritePage
                       />
                     )}
                   </>
@@ -401,6 +402,7 @@ function FavoritesPage() {
                 requests={filteredRequests}
                 onRowClick={(id) => navigate(`/requests/${id}`)}
                 search={requestSearch}
+                isFavoritePage
               />
             </>
           )}

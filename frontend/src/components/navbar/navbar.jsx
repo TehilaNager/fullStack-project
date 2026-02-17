@@ -46,15 +46,27 @@ function Navbar() {
                   תרומות
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink to="/favorites" className="nav-link">
-                  מועדפים
-                </NavLink>
-              </li>
-              {/* להוסיף to="" */}
-              <li className="nav-item">
-                <NavLink className="nav-link">ניהול משתמשים</NavLink>
-              </li>
+              {user && (
+                <>
+                  <li className="nav-item" title="המועדפים שלי">
+                    <NavLink to="/favorites" className="nav-link">
+                      מועדפים
+                    </NavLink>
+                  </li>
+                  <li className="nav-item" title="התרומות והבקשות שלי">
+                    <NavLink to="/my-items" className="nav-link">
+                      שלי
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              {user?.role === "admin" && (
+                <li className="nav-item">
+                  <NavLink to="/users" className="nav-link">
+                    ניהול משתמשים
+                  </NavLink>
+                </li>
+              )}
             </ul>
 
             {user ? (

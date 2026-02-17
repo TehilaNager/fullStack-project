@@ -14,6 +14,8 @@ import CreateOffer from "../pages/CreateOffer/CreateOffer.jsx";
 import DetailsOffer from "../pages/DetailsOffer/DetailsOffer.jsx";
 import DetailsRequest from "../pages/DetailsRequest/DetailsRequest.jsx";
 import FavoritesPage from "../pages/FavoritesPage/FavoritesPage.jsx";
+import MyItemsPage from "../pages/MyItemsPage/MyItemsPage.jsx";
+import UsersManagementPage from "../pages/UsersManagementPage/UsersManagementPage.jsx";
 
 function AppRoutes() {
   return (
@@ -33,6 +35,8 @@ function AppRoutes() {
       <Route path="/create-offer" element={<CreateOffer />}></Route>
       <Route path="/edit-offer" element={<EditOffer />}></Route>
       <Route path="/favorites" element={<FavoritesPage />}></Route>
+      <Route path="/my-items" element={<MyItemsPage />}></Route>
+      <Route path="/users" element={<UsersManagementPage />} />
     </Routes>
   );
 }

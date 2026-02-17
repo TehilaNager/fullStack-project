@@ -54,11 +54,13 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
     );
   };
 
+  const isOwner = user && user._id === request.requester;
+
   return (
     <div
       className={`request-card request ${
         isFavoritePage ? "favorite-page" : ""
-      }`}
+      } ${isOwner ? "owner-request" : ""}`}
     >
       {user && !isFavoritePage && (
         <button

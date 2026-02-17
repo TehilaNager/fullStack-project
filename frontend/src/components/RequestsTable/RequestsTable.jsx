@@ -1,12 +1,20 @@
+import { useFavorites } from "../../context/FavoritesContext";
 import "./requests-table.css";
 
-function RequestsTable({ requests, onRowClick, search }) {
+function RequestsTable({
+  requests,
+  onRowClick,
+  search,
+  isFavoritePage = false,
+}) {
+  const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
+
   const highlightText = (text, search) => {
     if (!search || !text) return text;
 
     const regex = new RegExp(
       `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi"
+      "gi",
     );
 
     return text.split(regex).map((part, i) =>
@@ -16,7 +24,7 @@ function RequestsTable({ requests, onRowClick, search }) {
         </mark>
       ) : (
         part
-      )
+      ),
     );
   };
 
@@ -25,6 +33,7 @@ function RequestsTable({ requests, onRowClick, search }) {
       <table className="requests-table">
         <thead>
           <tr>
+            <th></th>
             <th>כותרת</th>
             <th>תיאור</th>
             <th>קטגוריה</th>
@@ -41,6 +50,36 @@ function RequestsTable({ requests, onRowClick, search }) {
         <tbody>
           {requests.map((req) => (
             <tr key={req._id}>
+              {/* עמודת הפעולה */}
+              <td className="table-action-column">
+                {isFavoritePage ? (
+                  <button
+                    className="remove-favorite-btn"
+                    onClick={() => toggleRequestFavorite(req)}
+                  >
+                    הסר
+                  </button>
+                ) : (
+                  <button
+                    className={`favorite-btn-table ${isRequestFavorite(req._id) ? "favorited" : ""}`}
+                    onClick={() => toggleRequestFavorite(req)}
+                    title={
+                      isRequestFavorite(req._id)
+                        ? "הסר מהמועדפים"
+                        : "הוסף למועדפים"
+                    }
+                  >
+                    <i
+                      className={
+                        isRequestFavorite(req._id)
+                          ? "bi bi-heart-fill"
+                          : "bi bi-heart"
+                      }
+                    ></i>
+                  </button>
+                )}
+              </td>
+
               <td className="title-cell">{highlightText(req.title, search)}</td>
 
               <td>
@@ -53,7 +92,7 @@ function RequestsTable({ requests, onRowClick, search }) {
                 <span
                   className={`tag category category-${req.category?.replace(
                     /\s/g,
-                    "-"
+                    "-",
                   )}`}
                 >
                   {req.category || "—"}
@@ -68,8 +107,8 @@ function RequestsTable({ requests, onRowClick, search }) {
                 {!req.requiredQuantity
                   ? "לא צוין"
                   : req.requiredQuantity === 1
-                  ? "אדם אחד"
-                  : `${req.requiredQuantity} אנשים`}
+                    ? "אדם אחד"
+                    : `${req.requiredQuantity} אנשים`}
               </td>
 
               <td>
@@ -82,7 +121,7 @@ function RequestsTable({ requests, onRowClick, search }) {
                 <span
                   className={`tag status status-${req.status?.replace(
                     /\s/g,
-                    "-"
+                    "-",
                   )}`}
                 >
                   {req.status || "—"}

@@ -1,18 +1,18 @@
 .favorites-page {
-  max-width: 1450px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem 6rem;
+  padding: 0 0.5rem 6rem;
   direction: rtl;
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
 .favorites-header {
   text-align: center;
-  padding: 3rem 1rem 2rem;
+  padding: 2rem 1rem 1.2rem;
 }
 
 .favorites-title {
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1rem;
   color: #0f172a;
@@ -20,7 +20,7 @@
 }
 
 .favorites-subtitle {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #475569;
 }
 
@@ -37,8 +37,9 @@
 
 .favorites-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  padding: 1rem 0;
 }
 
 .empty-text {
@@ -146,5 +147,32 @@
   .favorites-section-title {
     font-size: 1.1rem;
     margin-bottom: 1rem;
+  }
+}
+
+/* d */
+
+@media (max-width: 1200px) {
+  .favorites-page {
+    padding: 0 2rem 6rem;
+  }
+
+  .favorites-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .favorites-page {
+    padding: 0 1.5rem 6rem;
+  }
+  .favorites-grid {
+    grid-template-columns: 1fr;
   }
 }

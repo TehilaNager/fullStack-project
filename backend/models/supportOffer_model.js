@@ -32,10 +32,10 @@ const validateOffer = Joi.object({
     city: Joi.string().min(2).max(256).required(),
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     availableQuantity: Joi.number().min(1).optional(),
-    availableUntil: Joi.date().optional(),
+    availableUntil: Joi.date().optional().allow(null, "").empty(["", null]).default(null),
     contactMethod: Joi.string().valid("site", "details").required(),
-    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
-    contactEmail: Joi.string().email().optional(),
+    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional().allow("", null),
+    contactEmail: Joi.string().email().allow("", null).optional(),
 });
 
 const validateOfferUpdate = Joi.object({
@@ -48,10 +48,10 @@ const validateOfferUpdate = Joi.object({
     city: Joi.string().min(2).max(256).optional(),
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     availableQuantity: Joi.number().min(1).optional(),
-    availableUntil: Joi.date().optional(),
+    availableUntil: Joi.date().optional().allow(null, "").empty(["", null]).default(null),
     contactMethod: Joi.string().valid("site", "details").optional(),
-    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional(),
-    contactEmail: Joi.string().email().optional(),
+    contactPhone: Joi.string().pattern(/^05\d{8}$/).allow("", null).optional(),
+    contactEmail: Joi.string().email().allow("", null).optional(),
 }).min(1);
 
 module.exports = {

@@ -55,9 +55,13 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
     );
   };
 
+  const isOwner = user && user._id === offer.supporter;
+
   return (
     <div
-      className={`offer-card offer ${isFavoritePage ? "favorite-page" : ""}`}
+      className={`offer-card offer ${isFavoritePage ? "favorite-page" : ""} ${
+        isOwner ? "owner-offer" : ""
+      }`}
     >
       {user && !isFavoritePage && (
         <button
