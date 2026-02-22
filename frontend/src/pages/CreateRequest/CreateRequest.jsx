@@ -2,7 +2,7 @@ import "./create-request.css";
 import { useFormik } from "formik";
 import FormButtons from "../../components/common/FormButtons/FormButtons";
 import requestSchema from "../../helpers/requestValidation";
-import { useRequest } from "../../context/requestContext";
+import { useRequest } from "../../context/RequestContext";
 import { useNavigate } from "react-router";
 import FormField from "../../components/common/FormField/FormField";
 
@@ -35,7 +35,16 @@ function CreateRequest() {
     validationSchema: requestSchema,
     onSubmit: async (values) => {
       try {
-        const payload = { ...values };
+        const payload = {
+          ...values,
+          requiredQuantity:
+            values.requiredQuantity === ""
+              ? undefined
+              : Number(values.requiredQuantity),
+          deadline: values.deadline || undefined,
+          contactPhone: values.contactPhone || undefined,
+          contactEmail: values.contactEmail || undefined,
+        };
 
         if (payload.priority !== "דחופה") {
           delete payload.deadline;

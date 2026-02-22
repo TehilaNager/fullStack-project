@@ -36,13 +36,25 @@ function FavoritesPage() {
   const [innerTab, setInnerTab] = useState("offers");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [allSearch, setAllSearch] = useState("");
+
   const [offerSearch, setOfferSearch] = useState("");
-  const [requestSearch, setRequestSearch] = useState("");
+  const [offerQuantityOption, setOfferQuantityOption] = useState("");
+  const [offerMinQuantity, setOfferMinQuantity] = useState("");
+  const [offerMaxQuantity, setOfferMaxQuantity] = useState("");
+  const [offerIncludeUnknownQuantity, setOfferIncludeUnknownQuantity] =
+    useState(true);
   const [offerFilters, setOfferFilters] = useState({
     region: [],
     status: [],
     category: [],
   });
+
+  const [requestSearch, setRequestSearch] = useState("");
+  const [requestQuantityOption, setRequestQuantityOption] = useState("");
+  const [requestMinQuantity, setRequestMinQuantity] = useState("");
+  const [requestMaxQuantity, setRequestMaxQuantity] = useState("");
+  const [requestIncludeUnknownQuantity, setRequestIncludeUnknownQuantity] =
+    useState(true);
   const [requestFilters, setRequestFilters] = useState({
     region: [],
     priority: [],
@@ -75,12 +87,20 @@ function FavoritesPage() {
     favoriteOffers,
     activeTab === "all" ? allSearch : offerSearch,
     offerFilters,
+    offerQuantityOption,
+    offerMinQuantity,
+    offerMaxQuantity,
+    offerIncludeUnknownQuantity,
   );
 
   const filteredRequests = filterRequests(
     favoriteRequests,
     activeTab === "all" ? allSearch : requestSearch,
     requestFilters,
+    requestQuantityOption,
+    requestMinQuantity,
+    requestMaxQuantity,
+    requestIncludeUnknownQuantity,
   );
 
   const offersCount = favoriteOffers.length;
@@ -158,6 +178,58 @@ function FavoritesPage() {
                     }
                   />
                 ))}
+
+                <div className="filter-group">
+                  <p className="filter-title">לכמה אנשים התרומה מיועדת:</p>
+
+                  <select
+                    value={offerQuantityOption}
+                    onChange={(e) => setOfferQuantityOption(e.target.value)}
+                    className="filter-select"
+                  >
+                    <option value="">בחר</option>
+                    <option value="1">אדם אחד</option>
+                    <option value="5">עד 5 אנשים</option>
+                    <option value="10">עד 10 אנשים</option>
+                    <option value="20">עד 20 אנשים</option>
+                    <option value="50">עד 50 אנשים</option>
+                    <option value="range">בחר טווח מספרים</option>
+                  </select>
+
+                  {offerQuantityOption === "range" && (
+                    <div className="quantity-range-inputs">
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="מ…"
+                        value={offerMinQuantity}
+                        onChange={(e) => setOfferMinQuantity(e.target.value)}
+                        className="filter-input-number"
+                      />
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="עד…"
+                        value={offerMaxQuantity}
+                        onChange={(e) => setOfferMaxQuantity(e.target.value)}
+                        className="filter-input-number"
+                      />
+                    </div>
+                  )}
+
+                  <div className="unknown-quantity-checkbox">
+                    <label className="filter-option">
+                      <input
+                        type="checkbox"
+                        checked={offerIncludeUnknownQuantity}
+                        onChange={(e) =>
+                          setOfferIncludeUnknownQuantity(e.target.checked)
+                        }
+                      />
+                      כלול תרומות בלי ציון מספר אנשים
+                    </label>
+                  </div>
+                </div>
               </>
             )}
 
@@ -177,6 +249,58 @@ function FavoritesPage() {
                     }
                   />
                 ))}
+
+                <div className="filter-group">
+                  <p className="filter-title">מספר האנשים הזקוקים לעזרה:</p>
+
+                  <select
+                    value={requestQuantityOption}
+                    onChange={(e) => setRequestQuantityOption(e.target.value)}
+                    className="filter-select"
+                  >
+                    <option value="">בחר</option>
+                    <option value="1">אדם אחד</option>
+                    <option value="5">עד 5 אנשים</option>
+                    <option value="10">עד 10 אנשים</option>
+                    <option value="20">עד 20 אנשים</option>
+                    <option value="50">עד 50 אנשים</option>
+                    <option value="range">בחר טווח מספרים</option>
+                  </select>
+
+                  {requestQuantityOption === "range" && (
+                    <div className="quantity-range-inputs">
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="מ…"
+                        value={requestMinQuantity}
+                        onChange={(e) => setRequestMinQuantity(e.target.value)}
+                        className="filter-input-number"
+                      />
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="עד…"
+                        value={requestMaxQuantity}
+                        onChange={(e) => setRequestMaxQuantity(e.target.value)}
+                        className="filter-input-number"
+                      />
+                    </div>
+                  )}
+
+                  <div className="unknown-quantity-checkbox">
+                    <label className="filter-option">
+                      <input
+                        type="checkbox"
+                        checked={requestIncludeUnknownQuantity}
+                        onChange={(e) =>
+                          setRequestIncludeUnknownQuantity(e.target.checked)
+                        }
+                      />
+                      כלול בקשות בלי ציון מספר אנשים
+                    </label>
+                  </div>
+                </div>
               </>
             )}
 
@@ -184,12 +308,21 @@ function FavoritesPage() {
               className="clear-filters-btn"
               onClick={() => {
                 setOfferFilters({ region: [], status: [], category: [] });
+                setOfferQuantityOption("");
+                setOfferMinQuantity("");
+                setOfferMaxQuantity("");
+                setOfferIncludeUnknownQuantity(true);
+
                 setRequestFilters({
                   region: [],
                   priority: [],
                   status: [],
                   category: [],
                 });
+                setRequestQuantityOption("");
+                setRequestMinQuantity("");
+                setRequestMaxQuantity("");
+                setRequestIncludeUnknownQuantity(true);
               }}
             >
               נקה סינון

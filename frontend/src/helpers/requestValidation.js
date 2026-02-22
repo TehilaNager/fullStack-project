@@ -44,7 +44,13 @@ const requestSchema = Yup.object().shape({
     requiredQuantity: Yup.number()
         .typeError("שדה זה חייב להכיל מספר")
         .min(1, "מספר האנשים חייב להיות לפחות 1")
-        .required("שדה זה חובה"),
+        .nullable(true)
+        .notRequired()
+        .transform((value, originalValue) => {
+            if (originalValue === "") return null;
+            if (isNaN(Number(originalValue))) return NaN;
+            return Number(originalValue);
+        }),
 
     deadline: Yup
         .mixed()

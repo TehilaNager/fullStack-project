@@ -34,7 +34,19 @@ function CreateOffer() {
     validationSchema: offerSchema,
     onSubmit: async (values) => {
       try {
-        await createOffer(values);
+        const payload = {
+          ...values,
+          availableQuantity:
+            values.availableQuantity === "" ||
+            isNaN(Number(values.availableQuantity))
+              ? undefined
+              : Number(values.availableQuantity),
+          availableUntil: values.availableUntil || undefined,
+          contactPhone: values.contactPhone || undefined,
+          contactEmail: values.contactEmail || undefined,
+        };
+
+        await createOffer(payload);
         resetForm();
         navigate("/");
       } catch (error) {

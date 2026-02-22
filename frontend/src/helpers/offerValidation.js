@@ -42,7 +42,15 @@ const offerSchema = Yup.object().shape({
         .min(1, "כמות זמינה חייבת להיות לפחות 1")
         .max(100000, "הכמות גבוהה במיוחד, אנא בדוק שהזנת נכון")
         .nullable(true)
-        .notRequired(),
+        .notRequired()
+        .test(
+            "is-number-or-empty",
+            "שדה זה חייב להכיל מספר",
+            function (value) {
+                if (value === null || value === undefined || value === "") return true;
+                return !isNaN(value);
+            }
+        ),
 
     availableUntil: Yup.mixed()
         .test(
