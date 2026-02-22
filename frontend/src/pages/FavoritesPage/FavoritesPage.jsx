@@ -405,6 +405,10 @@ function FavoritesPage() {
                             status: [],
                             category: [],
                           });
+                          setOfferQuantityOption("");
+                          setOfferMinQuantity("");
+                          setOfferMaxQuantity("");
+                          setOfferIncludeUnknownQuantity(true);
                           setAllSearch("");
                         }}
                       />
@@ -447,6 +451,10 @@ function FavoritesPage() {
                             status: [],
                             category: [],
                           });
+                          setRequestQuantityOption("");
+                          setRequestMinQuantity("");
+                          setRequestMaxQuantity("");
+                          setRequestIncludeUnknownQuantity(true);
                           setAllSearch("");
                         }}
                       />
@@ -489,6 +497,10 @@ function FavoritesPage() {
               message="לא נמצאו תרומות בהתאם לחיפוש או לסינון שבחרת."
               onClear={() => {
                 setOfferFilters({ region: [], status: [], category: [] });
+                setOfferQuantityOption("");
+                setOfferMinQuantity("");
+                setOfferMaxQuantity("");
+                setOfferIncludeUnknownQuantity(true);
                 setOfferSearch("");
               }}
             />
@@ -537,6 +549,10 @@ function FavoritesPage() {
                   status: [],
                   category: [],
                 });
+                setRequestQuantityOption("");
+                setRequestMinQuantity("");
+                setRequestMaxQuantity("");
+                setRequestIncludeUnknownQuantity(true);
                 setRequestSearch("");
               }}
             />

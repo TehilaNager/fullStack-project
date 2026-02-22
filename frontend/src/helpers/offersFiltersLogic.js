@@ -40,19 +40,19 @@ export function filterOffers(
         let matchesQuantity = true;
         const qty = offer.availableQuantity;
 
-        if (quantityOption === "range") {
-            const minQ = minQuantity ? Number(minQuantity) : 0;
-            const maxQ = maxQuantity ? Number(maxQuantity) : Infinity;
-            matchesQuantity = qty !== null && qty >= minQ && qty <= maxQ;
-        } else if (quantityOption) {
-            const maxQ = Number(quantityOption);
-            matchesQuantity = qty !== null && qty <= maxQ;
-        }
+        const isUnknown = qty === null || qty === undefined;
 
-        if (!includeUnknownQuantity && qty === null) {
-            matchesQuantity = false;
-        } else if (includeUnknownQuantity && qty === null) {
-            matchesQuantity = true;
+        if (isUnknown) {
+            matchesQuantity = includeUnknownQuantity;
+        } else {
+            if (quantityOption === "range") {
+                const minQ = minQuantity ? Number(minQuantity) : 0;
+                const maxQ = maxQuantity ? Number(maxQuantity) : Infinity;
+                matchesQuantity = qty >= minQ && qty <= maxQ;
+            } else if (quantityOption) {
+                const maxQ = Number(quantityOption);
+                matchesQuantity = qty <= maxQ;
+            }
         }
 
         return (

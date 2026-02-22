@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./requests-page.css";
+import { useAuth } from "../../context/AuthContext";
 import { useRequest } from "../../context/RequestContext";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
 import { filterGroups } from "../../helpers/requestsFiltersData";
@@ -16,6 +17,7 @@ import Toolbar from "../../components/Toolbar/Toolbar";
 
 function RequestsPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { requests } = useRequest();
   const [search, setSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -25,6 +27,7 @@ function RequestsPage() {
   const [minQuantity, setMinQuantity] = useState("");
   const [maxQuantity, setMaxQuantity] = useState("");
   const [includeUnknownQuantity, setIncludeUnknownQuantity] = useState(true);
+  const [showOnlyMine, setShowOnlyMine] = useState(false);
   const [filters, setFilters] = useState({
     region: [],
     priority: [],
@@ -47,9 +50,13 @@ function RequestsPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // const activeFiltersCount = useMemo(
+  //   () => countActiveFilters(filters),
+  //   [filters],
+  // );
   const activeFiltersCount = useMemo(
-    () => countActiveFilters(filters),
-    [filters],
+    () => countActiveFilters(filters) + (showOnlyMine ? 1 : 0),
+    [filters, showOnlyMine],
   );
 
   const filteredRequests = useMemo(
@@ -62,7 +69,7 @@ function RequestsPage() {
         minQuantity,
         maxQuantity,
         includeUnknownQuantity,
-      ),
+      ).filter((req) => !showOnlyMine || req.requester === user._id),
     [
       requests,
       search,
@@ -71,6 +78,8 @@ function RequestsPage() {
       minQuantity,
       maxQuantity,
       includeUnknownQuantity,
+      showOnlyMine,
+      user._id,
     ],
   );
 
@@ -83,6 +92,7 @@ function RequestsPage() {
     setMinQuantity("");
     setMaxQuantity("");
     setIncludeUnknownQuantity(true);
+    setShowOnlyMine(false);
   };
 
   const resultsCount = filteredRequests.length;
@@ -252,6 +262,17 @@ function RequestsPage() {
                   כלול בקשות בלי ציון מספר אנשים
                 </label>
               </div>
+            </div>
+
+            <div className="filter-group">
+              <label className="filter-option">
+                <input
+                  type="checkbox"
+                  checked={showOnlyMine}
+                  onChange={(e) => setShowOnlyMine(e.target.checked)}
+                />
+                הצג רק את הבקשות שלי
+              </label>
             </div>
 
             <button className="clear-filters-btn" onClick={clearFilters}>

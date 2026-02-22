@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./offers-page.css";
+import { useAuth } from "../../context/AuthContext";
 import { useOffer } from "../../context/OfferContext";
 import { filterGroups } from "../../helpers/offersFiltersData";
 import {
@@ -16,6 +17,7 @@ import Toolbar from "../../components/Toolbar/Toolbar";
 
 function OffersPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { offers } = useOffer();
   const [search, setSearch] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -25,6 +27,7 @@ function OffersPage() {
   const [minQuantity, setMinQuantity] = useState("");
   const [maxQuantity, setMaxQuantity] = useState("");
   const [includeUnknownQuantity, setIncludeUnknownQuantity] = useState(true);
+  const [showOnlyMine, setShowOnlyMine] = useState(false);
   const [filters, setFilters] = useState({
     region: [],
     status: [],
@@ -47,8 +50,8 @@ function OffersPage() {
   }, []);
 
   const activeFiltersCount = useMemo(
-    () => countActiveFilters(filters),
-    [filters],
+    () => countActiveFilters(filters) + (showOnlyMine ? 1 : 0),
+    [filters, showOnlyMine],
   );
 
   const filteredOffers = useMemo(
@@ -61,7 +64,7 @@ function OffersPage() {
         minQuantity,
         maxQuantity,
         includeUnknownQuantity,
-      ),
+      ).filter((offer) => !showOnlyMine || offer.supporter === user._id),
     [
       offers,
       search,
@@ -70,6 +73,8 @@ function OffersPage() {
       minQuantity,
       maxQuantity,
       includeUnknownQuantity,
+      showOnlyMine,
+      user._id,
     ],
   );
 
@@ -82,6 +87,7 @@ function OffersPage() {
     setMinQuantity("");
     setMaxQuantity("");
     setIncludeUnknownQuantity(true);
+    setShowOnlyMine(false);
   };
 
   const resultsCount = filteredOffers.length;
@@ -254,6 +260,17 @@ function OffersPage() {
                   כלול תרומות בלי ציון מספר אנשים
                 </label>
               </div>
+            </div>
+
+            <div className="filter-group">
+              <label className="filter-option">
+                <input
+                  type="checkbox"
+                  checked={showOnlyMine}
+                  onChange={(e) => setShowOnlyMine(e.target.checked)}
+                />
+                הצג רק את התרומות שלי
+              </label>
             </div>
 
             <button className="clear-filters-btn" onClick={clearFilters}>
