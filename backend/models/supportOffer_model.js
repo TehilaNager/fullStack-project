@@ -34,7 +34,7 @@ const validateOffer = Joi.object({
     availableQuantity: Joi.number().min(1).optional(),
     availableUntil: Joi.date().optional().allow(null, "").empty(["", null]).default(null),
     contactMethod: Joi.string().valid("site", "details").required(),
-    contactPhone: Joi.string().pattern(/^05\d{8}$/).optional().allow("", null),
+    contactPhone: Joi.string().pattern(/^0\d{8,9}$/).allow("", null).optional(),
     contactEmail: Joi.string().email().allow("", null).optional(),
 });
 
@@ -50,7 +50,7 @@ const validateOfferUpdate = Joi.object({
     availableQuantity: Joi.number().min(1).optional(),
     availableUntil: Joi.date().optional().allow(null, "").empty(["", null]).default(null),
     contactMethod: Joi.string().valid("site", "details").optional(),
-    contactPhone: Joi.string().pattern(/^05\d{8}$/).allow("", null).optional(),
+    contactPhone: Joi.string().pattern(/^0\d{8,9}$/).allow("", null).optional(),
     contactEmail: Joi.string().email().allow("", null).optional(),
 }).min(1);
 

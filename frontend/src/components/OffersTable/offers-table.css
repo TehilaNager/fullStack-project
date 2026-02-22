@@ -43,6 +43,14 @@
   background-color: #f9fafb;
 }
 
+.my-offer-row {
+  background-color: rgba(59, 130, 246, 0.04);
+}
+
+.offers-table tbody tr.my-offer-row:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
 .table-action-column {
   text-align: center;
   width: 60px;
@@ -210,4 +218,35 @@
 
 mark {
   padding: 0;
+}
+
+.table-actions-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-edit-btn,
+.table-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+}
+
+.table-edit-btn {
+  color: #444;
+}
+
+.table-delete-btn {
+  color: #d9534f;
+}
+
+.table-edit-btn:hover {
+  color: #000;
+}
+
+.table-delete-btn:hover {
+  color: #b52b27;
 }

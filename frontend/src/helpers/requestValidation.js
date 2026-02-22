@@ -92,9 +92,13 @@ const requestSchema = Yup.object().shape({
         .notRequired(),
 
     contactEmail: Yup.string()
-        .email("אימייל חייב להיות תקין (לדוגמה: example@mail.com)")
+        .matches(
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
+            "אימייל חייב להיות תקין (לדוגמה: example@mail.com)"
+        )
         .nullable(true)
         .notRequired(),
+
 });
 
 export default requestSchema;

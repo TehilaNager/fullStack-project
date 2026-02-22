@@ -43,6 +43,14 @@
   background-color: #f9fafb;
 }
 
+.my-request-row {
+  background-color: rgba(120, 53, 15, 0.05);
+}
+
+.requests-table tbody tr.my-request-row:hover {
+  background-color: rgba(120, 53, 15, 0.09);
+}
+
 .table-action-column {
   text-align: center;
   width: 60px;
@@ -237,6 +245,9 @@
   font-size: 0.8rem;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 .table-details-btn:hover {
@@ -251,4 +262,35 @@
 
 mark {
   padding: 0;
+}
+
+.table-actions-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-edit-btn,
+.table-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+}
+
+.table-edit-btn {
+  color: #444;
+}
+
+.table-delete-btn {
+  color: #d9534f;
+}
+
+.table-edit-btn:hover {
+  color: #000;
+}
+
+.table-delete-btn:hover {
+  color: #b52b27;
 }

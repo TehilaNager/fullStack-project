@@ -1,5 +1,8 @@
-import { useFavorites } from "../../context/FavoritesContext";
+import { useNavigate } from "react-router";
 import "./requests-table.css";
+import { useAuth } from "../../context/AuthContext";
+import { useFavorites } from "../../context/FavoritesContext";
+import { useRequest } from "../../context/RequestContext";
 
 function RequestsTable({
   requests = [],
@@ -7,7 +10,10 @@ function RequestsTable({
   search,
   isFavoritePage = false,
 }) {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
+  const { removeRequest } = useRequest();
 
   const highlightText = (text, search) => {
     if (!search || !text) return text;
@@ -33,7 +39,7 @@ function RequestsTable({
       <table className="requests-table">
         <thead>
           <tr>
-            <th></th>
+            {user && <th></th>}
             <th>כותרת</th>
             <th>תיאור</th>
             <th>קטגוריה</th>
@@ -48,101 +54,127 @@ function RequestsTable({
         </thead>
 
         <tbody>
-          {requests.map((req) => (
-            <tr key={req._id}>
-              <td className="table-action-column">
-                {isFavoritePage ? (
-                  <button
-                    className="remove-favorite-btn"
-                    onClick={() => toggleRequestFavorite(req)}
-                  >
-                    הסר
-                  </button>
-                ) : (
-                  <button
-                    className={`favorite-btn-table ${isRequestFavorite(req._id) ? "favorited" : ""}`}
-                    onClick={() => toggleRequestFavorite(req)}
-                    title={
-                      isRequestFavorite(req._id)
-                        ? "הסר מהמועדפים"
-                        : "הוסף למועדפים"
-                    }
-                  >
-                    <i
-                      className={
-                        isRequestFavorite(req._id)
-                          ? "bi bi-heart-fill"
-                          : "bi bi-heart"
-                      }
-                    ></i>
-                  </button>
+          {requests.map((req) => {
+            const isOwner = user && user._id === req.requester;
+            const isUserAdmin = user?.role === "userAdmin";
+            const isAdmin = user?.role === "admin";
+            const canManage = isOwner || isUserAdmin || isAdmin;
+
+            return (
+              <tr key={req._id} className={isOwner ? "my-request-row" : ""}>
+                {user && (
+                  <td className="table-action-column">
+                    {isFavoritePage ? (
+                      <button
+                        className="remove-favorite-btn"
+                        onClick={() => toggleRequestFavorite(req)}
+                      >
+                        הסר
+                      </button>
+                    ) : (
+                      <button
+                        className={`favorite-btn-table ${isRequestFavorite(req._id) ? "favorited" : ""}`}
+                        onClick={() => toggleRequestFavorite(req)}
+                        title={
+                          isRequestFavorite(req._id)
+                            ? "הסר מהמועדפים"
+                            : "הוסף למועדפים"
+                        }
+                      >
+                        <i
+                          className={
+                            isRequestFavorite(req._id)
+                              ? "bi bi-heart-fill"
+                              : "bi bi-heart"
+                          }
+                        ></i>
+                      </button>
+                    )}
+                  </td>
                 )}
-              </td>
+                <td className="title-cell">
+                  {highlightText(req.title, search)}
+                </td>
+                <td>
+                  <div
+                    className="description-cell"
+                    title={req.description || ""}
+                  >
+                    {highlightText(req.description || "—", search)}
+                  </div>
+                </td>
+                <td>
+                  <span
+                    className={`tag category category-${req.category?.replace(
+                      /\s/g,
+                      "-",
+                    )}`}
+                  >
+                    {req.category || "—"}
+                  </span>
+                </td>
+                <td>{highlightText(req.city || "—", search)}</td>
+                <td>{req.region || "—"}</td>
+                <td>
+                  {!req.requiredQuantity
+                    ? "לא צוין"
+                    : req.requiredQuantity === 1
+                      ? "אדם אחד"
+                      : `${req.requiredQuantity} אנשים`}
+                </td>
+                <td>
+                  <span className={`priority-badge ${req.priority}`}>
+                    {req.priority}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    className={`tag status status-${req.status?.replace(
+                      /\s/g,
+                      "-",
+                    )}`}
+                  >
+                    {req.status || "—"}
+                  </span>
+                </td>
+                <td>
+                  {req.deadline
+                    ? new Date(req.deadline).toLocaleDateString("he-IL")
+                    : "לא צוין"}
+                </td>
+                <td className="table-actions-cell">
+                  <div className="table-actions-wrapper">
+                    {user && canManage && (
+                      <>
+                        <button
+                          className="table-edit-btn"
+                          title="ערוך"
+                          onClick={() => navigate(`/edit-request/${req._id}`)}
+                        >
+                          <i className="bi bi-pencil-fill"></i>
+                        </button>
 
-              <td className="title-cell">{highlightText(req.title, search)}</td>
+                        <button
+                          className="table-delete-btn"
+                          title="מחק"
+                          onClick={() => removeRequest(req._id)}
+                        >
+                          <i className="bi bi-trash-fill"></i>
+                        </button>
+                      </>
+                    )}
 
-              <td>
-                <div className="description-cell" title={req.description || ""}>
-                  {highlightText(req.description || "—", search)}
-                </div>
-              </td>
-
-              <td>
-                <span
-                  className={`tag category category-${req.category?.replace(
-                    /\s/g,
-                    "-",
-                  )}`}
-                >
-                  {req.category || "—"}
-                </span>
-              </td>
-
-              <td>{highlightText(req.city || "—", search)}</td>
-
-              <td>{req.region}</td>
-
-              <td>
-                {!req.requiredQuantity
-                  ? "לא צוין"
-                  : req.requiredQuantity === 1
-                    ? "אדם אחד"
-                    : `${req.requiredQuantity} אנשים`}
-              </td>
-
-              <td>
-                <span className={`priority-badge ${req.priority}`}>
-                  {req.priority}
-                </span>
-              </td>
-
-              <td>
-                <span
-                  className={`tag status status-${req.status?.replace(
-                    /\s/g,
-                    "-",
-                  )}`}
-                >
-                  {req.status || "—"}
-                </span>
-              </td>
-
-              <td>
-                {req.deadline
-                  ? new Date(req.deadline).toLocaleDateString("he-IL")
-                  : "לא צוין"}
-              </td>
-
-              <td>
-                <button
-                  className="table-details-btn"
-                  onClick={() => onRowClick(req._id)}
-                >
-                  לפרטים
-                </button>
-              </td>
-            </tr>
-          ))}
+                    <button
+                      className="table-details-btn"
+                      onClick={() => onRowClick(req._id)}
+                    >
+                      לפרטים
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
