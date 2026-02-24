@@ -64,7 +64,7 @@ function FavoritesPage() {
 
   useEffect(() => {
     loadFavorites();
-  }, []);
+  }, [loadFavorites]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -307,22 +307,32 @@ function FavoritesPage() {
             <button
               className="clear-filters-btn"
               onClick={() => {
-                setOfferFilters({ region: [], status: [], category: [] });
-                setOfferQuantityOption("");
-                setOfferMinQuantity("");
-                setOfferMaxQuantity("");
-                setOfferIncludeUnknownQuantity(true);
+                if (
+                  activeTab === "offers" ||
+                  (activeTab === "all" && innerTab === "offers")
+                ) {
+                  setOfferFilters({ region: [], status: [], category: [] });
+                  setOfferQuantityOption("");
+                  setOfferMinQuantity("");
+                  setOfferMaxQuantity("");
+                  setOfferIncludeUnknownQuantity(true);
+                }
 
-                setRequestFilters({
-                  region: [],
-                  priority: [],
-                  status: [],
-                  category: [],
-                });
-                setRequestQuantityOption("");
-                setRequestMinQuantity("");
-                setRequestMaxQuantity("");
-                setRequestIncludeUnknownQuantity(true);
+                if (
+                  activeTab === "requests" ||
+                  (activeTab === "all" && innerTab === "requests")
+                ) {
+                  setRequestFilters({
+                    region: [],
+                    priority: [],
+                    status: [],
+                    category: [],
+                  });
+                  setRequestQuantityOption("");
+                  setRequestMinQuantity("");
+                  setRequestMaxQuantity("");
+                  setRequestIncludeUnknownQuantity(true);
+                }
               }}
             >
               נקה סינון
@@ -419,14 +429,14 @@ function FavoritesPage() {
                             key={offer._id}
                             offer={offer}
                             isFavoritePage
-                            search={offerSearch}
+                            search={allSearch}
                           />
                         ))}
                       </div>
                     ) : (
                       <OffersTable
                         offers={filteredOffers}
-                        search={offerSearch}
+                        search={allSearch}
                         onRowClick={(id) => navigate(`/offers/${id}`)}
                         isFavoritePage
                       />

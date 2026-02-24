@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import favoritesService from "../services/favoritesService";
 import { useAuth } from "./AuthContext";
 
@@ -11,7 +17,7 @@ export function FavoritesProvider({ children }) {
   const [favoriteRequests, setFavoriteRequests] = useState([]);
   const [loadingFavorites, setLoadingFavorites] = useState(false);
 
-  const loadFavorites = async () => {
+  const loadFavorites = useCallback(async () => {
     if (!user) return;
 
     setLoadingFavorites(true);
@@ -25,7 +31,7 @@ export function FavoritesProvider({ children }) {
     } finally {
       setLoadingFavorites(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     loadFavorites();
