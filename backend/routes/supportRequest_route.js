@@ -43,7 +43,9 @@ router.get("/", async (req, res) => {
     if (priority) filter.priority = priority;
     if (status) filter.status = status;
 
-    const requests = await Request.find(filter, { __v: 0 }).sort({ createdAt: -1 });
+    const requests = await Request.find(filter, { __v: 0 })
+        .populate("requester", "fullName phone email")
+        .sort({ createdAt: -1 });
     res.json(requests);
 });
 
@@ -53,7 +55,8 @@ router.get("/:id", async (req, res) => {
         return;
     }
 
-    const request = await Request.findById(req.params.id, { __v: 0 });
+    const request = await Request.findById(req.params.id, { __v: 0 })
+        .populate("requester", "fullName phone email");
 
     if (!request) {
         res.status(404).send("Request not found.");
@@ -134,7 +137,7 @@ router.patch("/:id/status", authMW, async (req, res) => {
     const { status } = req.body;
 
     if (!['פתוחה', 'בטיפול', 'הושלמה'].includes(status)) {
-        return res.status(400).send("Invalid status value.");
+        return res.status(400).send("Invalid status value. Status must be one of the following: פתוחה, בטיפול, הושלמה.");
     }
 
     if (!mongoose.isValidObjectId(req.params.id)) {

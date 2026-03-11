@@ -19,14 +19,28 @@ async function createRequest(values) {
 }
 
 async function deleteRequest(id) {
-    const deletedRequest = await httpService.delete(`/requests/${id}`);
-    return deletedRequest.data;
+    try {
+        const deletedRequest = await httpService.delete(`/requests/${id}`);
+        return deletedRequest.data;
+    } catch (error) {
+        console.error("Error deleting request:", error);
+    }
+}
+
+async function updateRequestStatus(id, status) {
+    try {
+        const updatedRequest = await httpService.patch(`/requests/${id}/status`, { status });
+        return updatedRequest.data;
+    } catch (error) {
+        console.error("Error updating request status:", error);
+    }
 }
 
 const requestService = {
     getAllRequests,
     createRequest,
-    deleteRequest
+    deleteRequest,
+    updateRequestStatus
 };
 
 export default requestService;

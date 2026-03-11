@@ -1,15 +1,10 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./requests-table.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useRequest } from "../../context/RequestContext";
 
-function RequestsTable({
-  requests = [],
-  onRowClick,
-  search,
-  isFavoritePage = false,
-}) {
+function RequestsTable({ requests = [], search, isFavoritePage = false }) {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
@@ -55,13 +50,16 @@ function RequestsTable({
 
         <tbody>
           {requests.map((req) => {
-            const isOwner = user && user._id === req.requester;
+            const isOwner = user && user._id === req.requester?._id;
             const isUserAdmin = user?.role === "userAdmin";
             const isAdmin = user?.role === "admin";
             const canManage = isOwner || isUserAdmin || isAdmin;
 
             return (
-              <tr key={req._id} className={isOwner ? "my-request-row" : ""}>
+              <tr
+                key={req._id}
+                className={`${isOwner ? "my-request-row" : ""} status-${req.status?.replace(/\s/g, "-")}`}
+              >
                 {user && (
                   <td className="table-action-column">
                     {isFavoritePage ? (
@@ -164,12 +162,12 @@ function RequestsTable({
                       </>
                     )}
 
-                    <button
+                    <Link
+                      to={`/details-request/${req._id}`}
                       className="table-details-btn"
-                      onClick={() => onRowClick(req._id)}
                     >
                       לפרטים
-                    </button>
+                    </Link>
                   </div>
                 </td>
               </tr>

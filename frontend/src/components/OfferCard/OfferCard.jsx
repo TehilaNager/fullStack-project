@@ -66,7 +66,7 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
 
   return (
     <div
-      className={`offer-card offer ${isFavoritePage && "favorite-page"} ${isOwner && "owner-offer"}`}
+      className={`offer-card offer ${isFavoritePage && "favorite-page"} ${isOwner && "owner-offer"} status-${statusClass}`}
     >
       {user && !isFavoritePage && (
         <button

@@ -8,7 +8,8 @@ const authMW = require("../middleware/auth");
 const { Thread, validateMessageThread, validateMessage } = require("../models/messageThread_model");
 
 function filterThread(thread) {
-    return _.pick(thread, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
+    const obj = thread.toObject ? thread.toObject() : thread;
+    return _.pick(obj, ["_id", "relatedType", "relatedId", "participants", "messages", "createdAt", "updatedAt"]);
 }
 
 router.post("/thread", authMW, async (req, res) => {
@@ -22,7 +23,7 @@ router.post("/thread", authMW, async (req, res) => {
     let participants = [...(value.participants || [])];
 
     if (!participants.includes(req.user._id.toString())) {
-        participants.push(req.user._id);
+        participants.push(req.user._id.toString());
     }
 
     const existingThread = await Thread.findOne({
@@ -68,14 +69,16 @@ router.get("/thread/:id", authMW, async (req, res) => {
         return;
     }
 
-    const thread = await Thread.findById(req.params.id, { __v: 0 });
+    const thread = await Thread.findById(req.params.id, { __v: 0 })
+        .populate("participants", "fullName")
+        .populate("messages.sender", "fullName");
 
     if (!thread) {
         res.status(404).send("Thread not found.");
         return;
     }
 
-    const isUser = thread.participants.some(p => p.toString() === req.user._id);
+    const isUser = thread.participants.some(p => p._id.toString() === req.user._id.toString());
     const isUserAdmin = req.user.role === "userAdmin";
     const isAdmin = req.user.role === "admin";
 
@@ -106,7 +109,7 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
         return;
     }
 
-    const isUser = thread.participants.some(p => p.toString() === req.user._id);
+    const isUser = thread.participants.some(p => p.toString() === req.user._id.toString());
     const isUserAdmin = req.user.role === "userAdmin";
     const isAdmin = req.user.role === "admin";
 
@@ -116,7 +119,7 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
     }
 
     const lastMessage = thread.messages[thread.messages.length - 1];
-    if (lastMessage && lastMessage.content === value.content && lastMessage.sender.toString() === req.user._id) {
+    if (lastMessage && lastMessage.content === value.content && lastMessage.sender.toString() === req.user._id.toString()) {
         res.status(400).send("This is identical to the last message you sent. Please change it before sending again.");
         return;
     }
@@ -127,6 +130,7 @@ router.post("/thread/:id/message", authMW, async (req, res) => {
     });
 
     await thread.save();
+    await thread.populate("messages.sender", "fullName");
 
     res.json(filterThread(thread));
 });
@@ -159,7 +163,7 @@ router.put("/thread/:threadId/message/:messageId", authMW, async (req, res) => {
         return;
     }
 
-    if (message.sender.toString() !== req.user._id) {
+    if (message.sender.toString() !== req.user._id.toString()) {
         res.status(403).send("Access denied. You can only edit messages you have created.");
         return;
     }
@@ -193,7 +197,7 @@ router.delete("/thread/:threadId/message/:messageId", authMW, async (req, res) =
         return;
     }
 
-    const isSender = message.sender.toString() === req.user._id;
+    const isSender = message.sender.toString() === req.user._id.toString();
     const isUserAdmin = req.user.role === "userAdmin";
     const isAdmin = req.user.role === "admin";
 
@@ -231,7 +235,9 @@ router.get("/user/:userId", authMW, async (req, res) => {
 
     const threads = await Thread.find({ participants: userId })
         .select("_id relatedType relatedId participants messages createdAt updatedAt")
-        .sort({ updatedAt: -1 });
+        .sort({ updatedAt: -1 })
+        .populate("participants", "fullName")
+        .populate("messages.sender", "fullName");
 
     if (!threads || threads.length === 0) {
         return res.json([]);
@@ -253,7 +259,9 @@ router.delete("/thread/:id", authMW, async (req, res) => {
         return;
     }
 
-    const thread = await Thread.findById(req.params.id);
+    const thread = await Thread.findById(req.params.id)
+        .populate("participants", "fullName")
+        .populate("messages.sender", "fullName");
 
     if (!thread) {
         res.status(404).send("Thread not found.");

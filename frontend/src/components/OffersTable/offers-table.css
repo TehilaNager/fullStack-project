@@ -51,6 +51,16 @@
   background-color: rgba(59, 130, 246, 0.08);
 }
 
+.offers-table tbody tr.status-הושלמה {
+  opacity: 0.55;
+  background-color: #f3f4f6;
+}
+
+.offers-table tbody tr.status-הושלמה:hover {
+  background-color: #f3f4f6;
+  cursor: default;
+}
+
 .table-action-column {
   text-align: center;
   width: 60px;

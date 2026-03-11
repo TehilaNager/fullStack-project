@@ -39,9 +39,34 @@ export function RequestProvider({ children }) {
     }
   };
 
+  const updateRequestStatus = async (id, status) => {
+    try {
+      const updatedRequest = await requestService.updateRequestStatus(
+        id,
+        status,
+      );
+      setRequests((prev) =>
+        prev.map((request) =>
+          request._id === id
+            ? { ...request, status: updatedRequest.status }
+            : request,
+        ),
+      );
+      return updatedRequest;
+    } catch (error) {
+      console.error("Error updating request status:", error);
+    }
+  };
+
   return (
     <RequestContext.Provider
-      value={{ requests, setRequests, createRequest, removeRequest }}
+      value={{
+        requests,
+        setRequests,
+        createRequest,
+        removeRequest,
+        updateRequestStatus,
+      }}
     >
       {children}
     </RequestContext.Provider>

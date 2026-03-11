@@ -336,6 +336,19 @@ mark {
   top: -11px;
 }
 
+.offer-card.status-הושלמה {
+  opacity: 0.55;
+  filter: grayscale(40%);
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.offer-card.status-הושלמה:hover {
+  transform: none;
+  box-shadow: none;
+  cursor: default;
+}
+
 .remove-favorite-btn {
   background: transparent;
   border: 1px solid #e53935;

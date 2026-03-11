@@ -135,7 +135,7 @@ router.patch("/:id/status", authMW, async (req, res) => {
     const { status } = req.body;
 
     if (!['פתוחה', 'בטיפול', 'הושלמה'].includes(status)) {
-        return res.status(400).send("Invalid status value");
+        return res.status(400).send("Invalid status value. Status must be one of the following: פתוחה, בטיפול, הושלמה.");
     }
 
     if (!mongoose.isValidObjectId(req.params.id)) {

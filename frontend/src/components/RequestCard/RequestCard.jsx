@@ -57,7 +57,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
     );
   };
 
-  const isOwner = user && user._id === request.requester;
+  const isOwner = user && user._id === request.requester?._id;
   const isUserAdmin = user?.role === "userAdmin";
   const isAdmin = user?.role === "admin";
 
@@ -65,7 +65,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
 
   return (
     <div
-      className={`request-card request ${isFavoritePage && "favorite-page"} ${isOwner && "owner-request"}`}
+      className={`request-card request ${isFavoritePage && "favorite-page"} ${isOwner && "owner-request"} status-${statusClass}`}
     >
       {user && !isFavoritePage && (
         <button

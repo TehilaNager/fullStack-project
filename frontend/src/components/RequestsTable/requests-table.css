@@ -51,6 +51,16 @@
   background-color: rgba(120, 53, 15, 0.09);
 }
 
+.requests-table tbody tr.status-הושלמה {
+  opacity: 0.55;
+  background-color: #f3f4f6;
+}
+
+.requests-table tbody tr.status-הושלמה:hover {
+  background-color: #f3f4f6;
+  cursor: default;
+}
+
 .table-action-column {
   text-align: center;
   width: 60px;
@@ -248,6 +258,7 @@
   display: flex;
   flex: 1;
   justify-content: center;
+  text-decoration: none;
 }
 
 .table-details-btn:hover {

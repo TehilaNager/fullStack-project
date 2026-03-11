@@ -1,15 +1,10 @@
 import "./offers-table.css";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useOffer } from "../../context/OfferContext";
 
-function OffersTable({
-  offers = [],
-  onRowClick,
-  search,
-  isFavoritePage = false,
-}) {
+function OffersTable({ offers = [], search, isFavoritePage = false }) {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toggleOfferFavorite, isOfferFavorite } = useFavorites();
@@ -71,7 +66,10 @@ function OffersTable({
             const canManage = isOwner || isUserAdmin || isAdmin;
 
             return (
-              <tr key={offer._id} className={isOwner ? "my-offer-row" : ""}>
+              <tr
+                key={offer._id}
+                className={`${isOwner ? "my-offer-row" : ""} status-${offer.status?.replace(/\s/g, "-")}`}
+              >
                 {user && (
                   <td className="table-action-column">
                     {isFavoritePage ? (
@@ -165,12 +163,12 @@ function OffersTable({
                       </>
                     )}
 
-                    <button
+                    <Link
+                      to={`/details-offer/${offer._id}`}
                       className="table-details-btn"
-                      onClick={() => onRowClick(offer._id)}
                     >
                       לפרטים
-                    </button>
+                    </Link>
                   </div>
                 </td>
               </tr>

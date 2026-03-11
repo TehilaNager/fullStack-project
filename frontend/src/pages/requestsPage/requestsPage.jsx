@@ -14,6 +14,7 @@ import {
 import RequestsCards from "../../components/RequestCard/RequestCard";
 import RequestsTable from "../../components/RequestsTable/RequestsTable";
 import Toolbar from "../../components/Toolbar/Toolbar";
+import requestService from "../../services/requestService";
 
 function RequestsPage() {
   const navigate = useNavigate();

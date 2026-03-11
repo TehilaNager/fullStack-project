@@ -1,0 +1,303 @@
+.details-request-page {
+  max-width: 1100px;
+  margin: 5rem auto;
+  padding: 0 20px;
+  font-family: "Arial", sans-serif;
+  color: #1f2937;
+}
+
+.manage-buttons {
+  display: flex;
+  justify-content: end;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.new-request-btn {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.new-request-btn:hover {
+  background: #0f172aec;
+}
+
+.edit-btn,
+.delete-btn {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+  background: #0f172a;
+  color: #fff;
+}
+
+.manage-icon {
+  font-size: 1rem;
+}
+
+.status-toggle {
+  display: flex;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  overflow: hidden;
+  width: max-content;
+}
+
+.toggle-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+  flex: 1;
+  background: #f8f9fa;
+}
+
+.toggle-item.selected {
+  background: #0f172a;
+  color: #fff;
+  font-weight: 600;
+}
+
+.details-header-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.request-author {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tag {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.details-request-page .tag.status {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid transparent !important;
+  background: #f8f9fa !important;
+  color: #000 !important;
+}
+
+.details-request-page .tag.status-פתוחה {
+  border-color: #28a745 !important;
+  color: #166534 !important;
+}
+.details-request-page .tag.status-בטיפול {
+  border-color: #fd7e14 !important;
+  color: #854d0e !important;
+}
+.details-request-page .tag.status-הושלמה {
+  border-color: #6c757d !important;
+  color: #374151 !important;
+}
+
+.category-ציוד-צבאי {
+  background: #dfebfd !important;
+  color: #1f4fd8 !important;
+}
+.category-ביגוד {
+  background: #e1f9e5 !important;
+  color: #2f6f4e !important;
+}
+.category-מזון {
+  background: #fcf8dd !important;
+  color: #856404 !important;
+}
+.category-תחבורה {
+  background: #fae6ea !important;
+  color: #9b2c2c !important;
+}
+.category-ציוד-אלקטרוני {
+  background: #e9f3fe !important;
+  color: #0c4a6e !important;
+}
+.category-ספרים-וחומרי-לימוד {
+  background: #fbf0e4 !important;
+  color: #78350f !important;
+}
+.category-ציוד-רפואי {
+  background: #efe6f9 !important;
+  color: #6b21a8 !important;
+}
+.category-תמיכה-נפשית-וחברתית {
+  background: #f3e1ea !important;
+  color: #7a1f4b !important;
+}
+.category-אחר {
+  background: #e2d3d3 !important;
+  color: #555 !important;
+}
+
+.details-request-page .tag.priority {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+}
+
+.priority.priority-דחופה {
+  background-color: #dc2626 !important;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.7);
+}
+
+.priority.priority-גבוהה {
+  background-color: #f59e0b !important;
+}
+
+.priority.priority-בינונית {
+  background-color: #2563eb !important;
+}
+
+.priority.priority-נמוכה {
+  background-color: #10b981 !important;
+}
+
+.details-section {
+  padding: 2rem 0;
+}
+
+.description-label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.description-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.grid-details {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  border-top: 0.1px solid #d5d3d367;
+  border-bottom: 0.1px solid #d5d3d367;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background-color: #fff;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  position: relative;
+}
+
+.detail-item:hover {
+  background-color: #edebeb68;
+}
+
+.detail-icon {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #4b2e2e;
+  background-color: #c7c2c268;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50%;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.detail-value {
+  font-size: 16px;
+  color: #1f2937;
+}
+/* יצירת קשר ויוצר הבקשה */
+
+.contact-section {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 2rem;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 400px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.contact-item:hover {
+  background: #f1f5f9;
+}
+
+.contact-item i {
+  font-size: 1.1rem;
+  color: #0f172a;
+}
