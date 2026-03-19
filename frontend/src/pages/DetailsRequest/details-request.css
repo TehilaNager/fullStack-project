@@ -1,3 +1,24 @@
+.chat-not-found {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  color: #666;
+  margin-top: 4rem;
+}
+
+.chat-empty-text {
+  color: #555;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
 .details-request-page {
   max-width: 1100px;
   margin: 5rem auto;

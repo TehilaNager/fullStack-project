@@ -70,7 +70,7 @@ function RequestsPage() {
         minQuantity,
         maxQuantity,
         includeUnknownQuantity,
-      ).filter((req) => !showOnlyMine || req.requester === user._id),
+      ).filter((req) => !showOnlyMine || req.requester === user?._id),
     [
       requests,
       search,
@@ -80,7 +80,7 @@ function RequestsPage() {
       maxQuantity,
       includeUnknownQuantity,
       showOnlyMine,
-      user._id,
+      user?._id,
     ],
   );
 

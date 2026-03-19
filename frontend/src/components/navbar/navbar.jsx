@@ -58,6 +58,11 @@ function Navbar() {
                       שלי
                     </NavLink>
                   </li>
+                  <li className="nav-item">
+                    <NavLink to="/messages" className="nav-link">
+                      הודעות
+                    </NavLink>
+                  </li>
                 </>
               )}
               {user?.role === "admin" && (

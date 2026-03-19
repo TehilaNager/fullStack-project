@@ -64,7 +64,7 @@ function OffersPage() {
         minQuantity,
         maxQuantity,
         includeUnknownQuantity,
-      ).filter((offer) => !showOnlyMine || offer.supporter === user._id),
+      ).filter((offer) => !showOnlyMine || offer.supporter === user?._id),
     [
       offers,
       search,
@@ -74,7 +74,7 @@ function OffersPage() {
       maxQuantity,
       includeUnknownQuantity,
       showOnlyMine,
-      user._id,
+      user?._id,
     ],
   );
 

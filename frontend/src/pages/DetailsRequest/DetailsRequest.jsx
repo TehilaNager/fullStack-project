@@ -10,10 +10,18 @@ function DetailsRequest() {
   const { user } = useAuth();
   const { requests, removeRequest, updateRequestStatus } = useRequest();
 
+  console.log(requests);
+
   const request = requests.find((r) => r._id === id);
   const [status, setStatus] = useState(request?.status);
 
-  if (!request) return <div className="not-found">הבקשה לא נמצאה</div>;
+  if (!request)
+    return (
+      <div className="chat-not-found">
+        <i className="chat-empty-icon bi bi-exclamation-circle"></i>
+        <p className="chat-empty-text">הבקשה לא נמצאה</p>
+      </div>
+    );
 
   const isOwner = user && user._id === request.requester?._id;
   const isUserAdmin = user?.role === "userAdmin";

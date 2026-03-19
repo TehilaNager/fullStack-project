@@ -60,6 +60,13 @@ router.post("/thread", authMW, async (req, res) => {
         messages: messagesArray
     }).save();
 
+
+    await newThread.populate([
+        { path: "participants", select: "fullName" },
+        { path: "messages.sender", select: "fullName" },
+        { path: "relatedId" }
+    ]);
+
     res.json(filterThread(newThread));
 });
 
@@ -71,7 +78,8 @@ router.get("/thread/:id", authMW, async (req, res) => {
 
     const thread = await Thread.findById(req.params.id, { __v: 0 })
         .populate("participants", "fullName")
-        .populate("messages.sender", "fullName");
+        .populate("messages.sender", "fullName")
+        .populate("relatedId");
 
     if (!thread) {
         res.status(404).send("Thread not found.");
@@ -237,7 +245,8 @@ router.get("/user/:userId", authMW, async (req, res) => {
         .select("_id relatedType relatedId participants messages createdAt updatedAt")
         .sort({ updatedAt: -1 })
         .populate("participants", "fullName")
-        .populate("messages.sender", "fullName");
+        .populate("messages.sender", "fullName")
+        .populate("relatedId");
 
     if (!threads || threads.length === 0) {
         return res.json([]);

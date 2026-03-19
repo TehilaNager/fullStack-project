@@ -8,7 +8,7 @@ const messageSchema = new mongoose.Schema({
 
 const messageThreadSchema = new mongoose.Schema({
     relatedType: { type: String, enum: ['SupportRequest', 'SupportOffer'], required: true },
-    relatedId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    relatedId: { type: mongoose.Schema.Types.ObjectId, required: true, refPath: 'relatedType' },
     participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }],
     messages: [messageSchema]
 }, { timestamps: true });

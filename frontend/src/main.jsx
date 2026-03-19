@@ -10,6 +10,7 @@ import { RequestProvider } from "./context/RequestContext.jsx";
 import { OfferProvider } from "./context/OfferContext.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { FavoritesProvider } from "./context/FavoritesContext.jsx";
+import { MessageProvider } from "./context/MessageContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -18,11 +19,13 @@ createRoot(document.getElementById("root")).render(
         <FavoritesProvider>
           <RequestProvider>
             <OfferProvider>
-              <App />
+              <MessageProvider>
+                <App />
+              </MessageProvider>
             </OfferProvider>
           </RequestProvider>
         </FavoritesProvider>
       </AuthProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

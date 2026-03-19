@@ -16,6 +16,7 @@ import DetailsRequest from "../pages/DetailsRequest/DetailsRequest.jsx";
 import FavoritesPage from "../pages/FavoritesPage/FavoritesPage.jsx";
 import MyItemsPage from "../pages/MyItemsPage/MyItemsPage.jsx";
 import UsersManagementPage from "../pages/UsersManagementPage/UsersManagementPage.jsx";
+import MessagesPage from "../pages/MessagesPage/MessagesPage.jsx";
 
 function AppRoutes() {
   return (
@@ -36,6 +37,8 @@ function AppRoutes() {
       <Route path="/edit-offer/:id" element={<EditOffer />}></Route>
       <Route path="/favorites" element={<FavoritesPage />}></Route>
       <Route path="/my-items" element={<MyItemsPage />}></Route>
+      <Route path="/messages" element={<MessagesPage />}></Route>
+      <Route path="/messages/:threadId" element={<MessagesPage />} />
       <Route path="/users" element={<UsersManagementPage />} />
     </Routes>
   );
