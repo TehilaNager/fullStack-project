@@ -1,11 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import requestService from "../services/requestService";
+import { useAuth } from "./AuthContext";
 
 const RequestContext = createContext();
 RequestContext.displayName = "Request";
 
 export function RequestProvider({ children }) {
   const [requests, setRequests] = useState([]);
+  const [myRequests, setMyRequests] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -20,10 +23,27 @@ export function RequestProvider({ children }) {
     fetchRequests();
   }, []);
 
+  const fetchMyRequests = async (userId) => {
+    try {
+      const myReqs = await requestService.getMyRequests(userId);
+      setMyRequests(myReqs);
+    } catch (error) {
+      console.error("Error fetching my requests:", error);
+    }
+  };
+
   const createRequest = async (values) => {
     try {
       const newRequest = await requestService.createRequest(values);
       setRequests((prev) => [...prev, newRequest]);
+
+      if (user) {
+        const requesterId = newRequest.requester?._id || newRequest.requester;
+        if (requesterId.toString() === user._id.toString()) {
+          setMyRequests((prev) => [...prev, newRequest]);
+        }
+      }
+
       return newRequest;
     } catch (error) {
       console.error("Error creating request:", error);
@@ -34,6 +54,7 @@ export function RequestProvider({ children }) {
     try {
       await requestService.deleteRequest(id);
       setRequests((prev) => prev.filter((request) => request._id !== id));
+      setMyRequests((prev) => prev.filter((request) => request._id !== id));
     } catch (error) {
       console.error("Error deleting request:", error);
     }
@@ -45,7 +66,16 @@ export function RequestProvider({ children }) {
         id,
         status,
       );
+
       setRequests((prev) =>
+        prev.map((request) =>
+          request._id === id
+            ? { ...request, status: updatedRequest.status }
+            : request,
+        ),
+      );
+
+      setMyRequests((prev) =>
         prev.map((request) =>
           request._id === id
             ? { ...request, status: updatedRequest.status }
@@ -63,6 +93,9 @@ export function RequestProvider({ children }) {
       value={{
         requests,
         setRequests,
+        myRequests,
+        setMyRequests,
+        fetchMyRequests,
         createRequest,
         removeRequest,
         updateRequestStatus,

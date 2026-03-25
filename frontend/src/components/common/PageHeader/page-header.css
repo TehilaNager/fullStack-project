@@ -1,0 +1,32 @@
+.page-header {
+  text-align: center;
+  padding: 2rem 1rem 1.2rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #475569;
+  margin: 1rem 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 3rem 1rem 1.2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #475569;
+    margin: 1rem 0;
+  }
+}

@@ -66,6 +66,31 @@ router.get("/:id", async (req, res) => {
     res.json(request);
 });
 
+router.get("/my/:userId", authMW, async (req, res) => {
+    const { userId } = req.params;
+
+    if (!mongoose.isValidObjectId(userId)) {
+        res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");
+        return;
+    }
+
+    const isOwner = req.user._id.toString() === userId;
+    const isUserAdmin = req.user.role === "userAdmin";
+    const isAdmin = req.user.role === "admin";
+
+    if (!isOwner && !isUserAdmin && !isAdmin) {
+        return res.status(403).send("Access denied. You can only view your own requests.");
+    }
+
+    try {
+        const myRequests = await Request.find({ requester: userId }, { __v: 0 }).sort({ createdAt: -1 });
+        res.json(myRequests);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server error");
+    }
+});
+
 router.put("/:id", authMW, async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
         res.status(400).send("The value provided is not a valid ObjectId. Please return a valid MongoDB ObjectId (a 24-character hexadecimal string).");

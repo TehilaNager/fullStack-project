@@ -146,7 +146,8 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
           <div className="info-item">
             <div>
               <i className="bi bi-geo-alt-fill info-icon"></i>{" "}
-              {highlightText(`${offer.city}, ${offer.region}`, search)}
+              {highlightText(offer.city, search)}
+              {offer.region && `, ${offer.region}`}
             </div>
           </div>
         </div>

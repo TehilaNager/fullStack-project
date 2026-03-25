@@ -66,6 +66,7 @@ function RequestsTable({ requests = [], search, isFavoritePage = false }) {
                       <button
                         className="remove-favorite-btn"
                         onClick={() => toggleRequestFavorite(req)}
+                        title="הסר מהמועדפים"
                       >
                         הסר
                       </button>

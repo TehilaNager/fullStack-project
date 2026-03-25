@@ -1,4 +1,4 @@
-.favorites-empty-actions {
+.my-items-empty-actions {
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   flex-wrap: wrap;
 }
 
-.favorites-action-btn {
+.my-items-action-btn {
   padding: 0.5rem 1.1rem;
   border-radius: 10px;
   font-weight: 600;
@@ -21,36 +21,36 @@
     box-shadow 0.2s ease;
 }
 
-.favorites-action-icon {
+.my-items-action-icon {
   font-size: 1.2rem;
   transition: transform 0.2s ease;
 }
 
-.favorites-action-btn:hover {
+.my-items-action-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
-.favorites-action-btn:hover .favorites-action-icon {
+.my-items-action-btn:hover .my-items-action-icon {
   transform: translateX(-3px);
 }
 
-.favorites-action-btn.offer-btn {
+.my-items-action-btn.offer-btn {
   background: #dbeafe;
   color: #1d4ed8;
   border-color: #bfdbfe;
 }
 
-.favorites-action-btn.offer-btn:hover {
+.my-items-action-btn.offer-btn:hover {
   background: #bfdbfe;
 }
 
-.favorites-action-btn.request-btn {
+.my-items-action-btn.request-btn {
   background: #f3e8e8;
   color: #7a4b4b;
   border-color: #eadada;
 }
 
-.favorites-action-btn.request-btn:hover {
+.my-items-action-btn.request-btn:hover {
   background: #eadada;
 }

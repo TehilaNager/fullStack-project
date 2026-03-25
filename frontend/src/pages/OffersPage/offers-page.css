@@ -6,23 +6,6 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.offers-header {
-  text-align: center;
-  padding: 2rem 1rem 1.2rem;
-}
-
-.offers-title {
-  font-size: 4rem;
-  font-weight: 800;
-  color: #0f172a;
-}
-
-.offers-subtitle {
-  font-size: 1.1rem;
-  color: #475569;
-  margin: 1rem 0 2rem;
-}
-
 .offers-results-count {
   margin-bottom: 1.5rem;
   color: #000000cf;
@@ -254,20 +237,6 @@
 @media (max-width: 768px) {
   .offers-page {
     padding: 0 1.2rem 3rem;
-  }
-
-  .offers-header {
-    padding: 3rem 1rem 1.2rem;
-  }
-
-  .offers-title {
-    font-size: 2rem;
-  }
-
-  .offers-subtitle {
-    font-size: 1rem;
-    color: #475569;
-    margin: 1rem 0;
   }
 
   .cards-container {

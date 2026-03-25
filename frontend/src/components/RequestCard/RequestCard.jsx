@@ -151,7 +151,8 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
           <div className="info-item">
             <div>
               <i className="bi bi-geo-alt-fill info-icon"></i>{" "}
-              {highlightText(`${request.city}, ${request.region}`, search)}
+              {highlightText(request.city, search)}
+              {request.region && `, ${request.region}`}
             </div>
           </div>
         </div>

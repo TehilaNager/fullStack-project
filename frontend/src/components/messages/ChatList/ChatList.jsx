@@ -21,6 +21,15 @@ function ChatList({ threads = [], loading = false, error = "" }) {
 
   return (
     <div className="chat-list-wrapper">
+      <div className="chat-list-top">
+        <div className="chat-list-heading">
+          <h2 className="chat-list-title">רשימת הצ'אטים</h2>
+          <p className="chat-list-subtitle">
+            כאן תוכל לעקוב אחרי כל השיחות שלך
+          </p>
+        </div>
+      </div>
+
       <div className="chat-search">
         <label htmlFor="search" className="icon-search">
           <i className="bi bi-search"></i>

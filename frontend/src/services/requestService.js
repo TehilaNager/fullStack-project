@@ -9,6 +9,15 @@ async function getAllRequests() {
     }
 }
 
+async function getMyRequests(userId) {
+    try {
+        const myRequests = await httpService.get(`/requests/my/${userId}`);
+        return myRequests.data;
+    } catch (error) {
+        console.error("Error fetching my requests:", error);
+    }
+}
+
 async function createRequest(values) {
     try {
         const request = await httpService.post("/requests", values);
@@ -38,6 +47,7 @@ async function updateRequestStatus(id, status) {
 
 const requestService = {
     getAllRequests,
+    getMyRequests,
     createRequest,
     deleteRequest,
     updateRequestStatus

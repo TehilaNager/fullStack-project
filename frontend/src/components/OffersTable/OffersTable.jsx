@@ -75,6 +75,7 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
                     {isFavoritePage ? (
                       <button
                         className="remove-favorite-btn"
+                        title="הסר מהמועדפים"
                         onClick={() => toggleOfferFavorite(offer)}
                       >
                         הסר

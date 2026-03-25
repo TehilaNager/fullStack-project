@@ -10,8 +10,6 @@ function DetailsRequest() {
   const { user } = useAuth();
   const { requests, removeRequest, updateRequestStatus } = useRequest();
 
-  console.log(requests);
-
   const request = requests.find((r) => r._id === id);
   const [status, setStatus] = useState(request?.status);
 
@@ -50,7 +48,7 @@ function DetailsRequest() {
 
   return (
     <div className="details-request-page">
-      <div className="details-header">
+      <div className="details-request-header">
         {canManage && (
           <div className="manage-buttons">
             {status === "הושלמה" ? (
@@ -72,7 +70,7 @@ function DetailsRequest() {
                     onClick={() => handleStatusChange(statusOption)}
                   >
                     {statusOption === "הושלמה" && status === "הושלמה" && (
-                      <i className="bi bi-check-circle status-check-icon"></i>
+                      <i className="bi bi-check-circle"></i>
                     )}
                     {statusOption}
                   </div>
@@ -111,82 +109,126 @@ function DetailsRequest() {
           </span>
         </div>
       </div>
-
-      <div className="details-section">
-        <h2 className="description-label">תיאור הבקשה</h2>
-        <p className="description-text">{request.description}</p>
+      <div>
+        <h2 className="section-title">
+          <i className="bi bi-card-text section-icon"></i>
+          תיאור הבקשה
+        </h2>
+        <p className="description">{request.description}</p>
       </div>
 
-      <div className="details-section grid-details">
-        <div className="detail-item">
-          <i className="bi bi-people detail-icon"></i>
-          <span className="detail-label">עבור</span>
-          <span className="detail-value">
-            {!request.requiredQuantity
-              ? "לא צוין"
-              : request.requiredQuantity === 1
-                ? "אדם אחד"
-                : `${request.requiredQuantity} אנשים`}
-          </span>
-        </div>
-
-        <div className="detail-item">
-          <i className="bi bi-geo-alt detail-icon"></i>
-          <span className="detail-label">עיר</span>
-          <span className="detail-value">{request.city}</span>
-        </div>
-
-        <div className="detail-item">
-          <i className="bi bi-map detail-icon"></i>
-          <span className="detail-label">אזור</span>
-          <span className="detail-value">{request.region}</span>
-        </div>
-
-        <div className="detail-item">
-          <i className="bi bi-clock detail-icon"></i>
-          <span className="detail-label">זמין עד</span>
-          <span className="detail-value">{formatDate(request.deadline)}</span>
-        </div>
-
-        <div className="detail-item">
-          <i className="bi bi-pencil-square detail-icon"></i>
-          <span className="detail-label">עודכן לאחרונה</span>
-          <span className="detail-value">{formatDate(request.updatedAt)}</span>
-        </div>
-
-        <div className="detail-item">
-          <i className="bi bi-calendar-plus detail-icon"></i>
-          <span className="detail-label">תאריך יצירה</span>
-          <span className="detail-value">{formatDate(request.createdAt)}</span>
-        </div>
-      </div>
-
-      <div className="details-section contact-section">
-        <h2 className="section-title">יצירת קשר</h2>
-
-        <div className="contact-methods">
-          <div className="contact-item">
-            <i className="bi bi-chat-dots"></i>
-            <span>מערכת ההודעות באתר</span>
+      <div>
+        <h2 className="section-title">
+          <i className="bi bi-info-circle section-icon"></i>
+          פרטים נוספים
+        </h2>
+        <div className="grid-details">
+          <div className="detail-item">
+            <i className="bi bi-people detail-icon"></i>
+            <span className="detail-label">עבור</span>
+            <span className="detail-value">
+              {!request.requiredQuantity
+                ? "לא צוין"
+                : request.requiredQuantity === 1
+                  ? "אדם אחד"
+                  : `${request.requiredQuantity} אנשים`}
+            </span>
           </div>
 
-          {request.contactMethod === "details" && (
-            <>
-              {request.contactPhone && (
-                <div className="contact-item">
-                  <i className="bi bi-telephone"></i>
-                  <span>{request.contactPhone}</span>
-                </div>
-              )}
+          <div className="detail-item">
+            <i className="bi bi-geo-alt detail-icon"></i>
+            <span className="detail-label">עיר</span>
+            <span className="detail-value">{request.city}</span>
+          </div>
 
-              {request.contactEmail && (
-                <div className="contact-item">
-                  <i className="bi bi-envelope"></i>
-                  <span>{request.contactEmail}</span>
-                </div>
-              )}
-            </>
-          )}
+          <div className="detail-item">
+            <i className="bi bi-map detail-icon"></i>
+            <span className="detail-label">אזור</span>
+            <span className="detail-value">{request.region}</span>
+          </div>
+
+          <div className="detail-item">
+            <i className="bi bi-clock detail-icon"></i>
+            <span className="detail-label">זמין עד</span>
+            <span className="detail-value">{formatDate(request.deadline)}</span>
+          </div>
+
+          <div className="detail-item">
+            <i className="bi bi-pencil-square detail-icon"></i>
+            <span className="detail-label">עודכן לאחרונה</span>
+            <span className="detail-value">
+              {formatDate(request.updatedAt)}
+            </span>
+          </div>
+
+          <div className="detail-item">
+            <i className="bi bi-calendar-plus detail-icon"></i>
+            <span className="detail-label">תאריך יצירה</span>
+            <span className="detail-value">
+              {formatDate(request.createdAt)}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="section-title">
+          <i className="bi bi-person-lines-fill section-icon"></i>
+          יצירת קשר
+        </h2>
+        <div className="contact-section">
+          <div className="contact-card">
+            {(request.contactPhone || request.contactEmail) && (
+              <div className="contact-methods">
+                <a
+                  href={
+                    request.contactPhone ? `tel:${request.contactPhone}` : "#"
+                  }
+                  className="contact-item contact-link"
+                  aria-disabled={!request.contactPhone}
+                >
+                  <i className="bi bi-telephone contact-item-icon"></i>
+                  <div className="contact-texts">
+                    <span className="contact-value">
+                      {request.contactPhone || "לא צוין"}
+                    </span>
+                  </div>
+                </a>
+
+                <a
+                  href={
+                    request.contactEmail
+                      ? `mailto:${request.contactEmail}`
+                      : "#"
+                  }
+                  className="contact-item contact-link"
+                  aria-disabled={!request.contactEmail}
+                >
+                  <i className="bi bi-envelope contact-item-icon"></i>
+                  <div className="contact-texts">
+                    <span className="contact-value">
+                      {request.contactEmail || "לא צוין"}
+                    </span>
+                  </div>
+                </a>
+              </div>
+            )}
+
+            {!request.contactPhone && !request.contactEmail && (
+              <div className="contact-empty-note">
+                <i className="bi bi-info-circle"></i>
+                <span>
+                  לא הוזנו פרטי קשר ישירים. ניתן לפנות דרך מערכת ההודעות של האתר
+                  בלבד.
+                </span>
+              </div>
+            )}
+
+            <button className="contact-main-btn">
+              <i className="bi bi-chat-dots-fill contact-main-icon"></i>
+              <span>שליחת הודעה</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

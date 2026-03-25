@@ -10,6 +10,7 @@ import {
   countActiveFilters,
 } from "../../helpers/offersFiltersLogic";
 import { useNavigate } from "react-router";
+import PageHeader from "../../components/common/PageHeader/PageHeader";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
 import OfferCard from "../../components/OfferCard/OfferCard";
 import OffersTable from "../../components/OffersTable/OffersTable";
@@ -101,12 +102,10 @@ function OffersPage() {
 
   return (
     <div className="offers-page">
-      <header className="offers-header">
-        <h1 className="offers-title">תרומות לחיילים ומילואימניקים</h1>
-        <p className="offers-subtitle">
-          עזרו ללוחמים שלנו למצוא את מה שהם צריכים
-        </p>
-      </header>
+      <PageHeader
+        title="תרומות לחיילים ומילואימניקים"
+        subtitle="עזרו ללוחמים שלנו למצוא את מה שהם צריכים"
+      />
 
       <Toolbar
         search={search}

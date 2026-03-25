@@ -11,10 +11,10 @@ import {
   filterRequests,
   countActiveFilters,
 } from "../../helpers/requestsFiltersLogic";
+import PageHeader from "../../components/common/PageHeader/PageHeader";
 import RequestsCards from "../../components/RequestCard/RequestCard";
 import RequestsTable from "../../components/RequestsTable/RequestsTable";
 import Toolbar from "../../components/Toolbar/Toolbar";
-import requestService from "../../services/requestService";
 
 function RequestsPage() {
   const navigate = useNavigate();
@@ -107,12 +107,10 @@ function RequestsPage() {
 
   return (
     <div className="requests-page">
-      <header className="requests-header">
-        <h1 className="requests-title">בקשות מחיילים ומילואימניקים</h1>
-        <p className="requests-subtitle">
-          עזרו ללוחמים שלנו למצוא את מה שהם צריכים
-        </p>
-      </header>
+      <PageHeader
+        title="בקשות מחיילים ומילואימניקים"
+        subtitle="עזרו ללוחמים שלנו למצוא את מה שהם צריכים"
+      />
 
       <Toolbar
         search={search}

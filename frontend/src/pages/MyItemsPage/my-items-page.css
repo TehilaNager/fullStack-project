@@ -1,0 +1,19 @@
+.my-items-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 0.5rem 6rem;
+  direction: rtl;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+@media (max-width: 1200px) {
+  .my-items-page {
+    padding: 0 2rem 6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .my-items-page {
+    padding: 0 1.5rem 6rem;
+  }
+}
