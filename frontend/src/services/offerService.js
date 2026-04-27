@@ -36,12 +36,22 @@ async function deleteOffer(id) {
     }
 }
 
+async function updateOffer(id, values) {
+    try {
+        const updatedOffer = await httpService.put(`/offers/${id}`, values);
+        return updatedOffer.data;
+    } catch (error) {
+        console.error(`Error updating offer with id ${id}:`, error);
+    }
+}
+
 
 const offerService = {
     getAllOffers,
     getMyOffers,
     createOffer,
-    deleteOffer
+    deleteOffer,
+    updateOffer
 };
 
 export default offerService;

@@ -120,10 +120,13 @@ router.put("/:id", authMW, async (req, res) => {
         return;
     }
 
-    Object.assign(request, value);
-    await request.save();
+    const updatedRequest = await Request.findByIdAndUpdate(
+        req.params.id,
+        { $set: value },
+        { new: true, runValidators: true }
+    );
 
-    const filteredRequest = _.pick(request, ["_id", "requester", "title", "description", "category", "region", "city", "status", "priority", "requiredQuantity", "deadline", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
+    const filteredRequest = _.pick(updatedRequest, ["_id", "requester", "title", "description", "category", "region", "city", "status", "priority", "requiredQuantity", "deadline", "contactMethod", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
 
     res.json(filteredRequest);
 });

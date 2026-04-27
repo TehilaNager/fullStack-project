@@ -447,8 +447,17 @@ mark {
 }
 
 .owner-actions button:hover {
-  background: #0f172a;
-  color: #fff;
+  background: #edeff0;
+  color: #000;
+}
+
+.delete-btn:hover {
+  background-color: #ffeae984 !important;
+}
+
+.delete-btn {
+  color: #d9534f !important;
+  border: 1px solid #d9544f73 !important;
 }
 
 .owner-actions i {

@@ -46,10 +46,6 @@ function CreateRequest() {
           contactEmail: values.contactEmail || undefined,
         };
 
-        if (payload.priority !== "דחופה") {
-          delete payload.deadline;
-        }
-
         await createRequest(payload);
         resetForm();
         navigate("/");
@@ -65,7 +61,7 @@ function CreateRequest() {
 
       <form className="create-request-form" onSubmit={handleSubmit}>
         <FormField
-          label="כותרת"
+          label="כותרת:"
           name="title"
           placeholder="למשל: נעלי הליכה מידה 43"
           touched={touched}
@@ -76,7 +72,7 @@ function CreateRequest() {
         />
 
         <FormField
-          label="תיאור"
+          label="תיאור:"
           name="description"
           as="textarea"
           placeholder="למשל: אני זקוק לנעלי הליכה מידה 43, נוחות ועמידות לשימוש יומיומי, צבע כהה מועדף. תודה!"
@@ -89,7 +85,7 @@ function CreateRequest() {
 
         <div className="form-row">
           <FormField
-            label="קטגוריה"
+            label="קטגוריה:"
             name="category"
             as="select"
             placeholder="בחר קטגוריה"
@@ -112,7 +108,7 @@ function CreateRequest() {
           />
 
           <FormField
-            label="מספר האנשים הזקוקים לעזרה (לא חובה)"
+            label="מספר האנשים הזקוקים לעזרה (לא חובה):"
             name="requiredQuantity"
             type="number"
             placeholder="הכנס מספר"
@@ -126,7 +122,7 @@ function CreateRequest() {
 
         <div className="form-row">
           <FormField
-            label="אזור"
+            label="אזור:"
             name="region"
             as="select"
             placeholder="בחר אזור"
@@ -139,7 +135,7 @@ function CreateRequest() {
           />
 
           <FormField
-            label="עיר"
+            label="עיר:"
             name="city"
             placeholder="למשל: עפולה"
             touched={touched}
@@ -152,7 +148,7 @@ function CreateRequest() {
 
         <div className="form-row">
           <FormField
-            label="דחיפות"
+            label="דחיפות:"
             name="priority"
             placeholder="בחר דחיפות"
             as="select"
@@ -165,7 +161,7 @@ function CreateRequest() {
           />
 
           <FormField
-            label="תאריך אחרון (שדה חובה לבקשות דחופות)"
+            label="תאריך אחרון (שדה חובה לבקשות דחופות):"
             name="deadline"
             type="date"
             placeholder=""

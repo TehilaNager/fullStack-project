@@ -151,7 +151,7 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
                           title="ערוך"
                           onClick={() => navigate(`/edit-offer/${offer._id}`)}
                         >
-                          <i className="bi bi-pencil-fill"></i>
+                          <i className="bi bi-pencil"></i>
                         </button>
 
                         <button
@@ -159,7 +159,7 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
                           title="מחק"
                           onClick={() => removeOffer(offer._id)}
                         >
-                          <i className="bi bi-trash-fill"></i>
+                          <i className="bi bi-trash"></i>
                         </button>
                       </>
                     )}

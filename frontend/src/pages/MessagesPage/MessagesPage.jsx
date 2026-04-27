@@ -1,11 +1,11 @@
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import "./messages-page.css";
 import { useAuth } from "../../context/AuthContext";
 import { useMessage } from "../../context/MessageContext";
 import ChatList from "../../components/messages/ChatList/ChatList";
 import { useEffect, useMemo } from "react";
-import formatThreadTime from "../../helpers/formatThreadTime";
 import ChatWindow from "../../components/messages/ChatWindow/ChatWindow";
+import { formatChatTime } from "../../helpers/dateUtils";
 
 function MessagesPage() {
   const { threadId } = useParams();
@@ -19,6 +19,8 @@ function MessagesPage() {
     fetchThreadById,
     sendMessage,
   } = useMessage();
+  const location = useLocation();
+  const initialText = location.state?.initialText || "";
 
   useEffect(() => {
     if (threadId) {
@@ -51,7 +53,7 @@ function MessagesPage() {
         name: otherParticipant?.fullName || "",
         title: thread.relatedId?.title || "שיחה על בקשה/תרומה",
         lastMessage: lastMessageText,
-        time: formatThreadTime(lastMessageObj?.updatedAt || thread.updatedAt),
+        time: formatChatTime(lastMessageObj?.updatedAt || thread.updatedAt),
         relatedType: thread.relatedType,
       };
     });
@@ -70,6 +72,7 @@ function MessagesPage() {
               thread={currentThread}
               initialMessages={currentThread.messages}
               currentUserId={user?._id}
+              initialText={initialText}
               onSendMessage={async (text) => {
                 if (!currentThread) return [];
                 try {

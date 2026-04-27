@@ -45,12 +45,22 @@ async function updateRequestStatus(id, status) {
     }
 }
 
+async function updateRequest(id, values) {
+    try {
+        const updated = await httpService.put(`/requests/${id}`, values);
+        return updated.data;
+    } catch (error) {
+        console.error("Error updating request:", error);
+    }
+}
+
 const requestService = {
     getAllRequests,
     getMyRequests,
     createRequest,
     deleteRequest,
-    updateRequestStatus
+    updateRequestStatus,
+    updateRequest
 };
 
 export default requestService;

@@ -1,3 +1,7 @@
+.no-resize-textarea {
+  resize: none;
+}
+
 .chat-window-wrapper {
   display: flex;
   flex-direction: column;
@@ -157,6 +161,76 @@
   color: rgba(0, 0, 0, 0.45);
   line-height: 1;
   white-space: nowrap;
+  letter-spacing: 0.01rem;
+}
+
+.message-actions-wrapper {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 5;
+}
+
+.message-actions-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.45);
+  padding: 2px 4px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.message-actions-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.message-actions-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccccccd7;
+  border-radius: 15px;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.message-action-item {
+  padding: 10px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 500;
+  color: #0a0a0a;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: right;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.message-action-item i {
+  font-size: 1.05rem;
+}
+
+.message-action-item.edit:hover,
+.message-action-item.info:hover,
+.message-action-item.copy:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.message-action-item.delete:hover {
+  background-color: #ffeae9;
+  color: #d9534f;
 }
 
 .chat-input-wrapper {
@@ -201,11 +275,15 @@
 
 .chat-input-field {
   width: 100%;
+  min-height: 40px;
+  max-height: 50px;
+  resize: none;
   padding: 12px 45px 12px 45px;
+  font-size: 1rem;
+  line-height: 1.4;
   border-radius: 25px;
   border: 1px solid #ccc;
   outline: none;
-  font-size: 1rem;
 }
 
 .send-btn {
@@ -232,7 +310,7 @@
 
 @media (max-width: 768px) {
   .chat-window-wrapper {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 90px);
   }
 
   .chat-messages {

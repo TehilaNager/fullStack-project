@@ -150,7 +150,7 @@ function RequestsTable({ requests = [], search, isFavoritePage = false }) {
                           title="ערוך"
                           onClick={() => navigate(`/edit-request/${req._id}`)}
                         >
-                          <i className="bi bi-pencil-fill"></i>
+                          <i className="bi bi-pencil"></i>
                         </button>
 
                         <button
@@ -158,7 +158,7 @@ function RequestsTable({ requests = [], search, isFavoritePage = false }) {
                           title="מחק"
                           onClick={() => removeRequest(req._id)}
                         >
-                          <i className="bi bi-trash-fill"></i>
+                          <i className="bi bi-trash"></i>
                         </button>
                       </>
                     )}

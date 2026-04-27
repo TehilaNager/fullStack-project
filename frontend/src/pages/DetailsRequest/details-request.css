@@ -99,10 +99,17 @@
     color 0.2s ease;
 }
 
-.edit-btn:hover,
+.edit-btn:hover {
+  background: #edeff0;
+}
+
 .delete-btn:hover {
-  background: #0f172a;
-  color: #fff;
+  background-color: #ffeae984 !important;
+}
+
+.delete-btn {
+  color: #d9534f !important;
+  border: 1px solid #d9544f73 !important;
 }
 
 .manage-icon {
@@ -458,6 +465,10 @@
   gap: 0.6rem;
 }
 
+.contact-unavailable {
+  margin-bottom: 0;
+}
+
 @media (max-width: 1200px) {
   .details-request-page {
     padding: 0 4rem;
@@ -498,3 +509,31 @@
     width: 100%;
   }
 }
+/* .status-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.status-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 0.85rem;
+}
+
+.status-btn:hover {
+  background: #f1f5f9;
+}
+
+.active:hover {
+  background-color: #fff;
+}
+
+.status-btn.primary {
+  background: #0f172a;
+  color: white;
+  border: none;
+} */

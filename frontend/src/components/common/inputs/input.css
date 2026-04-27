@@ -58,6 +58,9 @@
   .input-wrapper label.filled {
     font-size: 0.7rem;
   }
+  .form-group {
+    margin-bottom: 0;
+  }
 }
 
 @media (max-width: 480px) {

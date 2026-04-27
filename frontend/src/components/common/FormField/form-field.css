@@ -40,3 +40,6 @@
 .form-control {
   padding: 12px 15px;
 }
+
+@media (max-width: 768px) {
+}

@@ -4,14 +4,18 @@ import "./form-buttons.css";
 function FormButtons({ onReset, textBtn, ...rest }) {
   const navigate = useNavigate();
 
+  const handleCancel = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <div>
       <div className="button-group">
-        <button
-          onClick={() => navigate("/")}
-          type="button"
-          className="btn-Cancel"
-        >
+        <button onClick={handleCancel} type="button" className="btn-Cancel">
           ביטול
         </button>
 
@@ -19,6 +23,7 @@ function FormButtons({ onReset, textBtn, ...rest }) {
           onClick={onReset}
           type="button"
           className="btn-refresh bi bi-arrow-clockwise"
+          title="איפוס"
         ></button>
       </div>
 

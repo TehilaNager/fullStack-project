@@ -1,15 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router";
+import { Collapse } from "bootstrap";
+import { FaUserCircle } from "react-icons/fa";
 import "./nav-bar.css";
 import Logo from "../common/Logo/Logo";
 import { useAuth } from "../../context/authContext";
 
 function Navbar() {
   const { user } = useAuth();
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const navbar = document.getElementById("mainNavbar");
+      const toggler = document.querySelector(".navbar-toggler");
+
+      const clickedInsideNavbar = navbar?.contains(e.target);
+      const clickedToggle = toggler?.contains(e.target);
+
+      if (!clickedInsideNavbar && !clickedToggle) {
+        const bsCollapse = Collapse.getInstance(navbar);
+        if (bsCollapse) bsCollapse.hide();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      const dropdown = document.querySelector(".dropdown");
+
+      if (dropdown && !dropdown.contains(e.target)) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const closeNavbar = () => {
+    const navbar = document.getElementById("mainNavbar");
+
+    if (!navbar) return;
+
+    const bsCollapse =
+      Collapse.getInstance(navbar) || new Collapse(navbar, { toggle: false });
+
+    bsCollapse.hide();
+  };
 
   return (
     <header>
-      <nav className="navbar navbar-expand-lg fixed-top custom-navbar">
+      <nav className="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
             <Logo className="navbar-logo" />
@@ -27,39 +74,59 @@ function Navbar() {
           <div className="collapse navbar-collapse" id="mainNavbar">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/" end>
+                <NavLink className="nav-link" to="/" end onClick={closeNavbar}>
                   בית
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
+                <NavLink className="nav-link" to="/about" onClick={closeNavbar}>
                   אודות
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/requests">
+                <NavLink
+                  className="nav-link"
+                  to="/requests"
+                  onClick={closeNavbar}
+                >
                   בקשות
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/offers">
+                <NavLink
+                  className="nav-link"
+                  to="/offers"
+                  onClick={closeNavbar}
+                >
                   תרומות
                 </NavLink>
               </li>
               {user && (
                 <>
                   <li className="nav-item" title="המועדפים שלי">
-                    <NavLink to="/favorites" className="nav-link">
+                    <NavLink
+                      to="/favorites"
+                      className="nav-link"
+                      onClick={closeNavbar}
+                    >
                       מועדפים
                     </NavLink>
                   </li>
                   <li className="nav-item" title="התרומות והבקשות שלי">
-                    <NavLink to="/my-items" className="nav-link">
+                    <NavLink
+                      to="/my-items"
+                      className="nav-link"
+                      onClick={closeNavbar}
+                    >
                       שלי
                     </NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink to="/messages" className="nav-link">
+                    <NavLink
+                      to="/messages"
+                      className="nav-link"
+                      onClick={closeNavbar}
+                    >
                       הודעות
                     </NavLink>
                   </li>
@@ -67,7 +134,11 @@ function Navbar() {
               )}
               {user?.role === "admin" && (
                 <li className="nav-item">
-                  <NavLink to="/users" className="nav-link">
+                  <NavLink
+                    to="/users"
+                    className="nav-link"
+                    onClick={closeNavbar}
+                  >
                     ניהול משתמשים
                   </NavLink>
                 </li>
@@ -75,56 +146,57 @@ function Navbar() {
             </ul>
 
             {user ? (
-              <div
-                className="dropdown text-center"
-                style={{ display: "inline-block", position: "relative" }}
-              >
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/1896/1896513.png"
-                  alt="Profile"
-                  className="dropdown-toggle mx-3"
-                  data-bs-toggle="dropdown"
-                  style={{
-                    width: "50px",
-                    cursor: "pointer",
-                    borderRadius: "50%",
-                  }}
-                />
-                <ul
-                  className="dropdown-menu shadow text-center"
-                  style={{
-                    position: "absolute",
-                    top: "60px",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                  }}
+              <div className="dropdown text-center">
+                <button
+                  className="btn p-0 border-0 bg-transparent"
+                  onClick={() =>
+                    setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                  }
                 >
-                  <li>
-                    <Link
-                      className="dropdown-item text-danger px-4 py-2"
-                      to={`/edit-user/${user?._id}`}
-                    >
-                      עריכה
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item text-danger px-4 py-2"
-                      to="/sign-out"
-                    >
-                      התנתק
-                    </Link>
-                  </li>
-                </ul>
+                  <FaUserCircle className="profile-icon" />
+                </button>
+
+                {isProfileDropdownOpen && (
+                  <ul
+                    className="dropdown-menu shadow text-center show"
+                    style={{
+                      position: "absolute",
+                      top: "60px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    <li>
+                      <Link
+                        className="dropdown-item text-danger px-4 py-2"
+                        to={`/edit-user/${user?._id}`}
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        עריכה
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        className="dropdown-item text-danger px-4 py-2"
+                        to="/sign-out"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        התנתק
+                      </Link>
+                    </li>
+                  </ul>
+                )}
               </div>
             ) : (
-              <>
+              <div className="auth-group">
                 <li className="nav-item">
                   <NavLink
                     className={({ isActive }) =>
-                      "nav-link" + (isActive ? " active" : "")
+                      "nav-link auth-btn signup-btn" +
+                      (isActive ? " active" : "")
                     }
                     to="/sign-up"
+                    onClick={closeNavbar}
                   >
                     הרשם
                   </NavLink>
@@ -133,14 +205,16 @@ function Navbar() {
                 <li className="nav-item">
                   <NavLink
                     className={({ isActive }) =>
-                      "nav-link" + (isActive ? " active" : "")
+                      "nav-link auth-btn login-btn" +
+                      (isActive ? " active" : "")
                     }
                     to="/sign-in"
+                    onClick={closeNavbar}
                   >
                     התחבר
                   </NavLink>
                 </li>
-              </>
+              </div>
             )}
           </div>
         </div>

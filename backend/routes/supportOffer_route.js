@@ -117,10 +117,13 @@ router.put("/:id", authMW, async (req, res) => {
         return;
     }
 
-    Object.assign(offer, value);
-    await offer.save();
+    const updatedOffer = await Offer.findByIdAndUpdate(
+        req.params.id,
+        { $set: value },
+        { new: true, runValidators: true }
+    );
 
-    const filteredOffer = _.pick(offer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
+    const filteredOffer = _.pick(updatedOffer, ["_id", "supporter", "title", "description", "category", "region", "city", "status", "availableQuantity", "availableUntil", "contactMethod", "contactPhone", "contactEmail", "createdAt", "updatedAt"]);
 
     res.json(filteredOffer);
 });

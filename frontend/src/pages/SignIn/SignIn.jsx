@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import "./sign-in.css";
 import Input from "../../components/common/Inputs/Input";
 import InputPassword from "../../components/common/Inputs/InputPassword";
@@ -10,6 +10,8 @@ import FormButtons from "../../components/common/FormButtons/FormButtons";
 
 function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
   const { login } = useAuth();
   const [apiError, setApiError] = useState("");
 
@@ -45,7 +47,7 @@ function SignIn() {
 
         try {
           await login(values);
-          navigate("/");
+          navigate(from, { replace: true });
         } catch (err) {
           const backendMessage = err.response?.data || "אירעה שגיאה בהתחברות";
           const message =

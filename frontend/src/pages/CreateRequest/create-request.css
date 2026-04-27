@@ -5,14 +5,14 @@
 
 .create-request-title {
   text-align: center;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 800;
   color: #222;
   margin-bottom: 4rem;
 }
 
 .create-request-form {
-  max-width: 1200px;
+  max-width: 1050px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
 
 @media (max-width: 768px) {
   .create-request-page {
-    padding: 4rem 2rem 7rem;
+    padding: 3rem 1.5rem 7rem;
   }
   .create-request-title {
     font-size: 2rem;

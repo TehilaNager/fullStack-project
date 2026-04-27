@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 import "./requests-page.css";
 import { useAuth } from "../../context/AuthContext";
 import { useRequest } from "../../context/RequestContext";
@@ -51,10 +52,6 @@ function RequestsPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // const activeFiltersCount = useMemo(
-  //   () => countActiveFilters(filters),
-  //   [filters],
-  // );
   const activeFiltersCount = useMemo(
     () => countActiveFilters(filters) + (showOnlyMine ? 1 : 0),
     [filters, showOnlyMine],
@@ -153,9 +150,26 @@ function RequestsPage() {
           ) : (
             <button
               className="no-results-btn"
-              onClick={() => navigate("/create-request")}
+              onClick={() => {
+                if (!user) {
+                  Swal.fire({
+                    icon: "info",
+                    title: "פעולה זו דורשת התחברות",
+                    text: "כדי ליצור בקשה חדשה צריך להתחבר לאתר",
+                    confirmButtonText: "התחבר",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate("/sign-in", {
+                        state: { from: "/create-request" },
+                      });
+                    }
+                  });
+                } else {
+                  navigate("/create-request");
+                }
+              }}
             >
-              צור בקשה חדשה
+              {user ? "צור בקשה חדשה" : "התחבר כדי ליצור בקשה"}
             </button>
           )}
         </div>
@@ -173,13 +187,15 @@ function RequestsPage() {
         />
       )}
 
-      <button
-        className="create-request-btn"
-        onClick={() => navigate("/create-request")}
-      >
-        <span className="plus-icon">+</span>
-        <span className="btn-text">צור בקשה חדשה</span>
-      </button>
+      {user && (
+        <button
+          className="create-request-btn"
+          onClick={() => navigate("/create-request")}
+        >
+          <span className="plus-icon">+</span>
+          <span className="btn-text">צור בקשה חדשה</span>
+        </button>
+      )}
 
       {isFilterOpen && (
         <div className="filters-overlay" onClick={() => setIsFilterOpen(false)}>
@@ -263,17 +279,18 @@ function RequestsPage() {
               </div>
             </div>
 
-            <div className="filter-group">
-              <label className="filter-option">
-                <input
-                  type="checkbox"
-                  checked={showOnlyMine}
-                  onChange={(e) => setShowOnlyMine(e.target.checked)}
-                />
-                הצג רק את הבקשות שלי
-              </label>
-            </div>
-
+            {user && (
+              <div className="filter-group">
+                <label className="filter-option">
+                  <input
+                    type="checkbox"
+                    checked={showOnlyMine}
+                    onChange={(e) => setShowOnlyMine(e.target.checked)}
+                  />
+                  הצג רק את הבקשות שלי
+                </label>
+              </div>
+            )}
             <button className="clear-filters-btn" onClick={clearFilters}>
               נקה סינון
             </button>

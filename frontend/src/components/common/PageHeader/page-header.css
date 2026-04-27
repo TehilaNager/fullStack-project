@@ -4,7 +4,7 @@
 }
 
 .title {
-  font-size: 4rem;
+  font-size: 4rem !important;
   font-weight: 800;
   color: #0f172a;
 }

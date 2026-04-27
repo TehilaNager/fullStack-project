@@ -5,14 +5,14 @@
 
 .create-offer-title {
   text-align: center;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 800;
   color: #222;
   margin-bottom: 4rem;
 }
 
 .create-offer-form {
-  max-width: 1200px;
+  max-width: 1050px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
 
 @media (max-width: 768px) {
   .create-offer-page {
-    padding: 4rem 2rem 7rem;
+    padding: 3rem 1.5rem 7rem;
   }
   .create-offer-title {
     font-size: 2rem;

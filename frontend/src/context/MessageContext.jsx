@@ -46,12 +46,64 @@ export function MessageProvider({ children }) {
     }
   };
 
+  const openThread = async (threadData) => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const thread = await messageService.createOrGetThread(threadData);
+
+      setCurrentThread(thread);
+
+      setThreads((prevThreads) => {
+        const filteredThreads = prevThreads.filter((t) => t._id !== thread._id);
+        return [thread, ...filteredThreads];
+      });
+
+      return thread;
+    } catch (err) {
+      console.error("Failed to open thread:", err);
+      const errorMessage = err.response?.data || "אירעה שגיאה בפתיחת השיחה";
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const sendMessage = async (threadId, content) => {
     try {
       setError("");
       const updatedThread = await messageService.sendMessageToThread(
         threadId,
         content,
+      );
+
+      setCurrentThread(updatedThread);
+
+      setThreads((prevThreads) => {
+        const filteredThreads = prevThreads.filter(
+          (thread) => thread._id !== updatedThread._id,
+        );
+        return [updatedThread, ...filteredThreads];
+      });
+
+      return updatedThread;
+    } catch (err) {
+      console.error("Failed to send message:", err);
+      const errorMessage = err.response?.data || "אירעה שגיאה בשליחת ההודעה";
+      setError(errorMessage);
+      throw err;
+    }
+  };
+
+  const deleteMessage = async (threadId, messageId) => {
+    try {
+      setError("");
+
+      const updatedThread = await messageService.deleteMessageFromThread(
+        threadId,
+        messageId,
       );
 
       setCurrentThread(updatedThread);
@@ -64,8 +116,35 @@ export function MessageProvider({ children }) {
 
       return updatedThread;
     } catch (err) {
-      console.error("Failed to send message:", err);
-      const errorMessage = err.response?.data || "אירעה שגיאה בשליחת ההודעה";
+      console.error("Failed to delete message:", err);
+      const errorMessage = err.response?.data || "אירעה שגיאה במחיקת ההודעה";
+      setError(errorMessage);
+      throw err;
+    }
+  };
+
+  const updateMessage = async (threadId, messageId, newContent) => {
+    try {
+      setError("");
+
+      const updatedThread = await messageService.updateMessage(
+        threadId,
+        messageId,
+        newContent,
+      );
+
+      setCurrentThread(updatedThread);
+
+      setThreads((prevThreads) =>
+        prevThreads.map((thread) =>
+          thread._id === updatedThread._id ? updatedThread : thread,
+        ),
+      );
+
+      return updatedThread;
+    } catch (err) {
+      console.error("Failed to update message:", err);
+      const errorMessage = err.response?.data || "אירעה שגיאה בעריכת ההודעה";
       setError(errorMessage);
       throw err;
     }
@@ -82,7 +161,10 @@ export function MessageProvider({ children }) {
         error,
         fetchUserThreads,
         fetchThreadById,
+        openThread,
         sendMessage,
+        deleteMessage,
+        updateMessage,
       }}
     >
       {children}

@@ -60,6 +60,24 @@ export function OfferProvider({ children }) {
     }
   };
 
+  const updateOffer = async (id, values) => {
+    try {
+      const updatedOffer = await offerService.updateOffer(id, values);
+
+      setOffers((prev) =>
+        prev.map((offer) => (offer._id === id ? updatedOffer : offer)),
+      );
+
+      setMyOffers((prev) =>
+        prev.map((offer) => (offer._id === id ? updatedOffer : offer)),
+      );
+
+      return updatedOffer;
+    } catch (error) {
+      console.error("Error updating offer:", error);
+    }
+  };
+
   return (
     <OfferContext.Provider
       value={{
@@ -70,6 +88,7 @@ export function OfferProvider({ children }) {
         fetchMyOffers,
         createOffer,
         removeOffer,
+        updateOffer,
       }}
     >
       {children}

@@ -88,6 +88,20 @@ export function RequestProvider({ children }) {
     }
   };
 
+  const updateRequest = async (id, values) => {
+    try {
+      const updated = await requestService.updateRequest(id, values);
+
+      setRequests((prev) => prev.map((r) => (r._id === id ? updated : r)));
+
+      setMyRequests((prev) => prev.map((r) => (r._id === id ? updated : r)));
+
+      return updated;
+    } catch (error) {
+      console.error("Error updating request:", error);
+    }
+  };
+
   return (
     <RequestContext.Provider
       value={{
@@ -99,6 +113,7 @@ export function RequestProvider({ children }) {
         createRequest,
         removeRequest,
         updateRequestStatus,
+        updateRequest,
       }}
     >
       {children}

@@ -10,6 +10,7 @@ import {
   countActiveFilters,
 } from "../../helpers/offersFiltersLogic";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 import PageHeader from "../../components/common/PageHeader/PageHeader";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
 import OfferCard from "../../components/OfferCard/OfferCard";
@@ -151,9 +152,26 @@ function OffersPage() {
           ) : (
             <button
               className="no-results-btn"
-              onClick={() => navigate("/create-offer")}
+              onClick={() => {
+                if (!user) {
+                  Swal.fire({
+                    icon: "info",
+                    title: "פעולה זו דורשת התחברות",
+                    text: "כדי ליצור תרומה חדשה צריך להתחבר לאתר",
+                    confirmButtonText: "התחבר",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      navigate("/sign-in", {
+                        state: { from: "/create-offer" },
+                      });
+                    }
+                  });
+                } else {
+                  navigate("/create-offer");
+                }
+              }}
             >
-              צור תרומה חדשה
+              {user ? "צור תרומה חדשה" : "התחבר כדי ליצור תרומה"}
             </button>
           )}
         </div>
@@ -171,13 +189,15 @@ function OffersPage() {
         />
       )}
 
-      <button
-        className="create-offer-btn"
-        onClick={() => navigate("/create-offer")}
-      >
-        <span className="plus-icon">+</span>
-        <span className="btn-text">צור תרומה חדשה</span>
-      </button>
+      {user && (
+        <button
+          className="create-offer-btn"
+          onClick={() => navigate("/create-offer")}
+        >
+          <span className="plus-icon">+</span>
+          <span className="btn-text">צור תרומה חדשה</span>
+        </button>
+      )}
 
       {isFilterOpen && (
         <div className="filters-overlay" onClick={() => setIsFilterOpen(false)}>
@@ -261,16 +281,18 @@ function OffersPage() {
               </div>
             </div>
 
-            <div className="filter-group">
-              <label className="filter-option">
-                <input
-                  type="checkbox"
-                  checked={showOnlyMine}
-                  onChange={(e) => setShowOnlyMine(e.target.checked)}
-                />
-                הצג רק את התרומות שלי
-              </label>
-            </div>
+            {user && (
+              <div className="filter-group">
+                <label className="filter-option">
+                  <input
+                    type="checkbox"
+                    checked={showOnlyMine}
+                    onChange={(e) => setShowOnlyMine(e.target.checked)}
+                  />
+                  הצג רק את התרומות שלי
+                </label>
+              </div>
+            )}
 
             <button className="clear-filters-btn" onClick={clearFilters}>
               נקה סינון

@@ -1,0 +1,56 @@
+.edit-request-page {
+  padding: 5rem 5rem 10rem;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.edit-request-title {
+  text-align: center;
+  font-size: 4rem;
+  font-weight: 800;
+  color: #222;
+  margin-bottom: 4rem;
+}
+
+.request-loading {
+  padding: 3rem;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #475569;
+}
+
+.edit-request-form {
+  max-width: 1050px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1 1 200px;
+}
+
+@media (max-width: 768px) {
+  .edit-request-page {
+    padding: 3rem 1.5rem 7rem;
+  }
+
+  .edit-request-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-row .form-group {
+    flex: 0 1 100%;
+  }
+
+  .form-input {
+    font-size: 0.8rem;
+  }
+}

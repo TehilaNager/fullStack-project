@@ -39,7 +39,7 @@ const validateRequest = Joi.object({
     status: Joi.string().valid('פתוחה', 'בטיפול', 'הושלמה').optional(),
     priority: Joi.string().valid('נמוכה', 'בינונית', 'גבוהה', 'דחופה').required(),
     requiredQuantity: Joi.number().min(1).optional().allow(null),
-    deadline: Joi.when('priority', { is: 'דחופה', then: Joi.date().min('now').required(), otherwise: Joi.forbidden() }),
+    deadline: Joi.when('priority', { is: 'דחופה', then: Joi.date().min('now').required(), otherwise: Joi.date().min('now').optional().allow(null) }),
     contactMethod: Joi.string().valid("site", "details").required(),
     contactPhone: Joi.string().pattern(/^0\d{8,9}$/).allow("", null).optional(),
     contactEmail: Joi.string().email().allow("", null).optional(),
@@ -59,7 +59,7 @@ const validateRequestUpdate = Joi.object({
     deadline: Joi.when('priority', {
         is: 'דחופה',
         then: Joi.date().min('now').required(),
-        otherwise: Joi.forbidden()
+        otherwise: Joi.date().min('now').optional().allow(null)
     }),
     contactMethod: Joi.string().valid("site", "details").optional(),
     contactPhone: Joi.string().pattern(/^0\d{8,9}$/).allow("", null).optional(),
