@@ -35,7 +35,7 @@ function DetailsRequest() {
   }, [request]);
 
   if (!request) {
-    return <NotFound text="הבקשה לא נמצאה" />;
+    return <NotFound message="הבקשה לא נמצאה" />;
   }
 
   const isOwner = user && user._id === request.requester?._id;

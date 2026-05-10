@@ -73,7 +73,7 @@ function EditOffer() {
   }
 
   if (!offer) {
-    return <NotFound text="התרומה לא נמצאה" />;
+    return <NotFound message="התרומה לא נמצאה" />;
   }
 
   return (

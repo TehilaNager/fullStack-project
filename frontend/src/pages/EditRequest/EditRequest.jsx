@@ -69,7 +69,7 @@ function EditRequest() {
   }
 
   if (!request) {
-    return <NotFound text="הבקשה לא נמצאה" />;
+    return <NotFound message="הבקשה לא נמצאה" />;
   }
 
   return (
