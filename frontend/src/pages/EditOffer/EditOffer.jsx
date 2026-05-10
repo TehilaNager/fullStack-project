@@ -5,6 +5,7 @@ import { useOffer } from "../../context/OfferContext";
 import FormField from "../../components/common/FormField/FormField";
 import FormButtons from "../../components/common/FormButtons/FormButtons";
 import offerSchema from "../../helpers/offerValidation";
+import NotFound from "../../components/common/NotFound/NotFound";
 
 function EditOffer() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ function EditOffer() {
   }
 
   if (!offer) {
-    return <div className="offer-loading">תרומה לא נמצאה</div>;
+    return <NotFound text="התרומה לא נמצאה" />;
   }
 
   return (

@@ -11,13 +11,6 @@
   margin-bottom: 4rem;
 }
 
-.request-loading {
-  padding: 3rem;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #475569;
-}
-
 .edit-request-form {
   max-width: 1050px;
   margin: 0 auto;

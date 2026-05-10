@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import updateRequestSchema from "../../helpers/updateRequestValidation";
 import FormButtons from "../../components/common/FormButtons/FormButtons";
 import FormField from "../../components/common/FormField/FormField";
+import NotFound from "../../components/common/NotFound/NotFound";
 
 function EditRequest() {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ function EditRequest() {
   }
 
   if (!request) {
-    return <div className="request-loading">בקשה לא נמצאה</div>;
+    return <NotFound text="הבקשה לא נמצאה" />;
   }
 
   return (

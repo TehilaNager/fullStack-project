@@ -13,6 +13,7 @@ import Tag from "../../components/Tag/Tag";
 import DetailsGridSection from "../../components/details/DetailsGridSection/DetailsGridSection";
 import { getQuantityLabel } from "../../helpers/formatters";
 import SectionWrapper from "../../components/details/SectionWrapper/SectionWrapper";
+import NotFound from "../../components/common/NotFound/NotFound";
 
 function DetailsRequest() {
   const { id } = useParams();
@@ -33,13 +34,9 @@ function DetailsRequest() {
     }
   }, [request]);
 
-  if (!request)
-    return (
-      <div className="chat-not-found">
-        <i className="chat-empty-icon bi bi-exclamation-circle"></i>
-        <p className="chat-empty-text">הבקשה לא נמצאה</p>
-      </div>
-    );
+  if (!request) {
+    return <NotFound text="הבקשה לא נמצאה" />;
+  }
 
   const isOwner = user && user._id === request.requester?._id;
   const isUserAdmin = user?.role === "userAdmin";
