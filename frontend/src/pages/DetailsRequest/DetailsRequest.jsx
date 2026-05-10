@@ -1,23 +1,25 @@
-import { useParams, useNavigate } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import { useRequest } from "../../context/RequestContext";
 import { useEffect, useState } from "react";
-import "./details-request.css";
 import { useMessage } from "../../context/MessageContext";
+import "./details-request.css";
 import { formatDateTime, formatTimeAgo } from "../../helpers/dateUtils";
+import { getQuantityLabel } from "../../helpers/formatters";
 import FloatingChatButton from "../../components/details/FloatingChatButton/FloatingChatButton";
 import ContactSection from "../../components/details/ContactSection/ContactSection";
 import ActionsSection from "../../components/details/ActionsSection/ActionsSection";
 import IdentitySection from "../../components/details/IdentitySection/IdentitySection";
 import Tag from "../../components/Tag/Tag";
 import DetailsGridSection from "../../components/details/DetailsGridSection/DetailsGridSection";
-import { getQuantityLabel } from "../../helpers/formatters";
 import SectionWrapper from "../../components/details/SectionWrapper/SectionWrapper";
 import NotFound from "../../components/common/NotFound/NotFound";
 
 function DetailsRequest() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { user } = useAuth();
   const { requests, removeRequest, updateRequestStatus } = useRequest();
   const { openThread } = useMessage();
@@ -56,7 +58,16 @@ function DetailsRequest() {
 
   const handleOpenChat = async () => {
     if (!user) {
-      navigate("/login");
+      navigate("/sign-in", {
+        state: {
+          openChatAfterLogin: true,
+          relatedType: "SupportRequest",
+          relatedId: request._id,
+          participantId: request.requester._id,
+          from: location.pathname || window.location.pathname,
+        },
+      });
+
       return;
     }
 
@@ -84,11 +95,7 @@ function DetailsRequest() {
 
       const isNewThread = !thread.messages || thread.messages.length === 0;
 
-      const initialText = isNewThread
-        ? thread.relatedType === "SupportRequest"
-          ? "היי, אני אשמח לעזור 🙂"
-          : "היי, אשמח לסייע, איך אוכל לעזור? 🙂"
-        : "";
+      const initialText = isNewThread ? "היי, אני אשמח לעזור 🙂" : "";
 
       navigate(`/messages/${thread._id}`, { state: { initialText } });
     } catch (err) {

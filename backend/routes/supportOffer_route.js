@@ -44,7 +44,10 @@ router.get("/", async (req, res) => {
     if (city) filter.city = city;
     if (status) filter.status = status;
 
-    const offers = await Offer.find(filter, { __v: 0 }).sort({ createdAt: -1 });
+    const offers = await Offer.find(filter, { __v: 0 })
+        .populate("supporter", "fullName phone email")
+        .sort({ createdAt: -1 });
+
     res.json(offers);
 });
 
@@ -54,7 +57,8 @@ router.get("/:id", async (req, res) => {
         return;
     }
 
-    const offer = await Offer.findById(req.params.id, { __v: 0 });
+    const offer = await Offer.findById(req.params.id, { __v: 0 })
+        .populate("supporter", "fullName phone email");
 
     if (!offer) {
         res.status(404).send("Offer not found.");

@@ -78,6 +78,28 @@ export function OfferProvider({ children }) {
     }
   };
 
+  const updateOfferStatus = async (id, status) => {
+    try {
+      const updatedOffer = await offerService.updateOfferStatus(id, status);
+
+      setOffers((prev) =>
+        prev.map((offer) =>
+          offer._id === id ? { ...offer, status: updatedOffer.status } : offer,
+        ),
+      );
+
+      setMyOffers((prev) =>
+        prev.map((offer) =>
+          offer._id === id ? { ...offer, status: updatedOffer.status } : offer,
+        ),
+      );
+
+      return updatedOffer;
+    } catch (error) {
+      console.error("Error updating offer status:", error);
+    }
+  };
+
   return (
     <OfferContext.Provider
       value={{
@@ -89,6 +111,7 @@ export function OfferProvider({ children }) {
         createOffer,
         removeOffer,
         updateOffer,
+        updateOfferStatus,
       }}
     >
       {children}

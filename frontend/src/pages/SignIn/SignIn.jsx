@@ -7,6 +7,8 @@ import InputPassword from "../../components/common/Inputs/InputPassword";
 import { validateSignIn } from "../../helpers/userValidation";
 import { useAuth } from "../../context/AuthContext";
 import FormButtons from "../../components/common/FormButtons/FormButtons";
+import Swal from "sweetalert2";
+import { useMessage } from "../../context/MessageContext";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -14,6 +16,8 @@ function SignIn() {
   const from = location.state?.from || "/";
   const { login } = useAuth();
   const [apiError, setApiError] = useState("");
+
+  const { openThread } = useMessage();
 
   const errorMessages = {
     "Request body is missing.": "לא נשלחו פרטי התחברות. אנא נסה שוב.",
@@ -46,7 +50,36 @@ function SignIn() {
         setApiError("");
 
         try {
-          await login(values);
+          const loggedUser = await login(values);
+          const chatState = location.state || {};
+
+          if (chatState?.openChatAfterLogin) {
+            const isOwnItem = loggedUser?._id === chatState.participantId;
+
+            if (isOwnItem) {
+              const itemLabel =
+                chatState.relatedType === "SupportRequest" ? "הבקשה" : "התרומה";
+
+              await Swal.fire({
+                icon: "info",
+                title: `זאת ${itemLabel} שלך 🙂`,
+                text: "אי אפשר לפתוח צ'אט עם עצמך",
+                confirmButtonText: "הבנתי",
+              });
+
+              navigate(chatState.from || "/", { replace: true });
+              return;
+            }
+
+            const thread = await openThread({
+              relatedType: chatState.relatedType,
+              relatedId: chatState.relatedId,
+              participants: [chatState.participantId],
+            });
+
+            navigate(`/messages/${thread._id}`, { replace: true });
+            return;
+          }
           navigate(from, { replace: true });
         } catch (err) {
           const backendMessage = err.response?.data || "אירעה שגיאה בהתחברות";

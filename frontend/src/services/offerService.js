@@ -45,13 +45,23 @@ async function updateOffer(id, values) {
     }
 }
 
+async function updateOfferStatus(id, status) {
+    try {
+        const updatedOffer = await httpService.patch(`/offers/${id}/status`, { status });
+        return updatedOffer.data;
+    } catch (error) {
+        console.error("Error updating offer status:", error);
+    }
+}
+
 
 const offerService = {
     getAllOffers,
     getMyOffers,
     createOffer,
     deleteOffer,
-    updateOffer
+    updateOffer,
+    updateOfferStatus
 };
 
 export default offerService;

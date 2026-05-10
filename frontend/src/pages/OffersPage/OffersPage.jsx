@@ -66,7 +66,11 @@ function OffersPage() {
         minQuantity,
         maxQuantity,
         includeUnknownQuantity,
-      ).filter((offer) => !showOnlyMine || offer.supporter === user?._id),
+      ).filter(
+        (offer) =>
+          !showOnlyMine ||
+          (offer.supporter?._id || offer.supporter) === user?._id,
+      ),
     [
       offers,
       search,

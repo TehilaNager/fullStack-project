@@ -17,9 +17,9 @@ export function AuthProvider({ children }) {
   const refreshUser = () => setUser(userService.getUser());
 
   const login = async (values) => {
-    const loggedInUser = await userService.login(values);
+    await userService.login(values);
     refreshUser();
-    return loggedInUser;
+    return userService.getUser();
   };
 
   const logout = () => {

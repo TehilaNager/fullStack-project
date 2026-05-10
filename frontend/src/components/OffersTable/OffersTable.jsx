@@ -35,7 +35,7 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
 
         <tbody>
           {offers.map((offer) => {
-            const isOwner = user && user._id === offer.supporter;
+            const isOwner = user && user._id === offer.supporter?._id;
             const isUserAdmin = user?.role === "userAdmin";
             const isAdmin = user?.role === "admin";
             const canManage = isOwner || isUserAdmin || isAdmin;
