@@ -30,7 +30,7 @@ function EditRequest() {
       description: safeRequest.description || "",
       category: safeRequest.category || "",
       requiredQuantity:
-        safeRequest.requiredQuantity !== undefined
+        safeRequest.requiredQuantity != null
           ? String(safeRequest.requiredQuantity)
           : "",
       region: safeRequest.region || "",

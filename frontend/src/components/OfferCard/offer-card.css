@@ -67,16 +67,6 @@
   margin-bottom: 0;
 }
 
-.highlight {
-  background-color: #f9d923;
-  color: #000;
-  border-radius: 2px;
-}
-
-mark {
-  padding: 0;
-}
-
 .card-updated {
   font-size: 0.85rem;
   color: #777;
@@ -92,75 +82,6 @@ mark {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-}
-
-.offer-card .tag {
-  font-size: 0.6rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.category-ציוד-צבאי {
-  background: #dfebfd !important;
-  color: #1f4fd8 !important;
-}
-.category-ביגוד {
-  background: #e1f9e5 !important;
-  color: #2f6f4e !important;
-}
-.category-מזון {
-  background: #fcf8dd !important;
-  color: #856404 !important;
-}
-.category-תחבורה {
-  background: #fae6ea !important;
-  color: #9b2c2c !important;
-}
-.category-ציוד-אלקטרוני {
-  background: #e9f3fe !important;
-  color: #0c4a6e !important;
-}
-.category-ספרים-וחומרי-לימוד {
-  background: #fbf0e4 !important;
-  color: #78350f !important;
-}
-.category-ציוד-רפואי {
-  background: #efe6f9 !important;
-  color: #6b21a8 !important;
-}
-.category-תמיכה-נפשית-וחברתית {
-  background: #f3e1ea !important;
-  color: #7a1f4b !important;
-}
-
-.category-אחר {
-  background: #e2d3d3 !important;
-  color: #555 !important;
-}
-
-.offer-card .tag.status {
-  font-size: 0.6rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 8px;
-  font-weight: 600;
-  border: 1px solid transparent !important;
-  background: #f8f9fa !important;
-  color: #000 !important;
-}
-
-.offer-card .tag.status-פתוחה {
-  border-color: #28a745 !important;
-  color: #166534 !important;
-}
-.offer-card .tag.status-בטיפול {
-  border-color: #fd7e14 !important;
-  color: #854d0e !important;
-}
-.offer-card .tag.status-הושלמה {
-  border-color: #6c757d !important;
-  color: #374151 !important;
 }
 
 .offer-card .description-wrapper {
@@ -336,14 +257,14 @@ mark {
   top: -11px;
 }
 
-.offer-card.status-הושלמה {
+.offer-card.status-completed {
   opacity: 0.55;
   filter: grayscale(40%);
   transform: none !important;
   box-shadow: none !important;
 }
 
-.offer-card.status-הושלמה:hover {
+.offer-card.status-completed:hover {
   transform: none;
   box-shadow: none;
   cursor: default;

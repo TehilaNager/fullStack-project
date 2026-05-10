@@ -1,0 +1,14 @@
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.section-icon {
+  font-size: 1.1rem;
+  color: #111827;
+}

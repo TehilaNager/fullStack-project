@@ -32,7 +32,7 @@ function EditOffer() {
       region: safeOffer.region || "",
       city: safeOffer.city || "",
       availableQuantity:
-        safeOffer.availableQuantity !== undefined
+        safeOffer.availableQuantity != null
           ? String(safeOffer.availableQuantity)
           : "",
       availableUntil: safeOffer.availableUntil

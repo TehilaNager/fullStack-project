@@ -3,8 +3,8 @@ import "./page-header.css";
 function PageHeader({ title, subtitle }) {
   return (
     <div className="page-header">
-      <h1 className="title">{title}</h1>
-      <p className="subtitle">{subtitle}</p>
+      <h1 className="page-header-title">{title}</h1>
+      <p className="page-header-subtitle">{subtitle}</p>
     </div>
   );
 }

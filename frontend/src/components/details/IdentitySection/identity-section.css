@@ -1,0 +1,18 @@
+.details-header-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.entity-author {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .details-header-title {
+    font-size: 2rem;
+  }
+}

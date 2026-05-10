@@ -1,3 +1,12 @@
+export const formatDate = (date) => {
+    if (!date) return "לא צוין";
+
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return "לא צוין";
+
+    return d.toLocaleDateString("he-IL");
+};
+
 export const formatChatTime = (dateString) => {
     if (!dateString) return "";
 

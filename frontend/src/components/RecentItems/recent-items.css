@@ -6,7 +6,7 @@
 }
 
 .title {
-  font-size: 2.5rem !important;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #0a0f25;
   margin-bottom: 0.5rem;
@@ -120,6 +120,7 @@
   .items-link {
     font-size: 0.95rem;
     padding: 0.55rem 0.9rem;
+    margin-top: 1rem;
   }
   .carousel-inner {
     padding: 0 2.5rem;

@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 import "./details-request.css";
 import { useMessage } from "../../context/MessageContext";
 import { formatDateTime, formatTimeAgo } from "../../helpers/dateUtils";
+import FloatingChatButton from "../../components/details/FloatingChatButton/FloatingChatButton";
+import ContactSection from "../../components/details/ContactSection/ContactSection";
+import ActionsSection from "../../components/details/ActionsSection/ActionsSection";
+import IdentitySection from "../../components/details/IdentitySection/IdentitySection";
+import Tag from "../../components/Tag/Tag";
+import DetailsGridSection from "../../components/details/DetailsGridSection/DetailsGridSection";
+import { getQuantityLabel } from "../../helpers/formatters";
+import SectionWrapper from "../../components/details/SectionWrapper/SectionWrapper";
 
 function DetailsRequest() {
   const { id } = useParams();
@@ -15,9 +23,14 @@ function DetailsRequest() {
 
   const request = requests.find((r) => r._id === id);
   const [status, setStatus] = useState(request?.status);
+  const [isEditingStatus, setIsEditingStatus] = useState(false);
+  const [tempStatus, setTempStatus] = useState(status);
 
   useEffect(() => {
-    if (request) setStatus(request.status);
+    if (request) {
+      setStatus(request.status);
+      setTempStatus(request.status);
+    }
   }, [request]);
 
   if (!request)
@@ -32,6 +45,7 @@ function DetailsRequest() {
   const isUserAdmin = user?.role === "userAdmin";
   const isAdmin = user?.role === "admin";
   const canManage = isOwner || isUserAdmin || isAdmin;
+  const canUseChat = !!request.requester?._id && !isOwner;
 
   const handleStatusChange = async (newStatus) => {
     setStatus(newStatus);
@@ -42,13 +56,6 @@ function DetailsRequest() {
     await removeRequest(request._id);
     navigate("/requests");
   };
-
-  const statusValue = request.status || "לא-צוין";
-  const categoryValue = request.category || "לא-צוין";
-  const priorityValue = request.priority || "לא-צוין";
-
-  const statusClass = status?.replace(/\s/g, "-");
-  const categoryClass = categoryValue.replace(/\s/g, "-");
 
   const handleOpenChat = async () => {
     if (!user) {
@@ -92,234 +99,113 @@ function DetailsRequest() {
     }
   };
 
-  const hasDirectContact = request.contactPhone || request.contactEmail;
-  const canUseChat = !!request.requester?._id && !isOwner;
+  const detailsItems = [
+    {
+      icon: "bi-people",
+      label: "עבור",
+      value: getQuantityLabel(request.requiredQuantity),
+    },
+    {
+      icon: "bi-geo-alt",
+      label: "עיר",
+      value: request.city || "לא צוין",
+    },
+    {
+      icon: "bi-map",
+      label: "אזור",
+      value: request.region || "לא צוין",
+    },
+    {
+      icon: "bi-clock",
+      label: "זמין עד",
+      value: request.deadline ? formatTimeAgo(request.deadline) : "לא צוין",
+      title: request.deadline ? formatDateTime(request.deadline) : "",
+    },
+    {
+      icon: "bi-pencil-square",
+      label: "עודכן לאחרונה",
+      value: request.updatedAt ? formatTimeAgo(request.updatedAt) : "לא צוין",
+      title: request.updatedAt ? formatDateTime(request.updatedAt) : "",
+    },
+    {
+      icon: "bi-calendar-plus",
+      label: "תאריך פרסום",
+      value: request.createdAt ? formatTimeAgo(request.createdAt) : "לא צוין",
+      title: request.createdAt ? formatDateTime(request.createdAt) : "",
+    },
+  ];
 
   return (
     <div className="details-request-page">
       <div className="details-request-header">
-        {canManage && (
-          <div className="manage-buttons">
-            {status === "הושלמה" ? (
-              <button
-                className="new-request-btn"
-                onClick={() => handleStatusChange("פתוחה")}
-              >
-                <i className="bi bi-plus-circle"></i>
-                חדש בקשה
-              </button>
-            ) : (
-              <div className="status-toggle">
-                {["פתוחה", "בטיפול", "הושלמה"].map((statusOption) => (
-                  <div
-                    key={statusOption}
-                    className={`toggle-item ${
-                      status === statusOption ? "selected" : ""
-                    }`}
-                    onClick={() => handleStatusChange(statusOption)}
-                  >
-                    {statusOption === "הושלמה" && status === "הושלמה" && (
-                      <i className="bi bi-check-circle"></i>
-                    )}
-                    {statusOption}
-                  </div>
-                ))}
-              </div>
-            )}
+        <ActionsSection
+          canManage={canManage}
+          isEditingStatus={isEditingStatus}
+          tempStatus={tempStatus}
+          statusOptions={["פתוחה", "בטיפול", "הושלמה"]}
+          onStartEdit={() => setIsEditingStatus(true)}
+          onTempStatusChange={setTempStatus}
+          onSave={async () => {
+            await handleStatusChange(tempStatus);
+            setIsEditingStatus(false);
+          }}
+          onCancel={() => {
+            setTempStatus(status);
+            setIsEditingStatus(false);
+          }}
+          onEdit={() => navigate(`/edit-request/${request._id}`)}
+          onDelete={handleDelete}
+        />
 
-            {/* <div className="status-actions">
-              {["פתוחה", "בטיפול", "הושלמה"].map((statusOption) => (
-                <button
-                  key={statusOption}
-                  onClick={() => handleStatusChange(statusOption)}
-                  disabled={status === statusOption}
-                  className={`status-btn ${
-                    status === statusOption ? "active" : ""
-                  }`}
-                >
-                  {statusOption}
-                </button>
-              ))}
-            </div> */}
-
-            <button
-              className="edit-btn"
-              onClick={() => navigate(`/edit-request/${request._id}`)}
-            >
-              <i className="bi bi-pencil manage-icon"></i>
-            </button>
-
-            <button className="delete-btn" onClick={handleDelete}>
-              <i className="bi bi-trash manage-icon"></i>
-            </button>
-          </div>
-        )}
-
-        <h1 className="details-header-title">{request.title}</h1>
-
-        <p className="request-author">
-          פורסם ע"י: {request.requester?.fullName || "משתמש לא זמין"}
-        </p>
+        <IdentitySection
+          title={request.title}
+          authorName={request.requester?.fullName}
+          isOwner={isOwner}
+        />
 
         <div className="tags-row">
-          <span className={`tag status status-${statusClass}`}>
-            {statusValue}
-          </span>
-          <span className={`tag category category-${categoryClass}`}>
-            {categoryValue}
-          </span>
-          <span className={`tag priority priority-${priorityValue}`}>
-            {priorityValue}
-          </span>
+          <Tag type="status" value={request.status} label="סטטוס" size="md" />
+          <Tag
+            type="category"
+            value={request.category}
+            label="קטגוריה"
+            size="md"
+          />
+          <Tag
+            type="priority"
+            value={request.priority}
+            label="דחיפות"
+            size="md"
+          />
         </div>
       </div>
-      <div>
-        <h2 className="section-title">
-          <i className="bi bi-card-text section-icon"></i>
-          תיאור הבקשה
-        </h2>
+
+      <SectionWrapper icon="bi-card-text" title="תיאור הבקשה">
         <p className="description">
           {request.description || "לא הוזן תיאור לבקשה"}
         </p>
-      </div>
+      </SectionWrapper>
 
-      <div>
-        <h2 className="section-title">
-          <i className="bi bi-info-circle section-icon"></i>
-          פרטים נוספים
-        </h2>
-        <div className="grid-details">
-          <div className="detail-item">
-            <i className="bi bi-people detail-icon"></i>
-            <span className="detail-label">עבור</span>
-            <span className="detail-value">
-              {!request.requiredQuantity
-                ? "לא צוין"
-                : request.requiredQuantity === 1
-                  ? "אדם אחד"
-                  : `${request.requiredQuantity} אנשים`}
-            </span>
-          </div>
+      <SectionWrapper icon="bi-info-circle" title="פרטים נוספים">
+        <DetailsGridSection type="request" items={detailsItems} />
+      </SectionWrapper>
 
-          <div className="detail-item">
-            <i className="bi bi-geo-alt detail-icon"></i>
-            <span className="detail-label">עיר</span>
-            <span className="detail-value">{request.city}</span>
-          </div>
+      <SectionWrapper icon="bi-person-lines-fill" title="יצירת קשר">
+        <ContactSection
+          type="request"
+          phone={request.contactPhone}
+          email={request.contactEmail}
+          hasUser={!!request.requester?._id}
+          canUseChat={canUseChat}
+          onChatClick={handleOpenChat}
+        />
+      </SectionWrapper>
 
-          <div className="detail-item">
-            <i className="bi bi-map detail-icon"></i>
-            <span className="detail-label">אזור</span>
-            <span className="detail-value">{request.region}</span>
-          </div>
-
-          <div className="detail-item">
-            <i className="bi bi-clock detail-icon"></i>
-            <span className="detail-label">זמין עד</span>
-            <span className="detail-value">
-              {formatTimeAgo(request.deadline)}
-            </span>
-          </div>
-
-          <div
-            className="detail-item"
-            title={formatDateTime(request.updatedAt)}
-          >
-            <i className="bi bi-pencil-square detail-icon"></i>
-            <span className="detail-label">עודכן לאחרונה</span>
-            <span className="detail-value">
-              {formatTimeAgo(request.updatedAt)}
-            </span>
-          </div>
-
-          <div
-            className="detail-item"
-            title={formatDateTime(request.createdAt)}
-          >
-            <i className="bi bi-calendar-plus detail-icon"></i>
-            <span className="detail-label">תאריך פרסום</span>
-            <span className="detail-value">
-              {formatTimeAgo(request.createdAt)}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2 className="section-title">
-          <i className="bi bi-person-lines-fill section-icon"></i>
-          יצירת קשר
-        </h2>
-        <div className="contact-section">
-          <div className="contact-card">
-            {hasDirectContact && (
-              <div className="contact-methods">
-                <a
-                  href={
-                    request.contactPhone ? `tel:${request.contactPhone}` : "#"
-                  }
-                  className="contact-item contact-link"
-                  aria-disabled={!request.contactPhone}
-                >
-                  <i className="bi bi-telephone contact-item-icon"></i>
-                  <div className="contact-texts">
-                    <span className="contact-value">
-                      {request.contactPhone || "לא צוין"}
-                    </span>
-                  </div>
-                </a>
-
-                <a
-                  href={
-                    request.contactEmail
-                      ? `mailto:${request.contactEmail}`
-                      : "#"
-                  }
-                  className="contact-item contact-link"
-                  aria-disabled={!request.contactEmail}
-                >
-                  <i className="bi bi-envelope contact-item-icon"></i>
-                  <div className="contact-texts">
-                    <span className="contact-value">
-                      {request.contactEmail || "לא צוין"}
-                    </span>
-                  </div>
-                </a>
-              </div>
-            )}
-
-            {!request.contactPhone && !request.contactEmail && (
-              <div
-                className={`contact-empty-note ${!request.requester?._id ? "contact-unavailable" : ""}`}
-              >
-                <i className="bi bi-info-circle"></i>
-                <span>
-                  {request.requester?._id
-                    ? "לא הוזנו פרטי קשר ישירים. ניתן לפנות דרך מערכת ההודעות של האתר."
-                    : "לא ניתן ליצור קשר כרגע — מפרסם הבקשה אינו זמין."}
-                </span>
-              </div>
-            )}
-
-            {hasDirectContact && !request.requester?._id && (
-              <div className="contact-empty-note contact-unavailable">
-                <i className="bi bi-info-circle"></i>
-                <span>
-                  ניתן ליצור קשר באמצעות פרטי הקשר שמופיעים כאן בלבד. מפרסם
-                  הבקשה אינו זמין במערכת ההודעות של האתר.
-                </span>
-              </div>
-            )}
-
-            {canUseChat && (
-              <button className="contact-main-btn" onClick={handleOpenChat}>
-                <i className="bi bi-chat-dots-fill contact-main-icon"></i>
-                <span>שליחת הודעה</span>
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
+      <FloatingChatButton
+        visible={canUseChat}
+        onClick={handleOpenChat}
+        title="שליחת הודעה למפרסם הבקשה"
+      />
     </div>
   );
 }

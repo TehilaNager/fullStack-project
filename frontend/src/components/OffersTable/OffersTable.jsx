@@ -3,42 +3,17 @@ import { useFavorites } from "../../context/FavoritesContext";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router";
 import { useOffer } from "../../context/OfferContext";
+import Tag from "../Tag/Tag";
+import { getTagKey } from "../../helpers/tagMaps";
+import { getQuantityLabel } from "../../helpers/formatters";
+import { formatDate } from "../../helpers/dateUtils";
+import { highlightText } from "../../helpers/highlightText";
 
 function OffersTable({ offers = [], search, isFavoritePage = false }) {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toggleOfferFavorite, isOfferFavorite } = useFavorites();
   const { removeOffer } = useOffer();
-
-  const highlightText = (text, search) => {
-    if (!search || !text) return text;
-
-    const regex = new RegExp(
-      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi",
-    );
-
-    return text.split(regex).map((part, i) =>
-      regex.test(part) ? (
-        <mark key={i} className="highlight">
-          {part}
-        </mark>
-      ) : (
-        part
-      ),
-    );
-  };
-
-  const formatDate = (date) => {
-    if (!date) return "לא צוין";
-    return new Date(date).toLocaleDateString("he-IL");
-  };
-
-  const getQuantityLabel = (quantity) => {
-    if (!quantity) return "לא צוין";
-    if (quantity === 1) return "אדם אחד";
-    return `${quantity} אנשים`;
-  };
 
   return (
     <div className="table-container">
@@ -64,11 +39,12 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
             const isUserAdmin = user?.role === "userAdmin";
             const isAdmin = user?.role === "admin";
             const canManage = isOwner || isUserAdmin || isAdmin;
+            const statusKey = getTagKey("status", offer.status);
 
             return (
               <tr
                 key={offer._id}
-                className={`${isOwner ? "my-offer-row" : ""} status-${offer.status?.replace(/\s/g, "-")}`}
+                className={`${isOwner ? "my-offer-row" : ""} status-${statusKey}`}
               >
                 {user && (
                   <td className="table-action-column">
@@ -113,14 +89,7 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
                 </td>
 
                 <td>
-                  <span
-                    className={`tag category category-${offer.category?.replace(
-                      /\s/g,
-                      "-",
-                    )}`}
-                  >
-                    {offer.category || "—"}
-                  </span>
+                  <Tag type="category" value={offer.category} size="sm" />
                 </td>
 
                 <td>{highlightText(offer.city || "—", search)}</td>
@@ -130,14 +99,7 @@ function OffersTable({ offers = [], search, isFavoritePage = false }) {
                 <td>{getQuantityLabel(offer.availableQuantity)}</td>
 
                 <td>
-                  <span
-                    className={`tag status status-${offer.status?.replace(
-                      /\s/g,
-                      "-",
-                    )}`}
-                  >
-                    {offer.status || "—"}
-                  </span>
+                  <Tag type="status" value={offer.status} size="sm" />
                 </td>
 
                 <td>{formatDate(offer.availableUntil)}</td>

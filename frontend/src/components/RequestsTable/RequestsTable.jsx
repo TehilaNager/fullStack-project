@@ -3,31 +3,17 @@ import "./requests-table.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useRequest } from "../../context/RequestContext";
+import Tag from "../Tag/Tag";
+import { getTagKey } from "../../helpers/tagMaps";
+import { getQuantityLabel } from "../../helpers/formatters";
+import { formatDate } from "../../helpers/dateUtils";
+import { highlightText } from "../../helpers/highlightText";
 
 function RequestsTable({ requests = [], search, isFavoritePage = false }) {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { toggleRequestFavorite, isRequestFavorite } = useFavorites();
   const { removeRequest } = useRequest();
-
-  const highlightText = (text, search) => {
-    if (!search || !text) return text;
-
-    const regex = new RegExp(
-      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi",
-    );
-
-    return text.split(regex).map((part, i) =>
-      regex.test(part) ? (
-        <mark key={i} className="highlight">
-          {part}
-        </mark>
-      ) : (
-        part
-      ),
-    );
-  };
 
   return (
     <div className="table-container">
@@ -54,11 +40,12 @@ function RequestsTable({ requests = [], search, isFavoritePage = false }) {
             const isUserAdmin = user?.role === "userAdmin";
             const isAdmin = user?.role === "admin";
             const canManage = isOwner || isUserAdmin || isAdmin;
+            const statusKey = getTagKey("status", req.status);
 
             return (
               <tr
                 key={req._id}
-                className={`${isOwner ? "my-request-row" : ""} status-${req.status?.replace(/\s/g, "-")}`}
+                className={`${isOwner ? "my-request-row" : ""} status-${statusKey}`}
               >
                 {user && (
                   <td className="table-action-column">
@@ -103,44 +90,18 @@ function RequestsTable({ requests = [], search, isFavoritePage = false }) {
                   </div>
                 </td>
                 <td>
-                  <span
-                    className={`tag category category-${req.category?.replace(
-                      /\s/g,
-                      "-",
-                    )}`}
-                  >
-                    {req.category || "—"}
-                  </span>
+                  <Tag type="category" value={req.category} size="sm" />
                 </td>
                 <td>{highlightText(req.city || "—", search)}</td>
                 <td>{req.region || "—"}</td>
+                <td>{getQuantityLabel(req.requiredQuantity)}</td>
                 <td>
-                  {!req.requiredQuantity
-                    ? "לא צוין"
-                    : req.requiredQuantity === 1
-                      ? "אדם אחד"
-                      : `${req.requiredQuantity} אנשים`}
+                  <Tag type="priority" value={req.priority} size="sm" />
                 </td>
                 <td>
-                  <span className={`priority-badge ${req.priority}`}>
-                    {req.priority}
-                  </span>
+                  <Tag type="status" value={req.status} size="sm" />
                 </td>
-                <td>
-                  <span
-                    className={`tag status status-${req.status?.replace(
-                      /\s/g,
-                      "-",
-                    )}`}
-                  >
-                    {req.status || "—"}
-                  </span>
-                </td>
-                <td>
-                  {req.deadline
-                    ? new Date(req.deadline).toLocaleDateString("he-IL")
-                    : "לא צוין"}
-                </td>
+                <td>{formatDate(req.deadline)}</td>
                 <td className="table-actions-cell">
                   <div className="table-actions-wrapper">
                     {user && canManage && (

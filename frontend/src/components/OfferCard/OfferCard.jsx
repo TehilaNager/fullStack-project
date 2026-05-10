@@ -4,6 +4,11 @@ import "./offer-card.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useOffer } from "../../context/OfferContext";
+import Tag from "../Tag/Tag";
+import { getTagKey } from "../../helpers/tagMaps";
+import { getQuantityLabel } from "../../helpers/formatters";
+import { formatDate } from "../../helpers/dateUtils";
+import { highlightText } from "../../helpers/highlightText";
 
 function OfferCard({ offer, isFavoritePage = false, search }) {
   const navigate = useNavigate();
@@ -16,17 +21,6 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
 
   const isFavorite = isOfferFavorite(offer._id);
 
-  const getQuantityLabel = (quantity) => {
-    if (quantity === null || quantity === undefined) return "לא צוין";
-    if (quantity === 1) return "אדם אחד";
-    return `${quantity} אנשים`;
-  };
-
-  const formatDate = (date) => {
-    if (!date) return null;
-    return new Date(date).toLocaleDateString("he-IL");
-  };
-
   useEffect(() => {
     const el = descriptionRef.current;
     if (el) {
@@ -34,39 +28,15 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
     }
   }, [offer.description]);
 
-  const statusValue = offer.status || "לא צוין";
-  const categoryValue = offer.category || "לא צוין";
-
-  const statusClass = statusValue.replace(/\s/g, "-");
-  const categoryClass = categoryValue.replace(/\s/g, "-");
-
-  const highlightText = (text, search) => {
-    if (!search || !text) return text;
-    const regex = new RegExp(
-      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi",
-    );
-
-    return text.split(regex).map((part, i) =>
-      regex.test(part) ? (
-        <mark key={i} className="highlight">
-          {part}
-        </mark>
-      ) : (
-        part
-      ),
-    );
-  };
-
   const isOwner = user && user._id === offer.supporter;
   const isUserAdmin = user?.role === "userAdmin";
   const isAdmin = user?.role === "admin";
-
   const canManage = isOwner || isUserAdmin || isAdmin;
+  const statusKey = getTagKey("status", offer.status);
 
   return (
     <div
-      className={`offer-card offer ${isFavoritePage && "favorite-page"} ${isOwner && "owner-offer"} status-${statusClass}`}
+      className={`offer-card offer ${isFavoritePage && "favorite-page"} ${isOwner && "owner-offer"} status-${statusKey}`}
     >
       {user && !isFavoritePage && (
         <button
@@ -87,25 +57,13 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
 
         {user && isFavoritePage && (
           <small className="card-updated">
-            עודכן:{" "}
-            {(() => {
-              const d = new Date(offer.updatedAt);
-              const day = String(d.getDate()).padStart(2, "0");
-              const month = String(d.getMonth() + 1).padStart(2, "0");
-              const year = d.getFullYear();
-              return `${day}/${month}/${year}`;
-            })()}
+            עודכן: {formatDate(offer.updatedAt)}
           </small>
         )}
 
         <div className="tags">
-          <span className={`tag status status-${statusClass}`}>
-            {statusValue}
-          </span>
-
-          <span className={`tag category category-${categoryClass}`}>
-            {categoryValue}
-          </span>
+          <Tag type="status" value={offer.status} size="sm" />
+          <Tag type="category" value={offer.category} size="sm" />
         </div>
       </div>
 
@@ -138,9 +96,7 @@ function OfferCard({ offer, isFavoritePage = false, search }) {
 
           <div className="info-item">
             <i className="bi bi-calendar-event-fill info-icon"></i> זמין עד:{" "}
-            {offer.availableUntil
-              ? `${formatDate(offer.availableUntil)}`
-              : "לא צוין"}
+            {formatDate(offer.availableUntil)}
           </div>
 
           <div className="info-item">

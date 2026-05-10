@@ -4,6 +4,11 @@ import "./request-card.css";
 import { useAuth } from "../../context/AuthContext";
 import { useFavorites } from "../../context/FavoritesContext";
 import { useRequest } from "../../context/RequestContext";
+import Tag from "../Tag/Tag";
+import { getTagKey } from "../../helpers/tagMaps";
+import { getQuantityLabel } from "../../helpers/formatters";
+import { formatDate } from "../../helpers/dateUtils";
+import { highlightText } from "../../helpers/highlightText";
 
 function RequestsCard({ request, isFavoritePage = false, search }) {
   const navigate = useNavigate();
@@ -14,17 +19,6 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
   const [showReadMore, setShowReadMore] = useState(false);
   const descriptionRef = useRef(null);
 
-  const getQuantityLabel = (quantity) => {
-    if (quantity === null || quantity === undefined) return "לא צוין";
-    if (quantity === 1) return "אדם אחד";
-    return `${quantity} אנשים`;
-  };
-
-  const formatDate = (date) => {
-    if (!date) return null;
-    return new Date(date).toLocaleDateString("he-IL");
-  };
-
   useEffect(() => {
     const el = descriptionRef.current;
     if (el) {
@@ -32,40 +26,15 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
     }
   }, [request.description]);
 
-  const statusValue = request.status || "לא-צוין";
-  const categoryValue = request.category || "לא-צוין";
-  const priorityValue = request.priority || "לא-צוין";
-
-  const statusClass = statusValue.replace(/\s/g, "-");
-  const categoryClass = categoryValue.replace(/\s/g, "-");
-
-  const highlightText = (text, search) => {
-    if (!search || !text) return text;
-    const regex = new RegExp(
-      `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-      "gi",
-    );
-
-    return text.split(regex).map((part, i) =>
-      regex.test(part) ? (
-        <mark key={i} className="highlight">
-          {part}
-        </mark>
-      ) : (
-        part
-      ),
-    );
-  };
-
   const isOwner = user && user._id === request.requester?._id;
   const isUserAdmin = user?.role === "userAdmin";
   const isAdmin = user?.role === "admin";
-
   const canManage = isOwner || isUserAdmin || isAdmin;
+  const statusKey = getTagKey("status", request.status);
 
   return (
     <div
-      className={`request-card request ${isFavoritePage && "favorite-page"} ${isOwner && "owner-request"} status-${statusClass}`}
+      className={`request-card request ${isFavoritePage && "favorite-page"} ${isOwner && "owner-request"} status-${statusKey}`}
     >
       {user && !isFavoritePage && (
         <button
@@ -90,29 +59,14 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
 
         {user && isFavoritePage && (
           <small className="card-updated">
-            עודכן:{" "}
-            {(() => {
-              const d = new Date(request.updatedAt);
-              const day = String(d.getDate()).padStart(2, "0");
-              const month = String(d.getMonth() + 1).padStart(2, "0");
-              const year = d.getFullYear();
-              return `${day}/${month}/${year}`;
-            })()}
+            עודכן: {formatDate(request.updatedAt)}
           </small>
         )}
 
         <div className="tags">
-          <span className={`tag status status-${statusClass}`}>
-            {statusValue}
-          </span>
-
-          <span className={`tag category category-${categoryClass}`}>
-            {categoryValue}
-          </span>
-
-          <span className={`tag priority ${priorityValue}`}>
-            {priorityValue}
-          </span>
+          <Tag type="status" value={request.status} size="sm" />
+          <Tag type="category" value={request.category} size="sm" />
+          <Tag type="priority" value={request.priority} size="sm" />
         </div>
       </div>
 
@@ -145,7 +99,7 @@ function RequestsCard({ request, isFavoritePage = false, search }) {
 
           <div className="info-item">
             <i className="bi bi-calendar-event-fill info-icon"></i> זמין עד:{" "}
-            {request.deadline ? `${formatDate(request.deadline)}` : "לא צוין"}
+            {formatDate(request.deadline)}
           </div>
 
           <div className="info-item">

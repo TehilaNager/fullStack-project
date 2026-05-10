@@ -1,0 +1,136 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag-label {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.tag--sm {
+  font-size: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.tag--md {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
+}
+
+.tag--priority {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(220, 38, 38, 0.9);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(220, 38, 38, 0.7);
+  }
+}
+
+.tag--priority--urgent {
+  background-color: #dc2626;
+  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.7);
+}
+
+.tag--priority--high {
+  background-color: #f59e0b;
+}
+
+.tag--priority--medium {
+  background-color: #2563eb;
+}
+
+.tag--priority--low {
+  background-color: #10b981;
+}
+
+.tag--status {
+  border: 1px solid transparent;
+  background: #f8f9fa;
+  color: #000;
+}
+
+.tag--status--open {
+  border-color: #28a745;
+  color: #166534;
+}
+
+.tag--status--in-progress {
+  border-color: #854d0e99;
+  color: #854d0e;
+}
+
+.tag--status--completed {
+  border-color: #6c757d;
+  color: #374151;
+}
+
+.tag--category--military-equipment {
+  background: #dfebfd;
+  color: #1f4fd8;
+}
+
+.tag--category--clothing {
+  background: #e1f9e5;
+  color: #2f6f4e;
+}
+
+.tag--category--food {
+  background: #fcf8dd;
+  color: #856404;
+}
+
+.tag--category--transport {
+  background: #fae6ea;
+  color: #9b2c2c;
+}
+
+.tag--category--electronics {
+  background: #e9f3fe;
+  color: #0c4a6e;
+}
+
+.tag--category--books {
+  background: #fbf0e4;
+  color: #78350f;
+}
+
+.tag--category--medical {
+  background: #efe6f9;
+  color: #6b21a8;
+}
+
+.tag--category--emotional-support {
+  background: #f3e1ea;
+  color: #7a1f4b;
+}
+
+.tag--category--other {
+  background: #e2d3d39c;
+  color: #555;
+}
+
+.tag--status--unknown,
+.tag--priority--unknown,
+.tag--category--unknown {
+  opacity: 0.6;
+  color: #000;
+  background-color: #f8f9fa;
+}

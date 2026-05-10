@@ -17,3 +17,13 @@ body {
   flex: 1;
   margin-top: 90px;
 }
+
+.highlight {
+  background-color: #f9d923;
+  color: #000;
+  border-radius: 2px;
+}
+
+mark {
+  padding: 0;
+}
