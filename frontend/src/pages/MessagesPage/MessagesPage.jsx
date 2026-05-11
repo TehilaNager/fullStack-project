@@ -6,6 +6,7 @@ import ChatList from "../../components/messages/ChatList/ChatList";
 import { useEffect, useMemo } from "react";
 import ChatWindow from "../../components/messages/ChatWindow/ChatWindow";
 import { formatChatTime } from "../../helpers/dateUtils";
+import LoadingState from "../../components/common/LoadingState/LoadingState";
 
 function MessagesPage() {
   const { threadId } = useParams();
@@ -87,10 +88,7 @@ function MessagesPage() {
               }}
             />
           ) : (
-            <div className="chat-loading">
-              <i className="chat-loading-icon bi bi-arrow-repeat"></i>
-              <p className="chat-empty-text">טוען שיחה...</p>
-            </div>
+            <LoadingState text="טוען שיחה..." />
           )
         ) : (
           <div className="chat-placeholder">

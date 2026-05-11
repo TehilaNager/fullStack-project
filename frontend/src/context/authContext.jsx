@@ -36,6 +36,12 @@ export function AuthProvider({ children }) {
     return updated;
   };
 
+  const updateUserById = async (id, values) => {
+    const updated = await userService.updateUser(id, values);
+    setUsers((prev) => prev.map((u) => (u._id === id ? updated : u)));
+    return updated;
+  };
+
   const getUserById = async (id) => {
     const user = await userService.getUserById(id);
     return user;
@@ -50,6 +56,7 @@ export function AuthProvider({ children }) {
         login,
         logout,
         updateUser,
+        updateUserById,
         getUserById,
       }}
     >

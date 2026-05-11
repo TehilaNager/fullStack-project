@@ -26,8 +26,8 @@ function AppRoutes() {
       <Route path="/sign-up" element={<SignUp />}></Route>
       <Route path="/sign-in" element={<SignIn />}></Route>
       <Route path="/sign-out" element={<SignOut />}></Route>
-      <Route path="/edit-user/:id" element={<EditUser />}></Route>
-      <Route path="/details-user/:id" element={<DetailsUser />}></Route>
+      <Route path="/edit-user/" element={<EditUser />}></Route>
+      <Route path="/details-user/" element={<DetailsUser />}></Route>
       <Route path="/about" element={<AboutPage />}></Route>
       <Route path="/requests" element={<RequestsPage />}></Route>
       <Route path="/details-request/:id" element={<DetailsRequest />}></Route>
@@ -42,6 +42,8 @@ function AppRoutes() {
       <Route path="/messages" element={<MessagesPage />}></Route>
       <Route path="/messages/:threadId" element={<MessagesPage />} />
       <Route path="/users" element={<UsersManagementPage />} />
+      <Route path="/users/:id" element={<DetailsUser />} />
+      <Route path="/users/:id/edit" element={<EditUser />} />
     </Routes>
   );
 }

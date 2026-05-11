@@ -9,12 +9,12 @@ function DetailsUser() {
     <div>
       <div>עמוד פרטי משתמש</div>
 
-      <Link
+      {/* <Link
         className="dropdown-item text-danger px-4 py-2"
         to={`/edit-user/${user?._id}`}
       >
         עריכה
-      </Link>
+      </Link> */}
     </div>
   );
 }

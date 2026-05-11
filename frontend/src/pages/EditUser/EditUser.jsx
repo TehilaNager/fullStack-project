@@ -6,29 +6,50 @@ import InputPassword from "../../components/common/Inputs/InputPassword";
 import FormButtons from "../../components/common/FormButtons/FormButtons";
 import { useAuth } from "../../context/AuthContext";
 import { validateUpdate } from "../../helpers/userValidation";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import NotFound from "../../components/common/NotFound/NotFound";
+import LoadingState from "../../components/common/LoadingState/LoadingState";
 
 function EditUser() {
   const navigate = useNavigate();
-  const { user, updateUser, getUserById } = useAuth();
+  const { id } = useParams();
+  const { user, updateUser, updateUserById, getUserById } = useAuth();
 
   const [apiError, setApiError] = useState("");
   const [userDetails, setUserDetails] = useState(null);
+  const [status, setStatus] = useState("loading");
+
+  const userIdToLoad = id ?? user?._id;
+  const isSelfEdit = !id && user?._id === userIdToLoad;
 
   useEffect(() => {
+    if (!userIdToLoad) return;
+
     async function fetchUser() {
+      setStatus("loading");
+
       try {
-        const fullUser = await getUserById(user._id);
+        const fullUser = await getUserById(userIdToLoad);
+
+        if (!fullUser || !fullUser._id) {
+          setStatus("not-found");
+          return;
+        }
+
         setUserDetails(fullUser);
+        setStatus("success");
       } catch (err) {
-        console.error(err);
+        const statusCode = err.response?.status;
+
+        if (statusCode === 400) setStatus("invalid");
+        else if (statusCode === 404) setStatus("not-found");
+        else if (statusCode === 403) setStatus("forbidden");
+        else setStatus("error");
       }
     }
 
-    if (user?._id) {
-      fetchUser();
-    }
-  }, [user?._id]);
+    fetchUser();
+  }, [userIdToLoad, getUserById]);
 
   const {
     handleSubmit,
@@ -79,8 +100,13 @@ function EditUser() {
 
         delete payload.confirmPassword;
 
-        const updatedUser = await updateUser(payload);
-        navigate(`/details-user/${updatedUser._id}`);
+        if (id) {
+          await updateUserById(userIdToLoad, payload);
+        } else {
+          await updateUser(payload);
+        }
+
+        navigate(id ? `/users/${userIdToLoad}` : "/details-user");
       } catch (err) {
         const backendMessage =
           err.response?.data || "אירעה שגיאה בעדכון המשתמש";
@@ -90,6 +116,17 @@ function EditUser() {
     },
   });
 
+  if (status === "loading") return <LoadingState text="טוען פרטי משתמש..." />;
+
+  if (status === "invalid") return <NotFound message="הקישור לא תקין" />;
+
+  if (status === "not-found") return <NotFound message="משתמש לא קיים" />;
+
+  if (status === "forbidden")
+    return <NotFound message="אין לך הרשאה לגשת לפרטי המשתמש הזה" />;
+
+  if (status === "error") return <NotFound message="שגיאה בטעינת משתמש" />;
+
   return (
     <form
       className="form"
@@ -97,7 +134,9 @@ function EditUser() {
       noValidate
       autoComplete="off"
     >
-      <h2 className="form-title">עריכת פרטי משתמש</h2>
+      <h2 className="form-title">
+        {isSelfEdit ? "עריכת הפרופיל שלי" : "עריכת משתמש"}
+      </h2>
 
       <Input
         placeholder="שם מלא"
@@ -112,17 +151,21 @@ function EditUser() {
         error={touched.email && errors.email}
       />
 
-      <InputPassword
-        placeholder="סיסמה חדשה (לא חובה)"
-        fieldProps={getFieldProps("password")}
-        error={touched.password && errors.password}
-      />
+      {isSelfEdit && (
+        <>
+          <InputPassword
+            placeholder="סיסמה חדשה (לא חובה)"
+            fieldProps={getFieldProps("password")}
+            error={touched.password && errors.password}
+          />
 
-      <InputPassword
-        placeholder="אימות סיסמה"
-        fieldProps={getFieldProps("confirmPassword")}
-        error={touched.confirmPassword && errors.confirmPassword}
-      />
+          <InputPassword
+            placeholder="אימות סיסמה"
+            fieldProps={getFieldProps("confirmPassword")}
+            error={touched.confirmPassword && errors.confirmPassword}
+          />
+        </>
+      )}
 
       <Input
         type="text"
