@@ -7,6 +7,7 @@ import CreateRequest from "../pages/CreateRequest/CreateRequest.jsx";
 import SignIn from "../pages/SignIn/SignIn.jsx";
 import SignUp from "../pages/SignUp/SignUp.jsx";
 import EditUser from "../pages/EditUser/EditUser.jsx";
+import DetailsUser from "../pages/DetailsUser/DetailsUser.jsx";
 import SignOut from "../pages/SignOut/SignOut.jsx";
 import EditRequest from "../pages/EditRequest/EditRequest.jsx";
 import EditOffer from "../pages/EditOffer/EditOffer.jsx";
@@ -26,6 +27,7 @@ function AppRoutes() {
       <Route path="/sign-in" element={<SignIn />}></Route>
       <Route path="/sign-out" element={<SignOut />}></Route>
       <Route path="/edit-user/:id" element={<EditUser />}></Route>
+      <Route path="/details-user/:id" element={<DetailsUser />}></Route>
       <Route path="/about" element={<AboutPage />}></Route>
       <Route path="/requests" element={<RequestsPage />}></Route>
       <Route path="/details-request/:id" element={<DetailsRequest />}></Route>

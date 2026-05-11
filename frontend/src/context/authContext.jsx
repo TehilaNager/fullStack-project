@@ -27,8 +27,32 @@ export function AuthProvider({ children }) {
     refreshUser();
   };
 
+  const updateUser = async (values) => {
+    const currentUser = userService.getUser();
+    if (!currentUser?._id) return;
+    const updated = await userService.updateUser(currentUser._id, values);
+    setUser(updated);
+    setUsers((prev) => prev.map((u) => (u._id === updated._id ? updated : u)));
+    return updated;
+  };
+
+  const getUserById = async (id) => {
+    const user = await userService.getUserById(id);
+    return user;
+  };
+
   return (
-    <AuthContext.Provider value={{ users, user, createUser, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        users,
+        user,
+        createUser,
+        login,
+        logout,
+        updateUser,
+        getUserById,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

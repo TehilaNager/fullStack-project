@@ -54,12 +54,34 @@ function getUser() {
     }
 }
 
+async function updateUser(userId, values) {
+    try {
+        const response = await httpService.put(`/users/${userId}`, values);
+        return response.data;
+    } catch (error) {
+        console.error("Error updating user:", error);
+        throw error;
+    }
+}
+
+async function getUserById(userId) {
+    try {
+        const response = await httpService.get(`/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting user by id:", error);
+        throw error;
+    }
+}
+
 
 const userService = {
     createUser,
     login,
     logout,
-    getUser
+    getUser,
+    updateUser,
+    getUserById
 }
 
 export default userService;

@@ -169,10 +169,10 @@ function Navbar() {
                     <li>
                       <Link
                         className="dropdown-item text-danger px-4 py-2"
-                        to={`/edit-user/${user?._id}`}
+                        to={`/details-user/${user?._id}`}
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        עריכה
+                        אזור אישי
                       </Link>
                     </li>
                     <li>
@@ -181,7 +181,7 @@ function Navbar() {
                         to="/sign-out"
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
-                        התנתק
+                        התנתקות
                       </Link>
                     </li>
                   </ul>

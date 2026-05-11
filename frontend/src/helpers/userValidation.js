@@ -119,12 +119,21 @@ const validateUpdate = Joi.object({
             "string.max": "אימייל לא יכול להיות ארוך מ-256 תווים"
         }),
     password: Joi.string()
+        .allow("")
         .pattern(passwordRegex)
         .message(passwordMessage)
-        .optional()
-        .messages({
-            "string.base": "הסיסמה לא תקינה"
-        }),
+        .optional(),
+    confirmPassword: Joi.when("password", {
+        is: Joi.string().min(1),
+        then: Joi.string()
+            .valid(Joi.ref("password"))
+            .required()
+            .messages({
+                "any.only": "סיסמה ואימות סיסמה חייבים להיות זהים",
+                "any.required": "יש למלא אימות סיסמה"
+            }),
+        otherwise: Joi.string().allow("").optional()
+    }),
     phone: Joi.string()
         .pattern(phoneRegex)
         .message(phoneMessage)

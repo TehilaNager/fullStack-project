@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const authMW = require("../middleware/auth");
 
@@ -41,6 +42,10 @@ router.put("/:id", authMW, async (req, res) => {
     if (error) {
         res.status(400).send(error.details[0].message);
         return;
+    }
+
+    if (value.password) {
+        value.password = await bcrypt.hash(value.password, 14);
     }
 
     const isUser = req.params.id === req.user._id.toString();
