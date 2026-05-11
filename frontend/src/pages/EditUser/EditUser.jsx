@@ -118,7 +118,8 @@ function EditUser() {
 
   if (status === "loading") return <LoadingState text="טוען פרטי משתמש..." />;
 
-  if (status === "invalid") return <NotFound message="הקישור לא תקין" />;
+  if (status === "invalid")
+    return <NotFound message="לא ניתן למצוא את המשתמש המבוקש" />;
 
   if (status === "not-found") return <NotFound message="משתמש לא קיים" />;
 
