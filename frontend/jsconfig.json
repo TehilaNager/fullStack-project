@@ -1,0 +1,23 @@
+// {
+//   "compilerOptions": {
+//     "target": "ESNext",
+//     "module": "ESNext",
+//     "moduleResolution": "bundler",
+//     "jsx": "react-jsx",
+//     "strictNullChecks": false
+//   },
+//   "include": ["src"]
+// }
+
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "checkJs": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false
+  },
+  "include": ["src"]
+}

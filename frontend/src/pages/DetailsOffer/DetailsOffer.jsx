@@ -37,7 +37,7 @@ function DetailsOffer() {
   }, [offer]);
 
   if (!offer) {
-    return <NotFound text="התרומה לא נמצאה" />;
+    return <NotFound message="התרומה לא נמצאה" />;
   }
 
   const isOwner = user && user._id === offer.supporter?._id;

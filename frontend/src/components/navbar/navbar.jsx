@@ -4,7 +4,7 @@ import { Collapse } from "bootstrap";
 import { FaUserCircle } from "react-icons/fa";
 import "./nav-bar.css";
 import Logo from "../common/Logo/Logo";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/AuthContext";
 
 function Navbar() {
   const { user } = useAuth();
