@@ -6,7 +6,7 @@ import "./nav-bar.css";
 import Logo from "../common/Logo/Logo";
 import { useAuth } from "../../context/AuthContext";
 
-function Navbar() {
+function NavBar() {
   const { user } = useAuth();
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -223,4 +223,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavBar;
