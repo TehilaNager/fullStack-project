@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import "./edit-user.css";
-import Input from "../../components/common/Inputs/Input";
-import InputPassword from "../../components/common/Inputs/InputPassword";
+import Input from "../../components/common/Inputs/Input/Input";
+import InputPassword from "../../components/common/Inputs/InputPassword/InputPassword";
 import FormButtons from "../../components/common/FormButtons/FormButtons";
 import { useAuth } from "../../context/AuthContext";
 import { validateUpdate } from "../../helpers/userValidation";
