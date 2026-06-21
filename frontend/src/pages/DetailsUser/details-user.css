@@ -1,0 +1,506 @@
+.details-user-page {
+  width: min(1100px, 92%);
+  margin: 5rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: #1f2937;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.details-user-hero {
+  background: white;
+
+  border: 1px solid #ececec;
+
+  border-radius: 28px;
+
+  padding: 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+}
+
+.details-user-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.details-user-avatar {
+  width: 95px;
+  height: 95px;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  color: #111827;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 3rem;
+
+  border: 1px solid #e5e7eb;
+}
+
+.details-user-hero-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.details-user-welcome {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.details-user-name {
+  margin: 0;
+
+  font-size: 2.3rem;
+  font-weight: 800;
+
+  color: #111827;
+
+  line-height: 1.1;
+}
+
+.details-user-email {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 1rem;
+}
+
+.details-user-role {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  margin-top: 0.5rem;
+
+  background: #f3f4f6;
+
+  color: #374151;
+
+  padding: 0.45rem 0.85rem;
+
+  border-radius: 999px;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  border: 1px solid #e5e7eb;
+}
+
+.details-user-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.details-user-btn {
+  border: none;
+
+  border-radius: 14px;
+
+  padding: 0.95rem 1.25rem;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.details-user-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* EDIT */
+
+.details-user-edit-btn {
+  background: #111827;
+  color: white;
+}
+
+.details-user-edit-btn:hover {
+  background: #1f2937;
+}
+
+/* DELETE */
+
+.details-user-delete-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.details-user-delete-btn:hover {
+  background: #b91c1c;
+}
+
+/* =========================
+   DETAILS
+========================= */
+
+.details-user-section {
+  background: white;
+
+  border: 1px solid #ececec;
+
+  border-radius: 28px;
+
+  padding: 2rem;
+}
+
+.details-user-section-title {
+  margin-bottom: 1.5rem;
+
+  font-size: 1.4rem;
+  font-weight: 800;
+
+  color: #2d2d2d;
+}
+
+.details-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.details-user-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.details-user-row-icon {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 16px;
+
+  background: #f3f4f6;
+
+  color: #374151;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.2rem;
+}
+
+.details-user-row-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.details-user-row-label {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.details-user-row-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* =========================
+   ACTIVITY
+========================= */
+
+.details-user-activity-section {
+  background: white;
+
+  border: 1px solid #ececec;
+
+  border-radius: 28px;
+
+  overflow: hidden;
+}
+
+.details-user-activity-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1rem 1.6rem;
+
+  transition: background 0.2s ease;
+}
+
+.details-user-activity-row:not(:last-child) {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.details-user-activity-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.details-user-activity-icon {
+  width: 56px;
+  height: 56px;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.4rem;
+}
+
+.details-user-activity-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.details-user-activity-number {
+  font-size: 1.7rem;
+  font-weight: 800;
+
+  color: #2d2d2d;
+}
+
+.details-user-activity-label {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 0.95rem;
+}
+
+/* BUTTON */
+
+.details-user-activity-btn {
+  width: 195px;
+  border: none;
+
+  border-radius: 14px;
+
+  padding: 0.8rem 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+
+  cursor: pointer;
+
+  font-size: 0.92rem;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.details-user-activity-btn:hover {
+  transform: translateX(-2px);
+}
+
+.details-user-activity-btn i {
+  font-size: 1.2rem;
+}
+
+/* =========================
+   REQUESTS
+========================= */
+
+.details-user-activity-row.requests:hover {
+  background: #faf9f8;
+}
+
+.details-user-activity-row.requests .details-user-activity-icon {
+  color: #4b2e2e;
+  background-color: #c7c2c268;
+}
+
+.details-user-activity-row.requests .details-user-activity-btn {
+  background: #f8f5f2;
+  color: #5b4636;
+}
+
+.details-user-activity-row.requests .details-user-activity-btn:hover {
+  background: #eee7e1;
+}
+
+/* =========================
+   OFFERS
+========================= */
+
+.details-user-activity-row.offers:hover {
+  background: #f9f9fd;
+}
+
+.details-user-activity-row.offers .details-user-activity-icon {
+  color: #082167;
+  background: #c4cce35e;
+}
+
+.details-user-activity-row.offers .details-user-activity-btn {
+  background: #f2f6fe;
+  color: #1d3f91;
+}
+
+.details-user-activity-row.offers .details-user-activity-btn:hover {
+  background: #dde7ff;
+}
+
+/* =========================
+   FAVORITES / NEUTRAL
+========================= */
+
+.details-user-activity-row.favorites:hover {
+  background: #f9fafb;
+}
+
+.details-user-activity-row.favorites .details-user-activity-icon {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.details-user-activity-row.favorites .details-user-activity-btn {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.details-user-activity-row.favorites .details-user-activity-btn:hover {
+  background: #e5e7eb;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .details-user-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .details-user-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .details-user-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .details-user-activity-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .details-user-activity-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .details-user-name {
+    font-size: 2rem;
+  }
+
+  .details-user-section {
+    padding: 1.5rem;
+  }
+}
+/* תוספת: */
+.details-user-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+/* כל פריט הופך לכרטיס קטן */
+.details-user-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem 1.2rem;
+
+  background: #fafafa96;
+  border: 1px solid #eee;
+  border-radius: 18px;
+
+  transition: all 0.2s ease;
+}
+
+.details-user-row:hover {
+  transform: translateY(-2px);
+  background: #f7f7f7;
+  border-color: #e5e5e5;
+}
+
+/* אייקון */
+.details-user-row-icon {
+  width: 44px;
+  height: 44px;
+
+  border-radius: 14px;
+
+  background: #f0f0f0;
+  color: #444;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.1rem;
+}
+
+/* טקסטים */
+.details-user-row-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.details-user-row-label {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.details-user-row-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* רספונסיב */
+@media (max-width: 768px) {
+  .details-user-list {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,7 +5,7 @@ import { useRequest } from "../../context/RequestContext";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import FilterGroup from "../../components/FilterGroup/FilterGroup";
 import PageHeader from "../../components/common/PageHeader/PageHeader";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import {
   filterOffers,
   countActiveFilters as countOfferFilters,
@@ -24,9 +24,16 @@ import MyItemsEmptyActions from "../../components/MyItemsEmptyActions/MyItemsEmp
 
 function MyItemsPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { user } = useAuth();
   const { myOffers, fetchMyOffers } = useOffer();
   const { myRequests, fetchMyRequests } = useRequest();
+
+  const [searchParams] = useSearchParams();
+  const profileUserId = searchParams.get("userId");
+  const isOwnProfile = profileUserId === user?._id;
+  const targetUserId = profileUserId || user?._id;
 
   const [innerTab, setInnerTab] = useState("offers");
   const [viewMode, setViewMode] = useState("cards");
@@ -57,12 +64,25 @@ function MyItemsPage() {
     category: [],
   });
 
+  const [status, setStatus] = useState("loading");
+
   useEffect(() => {
-    if (user?._id) {
-      fetchMyOffers(user._id);
-      fetchMyRequests(user._id);
+    if (!targetUserId) return;
+
+    fetchMyOffers(targetUserId);
+    fetchMyRequests(targetUserId);
+  }, [targetUserId]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get("tab");
+
+    if (tab === "requests" || tab === "offers") {
+      setInnerTab(tab);
+    } else {
+      setInnerTab("offers");
     }
-  }, [fetchMyOffers, fetchMyRequests, user?._id]);
+  }, [location.search]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -105,8 +125,12 @@ function MyItemsPage() {
   return (
     <div className="my-items-page">
       <PageHeader
-        title="הבקשות והתרומות שלי"
-        subtitle="כאן מופיעות כל התרומות והבקשות שיצרת"
+        title={isOwnProfile ? "הבקשות והתרומות שלי" : "פריטים של המשתמש"}
+        subtitle={
+          isOwnProfile
+            ? "כאן מופיעות כל התרומות והבקשות שיצרת"
+            : "כאן מוצגות כל התרומות והבקשות שהמשתמש פרסם"
+        }
       />
 
       <Toolbar

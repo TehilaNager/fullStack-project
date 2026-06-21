@@ -169,7 +169,7 @@ function NavBar() {
                     <li>
                       <Link
                         className="dropdown-item text-danger px-4 py-2"
-                        to="/details-user"
+                        to={`/users/${user?._id}`}
                         onClick={() => setIsProfileDropdownOpen(false)}
                       >
                         אזור אישי

@@ -28,9 +28,8 @@ export function AuthProvider({ children }) {
   };
 
   const updateUser = async (values) => {
-    const currentUser = userService.getUser();
-    if (!currentUser?._id) return;
-    const updated = await userService.updateUser(currentUser._id, values);
+    if (!user?._id) return;
+    const updated = await userService.updateUser(user._id, values);
     setUser(updated);
     setUsers((prev) => prev.map((u) => (u._id === updated._id ? updated : u)));
     return updated;
@@ -47,6 +46,12 @@ export function AuthProvider({ children }) {
     return user;
   };
 
+  const deleteUser = async (id) => {
+    const deletedUser = await userService.deleteUser(id);
+    setUsers((prev) => prev.filter((u) => u._id !== id));
+    return deletedUser;
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -58,6 +63,7 @@ export function AuthProvider({ children }) {
         updateUser,
         updateUserById,
         getUserById,
+        deleteUser,
       }}
     >
       {children}

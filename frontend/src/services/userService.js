@@ -74,6 +74,16 @@ async function getUserById(userId) {
     }
 }
 
+async function deleteUser(userId) {
+    try {
+        const response = await httpService.delete(`/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        throw error;
+    }
+}
+
 
 const userService = {
     createUser,
@@ -81,7 +91,8 @@ const userService = {
     logout,
     getUser,
     updateUser,
-    getUserById
+    getUserById,
+    deleteUser
 }
 
 export default userService;

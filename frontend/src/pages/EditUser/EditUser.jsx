@@ -19,8 +19,8 @@ function EditUser() {
   const [userDetails, setUserDetails] = useState(null);
   const [status, setStatus] = useState("loading");
 
-  const userIdToLoad = id ?? user?._id;
-  const isSelfEdit = !id && user?._id === userIdToLoad;
+  const userIdToLoad = id;
+  const isSelfEdit = user?._id === id;
 
   useEffect(() => {
     if (!userIdToLoad) return;
@@ -100,13 +100,13 @@ function EditUser() {
 
         delete payload.confirmPassword;
 
-        if (id) {
-          await updateUserById(userIdToLoad, payload);
-        } else {
+        if (isSelfEdit) {
           await updateUser(payload);
+        } else {
+          await updateUserById(userIdToLoad, payload);
         }
 
-        navigate(id ? `/users/${userIdToLoad}` : "/details-user");
+        navigate(`/users/${userIdToLoad}`);
       } catch (err) {
         const backendMessage =
           err.response?.data || "אירעה שגיאה בעדכון המשתמש";

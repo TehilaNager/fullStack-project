@@ -5,8 +5,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const authMW = require("../middleware/auth");
-
 const { User, validateUpdate } = require("../models/user_model");
+const { Offer } = require("../models/supportOffer_model");
+const { Request } = require("../models/supportRequest_model");
 
 router.get("/:id", authMW, async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) {
@@ -75,18 +76,25 @@ router.delete("/:id", authMW, async (req, res) => {
     }
 
     const isAdmin = req.user.role === "admin";
+    const isUser = req.params.id === req.user._id.toString();
 
-    if (!isAdmin) {
-        res.status(403).send("Access denied. Only an admin can delete user accounts.");
+    if (!isAdmin && !isUser) {
+        res.status(403).send("Access denied. You can only delete your own account or an admin can delete any account.");
         return;
     }
 
-    const deletedUser = await User.findByIdAndDelete(req.params.id);
+    const deletedUser = await User.findById(req.params.id);
 
     if (!deletedUser) {
         res.status(404).send("User not found");
         return;
     }
+
+    await Offer.deleteMany({ supporter: deletedUser._id });
+
+    await Request.deleteMany({ requester: deletedUser._id });
+
+    await deletedUser.deleteOne();
 
     const filteredUser = _.pick(deletedUser, ["_id", "fullName", "email", "role", "phone", "city", "favoriteRequests", "favoriteOffers", "createdAt", "updatedAt"]);
 

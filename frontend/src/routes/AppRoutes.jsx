@@ -26,8 +26,6 @@ function AppRoutes() {
       <Route path="/sign-up" element={<SignUp />}></Route>
       <Route path="/sign-in" element={<SignIn />}></Route>
       <Route path="/sign-out" element={<SignOut />}></Route>
-      <Route path="/edit-user/" element={<EditUser />}></Route>
-      <Route path="/details-user/" element={<DetailsUser />}></Route>
       <Route path="/about" element={<AboutPage />}></Route>
       <Route path="/requests" element={<RequestsPage />}></Route>
       <Route path="/details-request/:id" element={<DetailsRequest />}></Route>
