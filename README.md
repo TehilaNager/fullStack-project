@@ -2,11 +2,15 @@
 
 ## 📌 Overview
 
-IDFConnect is a full-stack web application developed as a final Full Stack project.
+**IDFConnect** is a full-stack web application developed as a final Full Stack project.
 
-The system connects people who want to donate equipment, food, transportation, clothing, and other resources with people who need assistance.
+The platform was created to connect **citizens who want to help** with **IDF soldiers and reservists who need assistance**.
 
-Users can publish donations and requests, communicate through a built-in messaging system, save favorites, manage their personal profile, and more.
+Users can either publish **donation offers** (such as equipment, clothing, food, transportation, medical supplies, and other resources) or create **support requests** when they need help.
+
+The platform enables citizens and soldiers to easily find relevant donation offers and support requests, communicate through a built-in private messaging system, save favorite items, and manage their personal profiles.
+
+The goal of the project is to make the process of giving and receiving assistance simple, organized, and accessible through a modern web application.
 
 The project was developed using:
 
@@ -21,6 +25,8 @@ The project was developed using:
 # Project Structure
 
 ```
+The application is divided into two main parts:
+
 IDFConnect/
 │
 ├── frontend/
@@ -57,7 +63,7 @@ IDFConnect/
 
 ---
 
-## Donations
+## Offers
 
 Users can:
 
@@ -66,15 +72,15 @@ Users can:
 - Delete offers
 - View offer details
 - Browse all offers
-- Search donations
-- Filter donations
+- Search offers
+- Filter offers
 - Save offers to favorites
 
 ---
 
 ## Requests
 
-Users can:
+Soldiers and reservists can:
 
 - Create support requests
 - Edit requests
@@ -89,9 +95,9 @@ Users can:
 
 ## Favorites
 
-Users can:
+Citizens can:
 
-- Save donations
+- Save offers
 - Save requests
 - Remove favorites
 - Search favorites
@@ -118,7 +124,7 @@ Features include:
 Each user has:
 
 - Personal profile
-- Published donations
+- Published offers
 - Published requests
 - Favorite items
 - Profile editing
@@ -137,7 +143,7 @@ Administrators can:
 
 # Search & Filtering
 
-Both donations and requests support:
+Both offers and requests support:
 
 - Text search
 - Category filtering
@@ -303,7 +309,7 @@ Both client-side and server-side validation are implemented.
 - JWT authorization
 - Form validation
 - Dynamic filtering
-- Real-time style messaging workflow
+- Private messaging system
 - Modular component architecture
 - Reusable components
 
@@ -326,4 +332,4 @@ MONGO_URL=<your_mongodb_connection_string>
 
 # Author
 
-Developed as a Full Stack final project.
+Developed by Tehila Nagar as a Full Stack final project.
