@@ -2,13 +2,13 @@
 
 ## 📌 Overview
 
-**IDFConnect** is a full-stack web application developed as a final Full Stack project.
+**IDFConnect** is a full-stack web application developed as a final project for a Full Stack development course.
 
 The platform was created to connect **citizens who want to help** with **IDF soldiers and reservists who need assistance**.
 
-Users can either publish **donation offers** (such as equipment, clothing, food, transportation, medical supplies, and other resources) or create **support requests** when they need help.
+Users can either publish **offers** (such as equipment, clothing, food, transportation, medical supplies, and other resources) or create **requests** when they need help.
 
-The platform enables citizens and soldiers to easily find relevant donation offers and support requests, communicate through a built-in private messaging system, save favorite items, and manage their personal profiles.
+The platform enables users to easily find relevant offers and requests, communicate through a built-in private messaging system, save favorite items, and manage their personal profiles.
 
 The goal of the project is to make the process of giving and receiving assistance simple, organized, and accessible through a modern web application.
 
@@ -24,23 +24,32 @@ The project was developed using:
 
 # Project Structure
 
-```
 The application is divided into two main parts:
 
+```text
 IDFConnect/
 │
 ├── frontend/
 │   ├── src/
+│   │    ├── components/
+│   │    ├── context/
+│   │    ├── helpers/
+│   │    ├── images/
+│   │    ├── pages/
+│   │    ├── routes/
+│   │    └── services/
 │   ├── public/
 │   ├── config.json
 │   ├── package.json
 │   └── ...
 │
 ├── backend/
-│   ├── routes/
-│   ├── models/
+│   ├── lib/
 │   ├── middleware/
-│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── .env.example
+│   ├── app.js
 │   ├── package.json
 │   └── ...
 │
@@ -67,7 +76,7 @@ IDFConnect/
 
 Users can:
 
-- Create donation offers
+- Create offers
 - Edit offers
 - Delete offers
 - View offer details
@@ -80,9 +89,9 @@ Users can:
 
 ## Requests
 
-Soldiers and reservists can:
+Users can:
 
-- Create support requests
+- Create requests
 - Edit requests
 - Delete requests
 - View request details
@@ -95,7 +104,7 @@ Soldiers and reservists can:
 
 ## Favorites
 
-Citizens can:
+Users can:
 
 - Save offers
 - Save requests
@@ -175,7 +184,7 @@ Both offers and requests support:
 - Express.js
 - MongoDB
 - Mongoose
-- JWT
+- JWT Authentication
 - Joi
 - bcrypt
 
@@ -274,12 +283,12 @@ http://localhost:5173
 
 # API
 
-The backend exposes REST APIs for:
+The backend exposes RESTful APIs for:
 
 - Authentication
 - Users
-- Donation Offers
-- Support Requests
+- Offers
+- Requests
 - Favorites
 - Messages
 
@@ -292,7 +301,7 @@ The application validates:
 - Registration
 - Login
 - User update
-- Donation creation
+- Offer creation
 - Request creation
 - Contact information
 - Required fields
@@ -332,4 +341,4 @@ MONGO_URL=<your_mongodb_connection_string>
 
 # Author
 
-Developed by Tehila Nagar as a Full Stack final project.
+Developed by Tehila Nagar.
